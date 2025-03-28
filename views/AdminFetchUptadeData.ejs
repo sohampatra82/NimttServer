@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Show Student Details</title>
+   <link rel="shortcut icon" href="https://ik.imagekit.io/7de5cntkw/1692626704665-photoaidcom-cropped%20(1).jpeg?updatedAt=1738048156918" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Reset styles */
+        * {
+            font-family: "Poppins", serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 40px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #000000;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.02);
+        }
+
+        #update-user-details {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f1f3f5;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            max-height: 300px; /* Limit the height */
+            overflow-y: auto; /* Enable scrolling within this container if content overflows */
+            display: none;
+        }
+
+        #update-user-details p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .btn {
+        display: block;
+        width: 50%; /* Adjust width to fit content */
+        text-align: center;
+        padding: 10px 15px; /* Smaller padding */
+        background-color: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 13px; /* Smaller font size */
+        font-weight: 500;
+        margin-top: 10px; /* Less margin */
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+        background-color: #218838;
+        transform: scale(1.02);
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Admin - Show Updated Student Data</h2>
+        <form>
+            <label for="update-student-id">Enter Student ID:</label>
+            <input type="text" id="update-student-id" name="UpdateStudentId" placeholder="Enter Student ID">
+          
+            <div id="update-user-details"></div>
+       
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('update-student-id').addEventListener('input', async (event) => {
+            const UpdateStudentId = event.target.value.trim();
+
+            if (UpdateStudentId === '') {
+                document.getElementById('update-user-details').innerHTML = ''; // Clear details if no ID
+                document.getElementById('update-user-details').style.display = 'none';
+                return;
+            }
+
+            try {
+                const response = await fetch('/admin-fetch-update-data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ UpdateStudentId }),
+                });
+
+                const updatedata = await response.json();
+
+                if (response.ok) {
+                    // Format the date to DD-MM-YYYY
+                    const formatDate = (isoDate) => {
+                        const date = new Date(isoDate);
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const year = date.getFullYear();
+                        return `${day}-${month}-${year}`;
+                    };
+
+
+                    
+                    document.getElementById('update-user-details').innerHTML = `
+                        <p><strong>Student Name:</strong> ${updatedata.UpdateStudenName}</p>
+                        <p><strong>Date of Admission:</strong> ${formatDate(updatedata.UpdateStudentDateOfAdmission)}</p>
+                        <p><strong>Admitted By:</strong> ${updatedata.UpdateStudentAdmittedBy}</p>
+                        <p><strong>University Name:</strong> ${updatedata.UpdateStudentUniversityName}</p>
+                        <p><strong>Course:</strong> ${updatedata.UpdateStudentCourse}</p>
+                        <p><strong>Exam Session:</strong> ${updatedata.UpdateStudentExamSession}</p>
+                        <!-- <p><strong>Total Fee:</strong> ${updatedata.Stdgrandtotal}</p> -->
+                        
+                        <p><strong>Full Course-Fee:</strong> ${updatedata.UpdateStudentFullfees}</p>
+                        <p><strong>Paid Fee:</strong> ${updatedata.UpdateStudentPaidfees}</p>
+                        <p><strong>Due Fee:</strong> ${updatedata.UpdateStudentDuefees }</p>
+                        <p><strong>Payment Number:</strong> ${updatedata.Updatepaymentnumber }</p>
+                        <!-- <p><strong>Last Payment Date:</strong> ${updatedata.UpdateStudentLastPayDate ? formatDate(updatedata.UpdateStudentLastPayDate) : "No payment yet"}</p> -->
+<p><strong>Last Payment Date:</strong> ${formatDate(updatedata.UpdateStudentLastPayDate)}</p>
+                        
+                    `;
+                    
+                     document.getElementById('update-user-details').style.display = 'block';
+                }
+                
+                else {
+                    document.getElementById('update-user-details').innerHTML = `<p class="error">${data.message}</p>`;
+                    document.getElementById('update-user-details').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('update-user-details').innerHTML = '<p class="error">Failed to fetch data. Please try again later.</p>';
+                document.getElementById('update-user-details').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
+
+

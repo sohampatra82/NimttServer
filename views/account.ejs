@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Receipt Form</title>
+    <link rel="shortcut icon" href="https://ik.imagekit.io/7de5cntkw/1692626704665-photoaidcom-cropped%20(1).jpeg?updatedAt=1738048156918" type="image/x-icon">
+    <link rel="shortcut icon" href="school.png" type="image/x-icon">
+    <link rel="stylesheet" href="styel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .receipt-form p {
+            text-align: left;
+        }
+
+        .receipt-form {
+            background: #fff;
+            padding: 40px 20px;
+            border-radius: 8px;
+
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header h2 {
+            margin-bottom: 10px;
+        }
+
+        .header .notes p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .form-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .form-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 2.5px;
+        }
+#course {
+    width: 106%; /* Slightly wider than other inputs */
+    max-width: 405px; /* Prevent it from becoming too large */
+}
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .table .grand-total {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .table .amount {
+            text-align: right;
+
+        }
+
+        .table th {
+            justify-content: center;
+            text-align: center;
+        }
+
+        .amount-input {
+            text-align: center;
+            padding: 0 78px;
+        }
+
+        .total {
+            text-align: center;
+            padding: 0 78px;
+        }
+
+
+        .amount-words {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .amount-words input {
+            width: 45%;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .amount-words .rup {
+            background-color: rgb(255, 255, 255);
+            font-weight: bold;
+        }
+
+        .amount-words .only {
+            background-color: rgb(255, 255, 255);
+            width: 100%;
+
+        }
+
+        /* Styles for the new payment details section */
+        .payment-details {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .payment-column {
+            width: 23%;
+        }
+
+        .payment-column label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .payment-column input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .acc-int {
+
+            width: 33.5%;
+        }
+
+        .extra-details {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .extra-column {
+            width: 32%;
+        }
+
+        .extra-column label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .extra-column input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group button,
+        .form-group .reset-print-btns {
+            width: 48%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-group .print-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .form-group .reset-btn {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .reset-print-btns {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footer p {
+            display: flex;
+            text-align: center;
+            justify-content: center;
+        }
+
+        /* Styles for Receipt ID */
+        #receipt-id {
+            font-weight: bold;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            width: 20%;
+            text-align: center;
+            color: #333;
+        }
+
+        .receipt-form img {
+            height: 100px;
+            justify-content: left;
+            display: flex;
+        }
+
+        @media print {
+                #admittedby,#universityname,#examsession,#fullfee,#paidfee{
+                    display: none;
+                }
+            #lastPayPrint{
+                display: none;
+            }
+            #paymentNum{
+                display: none;
+            }
+.update-student{
+    display: none;
+}
+            .print-btn,
+            .reset-btn {
+                display: none;
+                /* Hide the buttons when printing */
+            }
+
+            .submit {
+                display: none;
+            }
+
+            .receipt-form {
+                visibility: visible;
+            }
+
+            title {
+                display: none;
+            }
+
+            body {
+                visibility: hidden;
+            }
+
+            .receipt-form {
+                visibility: visible;
+            }
+
+            .submit {
+                display: none;
+            }
+
+            .header {
+                /* Make sure header is positioned relative to the document */
+                margin-top: -20px;
+                /* Move the header slightly upwards */
+                top: -10px;
+                /* Fine-tune the upward movement */
+            }
+           
+            tfoot {
+      display: table-row-group; /* Ensure it is treated as part of the table */
+      
+    }
+    
+        }
+        .sub-btn .submit {
+           height: 33px;
+           width: 10%;
+           font-size: 15px;
+           font-weight: 540;
+           background-color: #ffe600;
+            color: #000000;
+        border: 1px solid white;
+           border-radius: 7px ;
+        }
+        .sub-btn .submit:hover{
+            cursor: pointer;
+            background-color: #236dc2;
+           color: #ffffff;
+        }
+
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+    .sub-btn {
+        
+        width: 100%;
+    }
+
+    .submit {
+     
+        width: 100%;
+    }
+      .sub-btn .submit {
+           height: 33px;
+           width: 20%;
+           font-size: 15px;
+           font-weight: 520;
+           background-color: #f5e029;
+            color: #000000;
+        border: 1px solid white;
+           border-radius: 7px ;
+        }
+        @page{
+            size: auto;
+            margin: 0mm;
+        }
+        body{
+            margin: 0;
+        }
+}
+  .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .header img {
+        width: 100px; /* Adjust size as needed */
+        display: block;
+        margin: 0 auto;
+    }
+
+    .header h2 {
+        margin-top: -10px; /* Adjust to move the heading up */
+        font-size: 24px;
+    }
+.update-btn {
+    display: flex;
+   /* Moves button to the right */
+   padding-bottom: 12px; /* Adds some spacing */
+   padding-top: 5px;
+}
+
+.update-student {
+    background-color: #3843e1; /* Green button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.update-student:hover {
+    background-color: #313ac1; /* Darker green on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+#paymentNum {
+    width: 104%; /* Slightly wider than other inputs */     
+    max-width: 405px; /* Prevent it from becoming too large */
+   
+}
+     
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+
+<body>
+    <form class="receipt-form" action="/money-recipt" method="post">
+        <div class="header">
+
+           <img src="https://media.licdn.com/dms/image/v2/D560BAQFVC52YqmPUdA/company-logo_200_200/company-logo_200_200/0/1692626704665?e=2147483647&v=beta&t=8NtQowu1te5Z34ukLiahUrYtv2Dz3t1JnEKg7PthdqY" alt="Random Image">
+<br>
+<h2>NIMTT Money Receipt</h2>
+            <br>
+            <div class="notes">
+                <p>#cheque payment are to realisation of the payment</p>
+                <p>#payment once made is not refundable under any circumstances</p>
+                <p>#Any dispute arising out of this receipt shall be subject to Kolkata jurisdiction only</p>
+            </div><br>
+        </div>
+       
+
+        <!-- <div class="form-group">
+    <label for="receipt-id">Receipt ID</label>
+    <input type="text" id="receipt-id" name="receipt-id" readonly>
+    <button onclick="stopAutoIncrement()">Stop Incrementing ID</button>
+<button onclick="restartAutoIncrement()">Restart Incrementing ID</button>
+
+</div> -->
+
+
+      <div class="form-content">
+    <div class="form-section">
+         <div class="form-group" id="paymentNum">
+    <label for="paymentNum" class="paymentNum">Payment Number</label>
+    <select id="id" name="stdpaymentnumber" required>
+        <option value="" disabled selected>Select payment number</option >
+        <option value="1" >1st Payment</option>
+        <option value="2">2nd Payment</option>
+        <option value="3">3rd Payment</option>
+        <option value="4">4th Payment</option>
+        <option value="5">5th Payment</option>
+        <option value="6">6th Payment</option>
+        <option value="7">7th Payment</option>
+        <option value="8">8th Payment</option>
+        <option value="9">9th Payment</option>
+        <option value="10">10th Payment</option>
+        <option value="11">11th Payment</option>
+        <option value="12">12th Payment</option>
+        <option value="13">13th Payment</option>
+        <option value="14">14th Payment</option>
+        <option value="15">15th Payment</option>
+        <option value="16">16th Payment</option>
+        <option value="17">17th Payment</option>
+        <option value="18">18th Payment</option>
+        <option value="19">19th Payment</option>
+        <option value="20">20th Payment</option>
+        <option value="21">21th Payment</option>
+        <option value="22">22th Payment</option>
+        <option value="23">23th Payment</option>
+        <option value="24">24th Payment</option>
+        <option value="25">25th Payment</option>
+        <option value="26">26th Payment</option>
+        <option value="27">27th Payment</option>
+        <option value="28">28th Payment</option>
+        <option value="29">29th Payment</option>
+        <option value="30">30th Payment</option>
+        <option value="31">31th Payment</option>
+        <option value="32">32th Payment</option>
+        <option value="33">33th Payment</option>
+        <option value="34">34th Payment</option>
+        <option value="35">35th Payment</option>
+        <option value="36">37th Payment</option>
+        <option value="38">38th Payment</option>
+        <option value="39">39th Payment</option>
+        <option value="40">40th Payment</option>
+        <option value="41">41th Payment</option>
+        <option value="42">42th Payment</option>
+        <option value="43">43th Payment</option>
+        <option value="44">44th Payment</option>
+        <option value="45">45th Payment</option>
+        <option value="46">46th Payment</option>
+        <option value="47">47th Payment</option>
+        <option value="48">48th Payment</option>
+        <option value="49">49th Payment</option>
+        <option value="50">50th Payment</option>
+
+    </select>
+</div>
+        <div class="form-group">
+            <label for="name">ID</label>
+            <input type="text" id="id" name="Stdid" placeholder="Enter Id" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="Stdname" placeholder="Enter student name" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" id="address" name="Stdaddress" placeholder="Enter address" required>
+        </div>
+             <div id="fullfee" class="form-group">
+            <label  for="fees">Full Course Fees</label>
+            <input type="number" id="fees" name="Stdfullfees" placeholder="Enter full course fees" required>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <div class="form-group">
+            <label for="course">Course</label>
+            <select id="course" name="Stdcourse" required>
+                <option value="">Select a course</option>
+                <option value="10TH BOARD">10TH BOARD</option>
+                <option value="12TH BOARD">12TH BOARD</option>
+                <option value="BA">BA</option>
+                <option value="MA ">MA </option>
+                <option value="BSW ">BSW  </option>
+                <option value="MSW ">MSW </option>
+                <option value="BFA ">BFA </option>
+                 <option value="B.COM">B.COM</option>
+                <option value="M.COM">M.COM </option>
+                <option value="B.SC ">B.SC </option>
+                <option value="M.SC">M.SC</option>
+                <option value="BBA">BBA</option>
+                <option value="MBA">MBA </option>
+                <option value="E - MBA">E - MBA</option>
+                <option value="BHM">BHM</option>
+ <option value="DCA">DCA</option>
+                <option value="BCA">BCA</option>
+                <option value="MCA">MCA</option>
+                <option value="MCA - LE">MCA - LE</option>
+            <option value="DIPLOMA">DIPLOMA</option>
+                <option value="PGDCA">PGDCA</option>
+                <option value="LLB">LLB</option>
+                <option value="B.A.L.L.B">B.A.L.L.B</option>
+                <option value="BBA.LLB">BBA.LLB</option>
+                <option value="LLM">LLM</option>
+             <option value="D PHARMA">D PHARMA</option>
+                <option value="B PHARMA">B PHARMA</option>
+                <option value="M PHARMA">M PHARMA</option>
+                <option value="ANM">ANM</option>
+                <option value="GNM">GNM</option>
+            <option value="PB B.SC NURSING">PB B.SC NURSING</option>
+<option value="DMLT">DMLT </option>
+        <option value="BPT">BPT </option>
+                <option value="MPT">MPT </option>
+            <option value="BMLT">BMLT</option>
+                <option value="BRIT">BRIT </option>
+                <option value="BOTT ">BOTT </option>
+                <option value="BPH ">BPH </option>
+                <option value="MPH">MPH</option>
+                <option value="MPHW ">MPHW </option>
+                <option value="GDA ">GDA </option>
+                <option value="TBHV">TBHV </option>
+              <option value="B.D A">B.D A </option>
+                <option value="BVA">BVA</option>
+                <option value="BFA">BFA</option>
+                <option value="MDA">MDA </option>
+                <option value="MVA">MVA </option>
+                <option value="MFA ">MFA </option>
+              <option value="BNYS ">BNYS</option>
+                <option value="B.ED">B.ED</option>
+                <option value="B.EL.B.ED">B.EL.B.ED</option>
+                <option value="NTT">NTT</option>
+            <option value="M ED">M ED </option>
+                <option value="MPED">MPED </option>
+            <option value="B.LIB  ">B.LIB  </option>
+                <option value="M.LIB ">M.LIB  </option>
+                <option value="D.LIB ">D.LIB  </option>
+             <option value="BJMC ">BJMC  </option>
+            <option value="MJMC ">MJMC  </option>
+            <option value="PHD ">PHD </option>
+                <option value="B.TECH ">B.TECH </option>
+                <option value="B.TECH - LE">B.TECH - LE </option>
+                <option value="M.TECH">M.TECH </option>
+                <option value="B.TECH + M.TECH ">B.TECH + M.TECH </option>
+            
+            </select>
+        </div>
+          <div class="form-group" id="lastPayPrint">
+                    <label for="admission_date">Last Payment Data</label>
+                    <input type="date" id="admission_date" name="Stdlastpaiddate" required>
+                </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="Stdemail" placeholder="Enter email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="Stdphone" placeholder="Enter phone number" required>
+        </div>
+     
+          <div id="paidfee" class="form-group">
+            <label for="paidfees">Paid Fees</label>
+            <input type="number" id="fees" name="Stdpaidfee" placeholder="Enter paid fees" required>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <div  class="form-group">
+            <label for="admission_date">Date of Admission</label>
+            <input type="date" id="admission_date" name="stdDateOfAdmission" required>
+        </div>
+        <div id="admittedby" class="form-group">
+            <label for="admitted_by">Admitted By</label>
+            <input type="text" id="admitted_by" name="StdAdmittedBy" placeholder="Enter name of the person who admitted" required>
+        </div>
+        <div id="universityname" class="form-group">
+            <label for="university_name">University Name</label>
+            <input type="text" id="university_name" name="stdUniversityName" placeholder="Enter university name" required>
+        </div>
+        <div id="examsession" class="form-group">
+            <label for="exam_session">Exam Session</label>
+            <input type="text" id="exam_session" name="StdExamSession" placeholder="Enter exam session" required>
+        </div>
+    </div>
+</div>
+
+
+        <table class="table" >
+            <thead>
+                <tr>
+                    <th>Particulars</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Consultancy Fee</td>
+                    <td class="amount"><input type="number" name="consultancy_fee" class="amount-input"
+                            placeholder="Enter amount" ></td>
+                </tr>
+                <tr>
+                    <td>Booking Fee</td>
+                    <td class="amount"><input type="number" name="booking_fee" class="amount-input"
+                            placeholder="Enter amount" ></td>
+                </tr>
+                <tr>
+                    <td>Procession Fee</td>
+                    <td class="amount"><input type="number" name="procession_fee" class="amount-input"
+                            placeholder="Enter amount" ></td>
+                </tr>
+                <tr>
+                    <td>Application Fee</td>
+                    <td class="amount"><input type="number" name="application_fee" class="amount-input"
+                            placeholder="Enter amount" ></td>
+                </tr>
+                <tr>
+                    <td>Loan Procession Fee</td>
+                    <td class="amount"><input type="number" name="loan_procession_fee" class="amount-input"
+                            placeholder="Enter amount" ></td>
+                </tr>
+                <tr>
+                    <td>Project Guidance Fee</td>
+                    <td class="amount"><input type="number" name="project_guidance_fee" class="amount-input"
+                            placeholder="Enter amount" ></td>
+                </tr>
+                <tr>
+                    <td>Project Development Fee</td>
+                    <td class="amount"><input type="number" name="project_development_fee" class="amount-input"
+                            placeholder="Enter amount" ></td>
+                </tr>
+                <tr>
+                    <td>Regd Fee (One Time)</td>
+                    <td class="amount"><input type="number" name="regd_fee" class="amount-input"
+                            placeholder="Enter amount" ></td>
+                </tr>
+                <tr>
+                    <td>Other Fee</td>
+                    <td class="amount"><input type="number" name="other_fee" class="amount-input"
+                            placeholder="Enter amount" ></td>
+                </tr>
+            </tbody>
+
+         <tfoot>
+    <tr>
+        <td class="grand-total">Grand Total</td>
+        <td class="amount">
+            <input 
+                type="number" 
+                id="grand-total"  
+                name="Stdgrandtotal" 
+                placeholder="Total"
+                class="total" 
+                readonly>
+        </td>
+    </tr>
+    
+</tfoot>
+
+
+        </table>
+
+        <div class="amount-words">
+            <input type="text" class="rup" placeholder="Rupees {in word} : ">
+            <input type="text" class="only" placeholder="ONLY">
+        </div>
+
+
+        <div class="payment-details">
+            <div class="payment-column">
+                <label for="cheque_no">Cheque Payment</label><br>
+                <label for="cheque_no">Cheque No</label>
+                <input type="text" id="cheque_no" name="cheque_no" placeholder="Enter cheque number">
+
+                <label for="cheque_date">Cheque Date</label>
+                <input type="date" id="cheque_date" name="cheque_date">
+
+                <label for="cheque_bank">Bank</label>
+                <input type="text" id="cheque_bank" name="cheque_bank" placeholder="Enter bank name">
+
+                <label for="cheque_branch">Branch</label>
+                <input type="text" id="cheque_branch" name="cheque_branch" placeholder="Enter branch name">
+
+                <label for="cheque_amount">Amount</label>
+                <input type="number" id="cheque_amount" name="cheque_amount" placeholder="Enter amount">
+            </div>
+
+            <div class="payment-column">
+                <label for="dd_no">Draft Payment</label><br>
+                <label for="dd_no">DD No</label>
+                <input type="text" id="dd_no" name="dd_no" placeholder="Enter DD number">
+
+                <label for="dd_date">DD Date</label>
+                <input type="date" id="dd_date" name="dd_date">
+
+                <label for="dd_bank">Bank</label>
+                <input type="text" id="dd_bank" name="dd_bank" placeholder="Enter bank name">
+
+                <label for="dd_branch">Branch</label>
+                <input type="text" id="dd_branch" name="dd_branch" placeholder="Enter branch name">
+
+                <label for="dd_amount">Amount</label>
+                <input type="number" id="dd_amount" name="dd_amount" placeholder="Enter amount">
+            </div>
+
+            <div class="payment-column">
+                <label for="cash_amount">Cash Payment</label><br>
+                <label for="cash_amount">Amount</label>
+                <input type="number" id="cash_amount" name="cash_amount" placeholder="Enter amount">
+            </div>
+
+            <div class="payment-column">
+                <label for="online_date">Online Payment</label><br>
+                <label for="online_date">Date</label>
+                <input type="date" id="online_date" name="online_date">
+
+                <label for="online_bank">Bank</label>
+                <input type="text" id="online_bank" name="online_bank" placeholder="Enter bank name">
+
+                <label for="online_branch">Branch</label>
+                <input type="text" id="online_branch" name="online_branch" placeholder="Enter branch name">
+
+                <label for="online_amount">Amount</label>
+                <input type="number" id="online_amount" name="online_amount" placeholder="Enter amount">
+            </div>
+
+        </div>
+        <div class="money-account-section">
+            <div class="money-account-column">
+                <label for="account_no">Money Receipt Number : </label>
+                <input class="acc-int" type="text" id="account_no" name="account_no" placeholder="" >
+            </div>
+
+            <div class="extra-details">
+                <div class="extra-column">
+                    <label for="date_of_receipt">Date of Receipt</label>
+                    <input type="date" id="date_of_receipt" name="date_of_receipt" >
+                </div>
+                <div class="extra-column">
+                    <label for="receiver_signature">Receiver's Signature</label>
+                    <input type="text" id="receiver_signature" name="receiver_signature"
+                        placeholder="Receiver's Signature" >
+                </div>
+                <div class="extra-column">
+                    <label for="account">Accountant</label>
+                    <input type="text" id="account" name="account" placeholder="" >
+                </div>
+
+            </div> 
+            <div  class="update-btn" >
+       <button class="update-student" onclick="redirectToUpdatePage()">Update Student Details</button>
+</div>
+
+            <div class="sub-btn">
+                <button class="submit"  >Submit</button>
+            </div>
+
+           <br> <form class="receipt-form">
+                <div class="prnt">
+                    <div class="form-group reset-print-btns">
+
+                        <button type="button" class="print-btn" onclick="window.print()">Print</button>
+                        <button type="reset" class="reset-btn">Reset</button>
+                    </div>
+                    
+                    <div class="footer">
+                        <p>1/2d,BosePukur Prantik Pally, Ground Floor, Kolkata-700042 </p>
+                    </div>
+                </div> <br>
+               
+            </form>
+        </div>
+
+    </form>
+
+
+    <script>
+        document.querySelectorAll('.amount-input').forEach(input => {
+            input.addEventListener('input', () => {
+                let total = 0;
+                document.querySelectorAll('.amount-input').forEach(item => {
+                    const value = parseFloat(item.value) || 0;
+                    total += value;
+                });
+                document.getElementById('grand-total').value = total.toFixed(2);
+
+                const grandTotalValue = total.toFixed(2);
+                document.getElementById('rupees').value = `Rupees ${grandTotalValue}`;
+                document.getElementById('only').value = `Only`;
+            });
+        });
+        document.querySelectorAll('.amount-input').forEach(input => {
+            input.addEventListener('input', () => {
+                let total = 0;
+                document.querySelectorAll('.amount-input').forEach(item => {
+                    const value = parseFloat(item.value) || 0;
+                    total += value;
+                });
+                document.getElementById('grand-total').value = total.toFixed(2);
+
+                const grandTotalValue = total.toFixed(2);
+                document.getElementById('rupees').value = `Rupees ${grandTotalValue}`;
+                document.getElementById('only').value = `Only`;
+            });
+        });
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Retrieve the last ID from localStorage or start with a base ID
+            let baseId = 1000; // Starting point
+            let lastId = localStorage.getItem("lastReceiptId") || baseId;
+
+            // Check if the ID incrementing should stop
+            const stopIncrementing = localStorage.getItem("stopIncrementing") === "true";
+
+            if (stopIncrementing) {
+                // If incrementing is stopped, display the current ID without updating
+                document.getElementById("receipt-id").value = `REC-${lastId}`;
+                return; // Exit the script here to prevent incrementing
+            }
+
+            // Increment the ID
+            let newId = parseInt(lastId) + 1;
+
+            // Format with a prefix (e.g., "REC-1001")
+            let formattedId = `REC-${newId}`;
+
+            // Display the formatted ID in the form
+            document.getElementById("receipt-id").value = formattedId;
+
+            // Save the numeric part of the new ID back to localStorage
+            localStorage.setItem("lastReceiptId", newId);
+        });
+
+        // Function to stop incrementing
+        function stopAutoIncrement() {
+            localStorage.setItem("stopIncrementing", "true");
+        }
+
+        // Function to restart incrementing
+        function restartAutoIncrement() {
+            localStorage.setItem("stopIncrementing", "false");
+        }
+
+ function redirectToUpdatePage() {
+        window.location.href = "AccountantUpdateStudentDetails"; // Change this to your actual page URL
+    }
+
+function redirectToUpdatePage() {
+    window.open('AccountantUpdateStudentDetails');
+}
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin See Student Details</title>
+    <link rel="shortcut icon" href="https://ik.imagekit.io/7de5cntkw/1692626704665-photoaidcom-cropped%20(1).jpeg?updatedAt=1738048156918" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f4f6f8;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 25px;
+        }
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #d9dfe5;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: #0033a0;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 26px;
+            font-weight: 500;
+            border-bottom: 2px solid #002171;
+        }
+        .search-bar {
+            padding: 20px;
+            background: #fafafa;
+            border-bottom: 1px solid #d9dfe5;
+        }
+        .search-bar label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #444;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .search-bar input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #b0b8c1;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .search-bar input[type="text"]:focus {
+            border-color: #0033a0;
+            outline: none;
+        }
+        .search-bar input[type="text"]::placeholder {
+            color: #888;
+        }
+        #user-details {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: none;
+            background: #fff;
+        }
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+            border: 1px solid #d9dfe5;
+        }
+        .excel-table th, .excel-table td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #d9dfe5;
+        }
+        .excel-table th {
+            background: #0033a0;
+            color: #fff;
+            font-weight: 500;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        .excel-table td {
+            background: #fff;
+            color: #333;
+        }
+        .excel-table tr:nth-child(even) td {
+            background: #f9fafb;
+        }
+        .payment-history {
+            margin-top: 20px;
+        }
+        .payment-history h3 {
+            font-size: 19px;
+            color: #0033a0;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .payment-history ul {
+            list-style: none;
+            padding-left: 0;
+            border: 1px solid #d9dfe5;
+        }
+        .payment-history li {
+            padding: 12px;
+            border-bottom: 1px solid #d9dfe5;
+            color: #444;
+            font-size: 16px;
+        }
+        .payment-history li:last-child {
+            border-bottom: none;
+        }
+        .error {
+            color: #c62828;
+            font-size: 16px;
+            text-align: center;
+            padding: 12px;
+            background: #ffebee;
+            border: 1px solid #c62828;
+            margin: 20px;
+        }
+        .button-container {
+            padding: 20px;
+            border-top: 1px solid #d9dfe5;
+            background: #fafafa;
+            text-align: right;
+        }
+        .download-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            background: #0033a0;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .download-btn:hover {
+            background: #002171;
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+            .header {
+                font-size: 22px;
+            }
+            .search-bar label, .search-bar input[type="text"] {
+                font-size: 14px;
+            }
+            .excel-table th, .excel-table td {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .payment-history h3 {
+                font-size: 16px;
+            }
+            .payment-history li {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .error {
+                font-size: 14px;
+            }
+            .download-btn {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Admin See - Student Data</div>
+        <div class="search-bar">
+            <form>
+                <label for="student-id">Student ID</label>
+                <input type="text" id="student-id" name="Stdid" placeholder="Enter Student ID">
+            </form>
+        </div>
+        <div id="user-details"></div>
+        <div class="button-container">
+            <button class="download-btn" id="download-statement">Download Statement</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('student-id').addEventListener('input', async (event) => {
+            const Stdid = event.target.value.trim();
+
+            if (Stdid === '') {
+                document.getElementById('user-details').innerHTML = '';
+                document.getElementById('user-details').style.display = 'none';
+                return;
+            }
+
+            try {
+                const response = await fetch('/admin-fetch-data', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ Stdid })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    const formatDate = (isoDate) => {
+                        const date = new Date(isoDate);
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const year = date.getFullYear();
+                        return `${day}-${month}-${year}`;
+                    };
+
+                    const paymentHistoryHTML = data.PaymentHistory.map(payment => `
+                        <li>Payment Number ${payment.paymentNumber} : ₹${payment.amountPaid} on ${formatDate(payment.paymentDate)}</li>
+                    `).join('');
+
+                    document.getElementById('user-details').innerHTML = `
+                        <table class="excel-table">
+                            <tr>
+                                <th>Field</th>
+                                <th>Details</th>
+                            </tr>
+                            <tr>
+                                <td>Student Name</td>
+                                <td>${data.Stdname}</td>
+                            </tr>
+                            <tr>
+                                <td>Date of Admission</td>
+                                <td>${data.stdDateOfAdmission ? formatDate(data.stdDateOfAdmission) : "N/A"}</td>
+                            </tr>
+                            <tr>
+                                <td>Admitted By</td>
+                                <td>${data.StdAdmittedBy || "N/A"}</td>
+                            </tr>
+                            <tr>
+                                <td>University Name</td>
+                                <td>${data.stdUniversityName || "N/A"}</td>
+                            </tr>
+                            <tr>
+                                <td>Course</td>
+                                <td>${data.Stdcourse || "N/A"}</td>
+                            </tr>
+                            <tr>
+                                <td>Exam Session</td>
+                                <td>${data.StdExamSession || "N/A"}</td>
+                            </tr>
+                            <tr>
+                                <td>Full Course Fee</td>
+                                <td>₹${data.Stdfullfees}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Paid Fee</td>
+                                <td>₹${data.Stdpaidfee}</td>
+                            </tr>
+                            <tr>
+                                <td>Due Fee</td>
+                                <td>₹${data.Stdduefee}</td>
+                            </tr>
+                        </table>
+                        <div class="payment-history">
+                            <h3>Payment History</h3>
+                            <ul>${paymentHistoryHTML || '<li>No payments recorded yet</li>'}</ul>
+                        </div>
+                    `;
+                    document.getElementById('user-details').style.display = 'block';
+                } else {
+                    document.getElementById('user-details').innerHTML = `<p class="error">${data.message}</p>`;
+                    document.getElementById('user-details').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('user-details').innerHTML = '<p class="error">Failed to fetch data. Please try again later.</p>';
+                document.getElementById('user-details').style.display = 'block';
+            }
+        });
+
+// Download Statement as PDF without rupee symbol
+document.getElementById('download-statement').addEventListener('click', () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+    });
+    const details = document.getElementById('user-details');
+
+    if (details.style.display === 'block') {
+        // Set PDF title
+        doc.setFontSize(16);
+        doc.setFont("times", "bold");
+        doc.setTextColor(0, 0, 0); // Black text
+        doc.text("Student Data Statement", 14, 20);
+
+        // Get all table rows dynamically
+        const rows = document.querySelectorAll('.excel-table tr');
+        const tableData = Array.from(rows).slice(1).map(row => { // Skip header row
+            const cells = row.querySelectorAll('td');
+            return [
+                cells[0].textContent, // Field
+                cells[1].textContent.replace(/₹/g, '') // Details without rupee symbol
+            ];
+        });
+
+        // Add table to PDF with white background and black text
+        doc.autoTable({
+            startY: 30,
+            head: [['Field', 'Details']],
+            body: tableData,
+            theme: 'striped',
+            headStyles: { 
+                fillColor: [255, 255, 255], // White background
+                textColor: [0, 0, 0], // Black text
+                fontSize: 12,
+                fontStyle: 'bold',
+                font: "times"
+            },
+            bodyStyles: { 
+                fontSize: 11,
+                textColor: [0, 0, 0], // Black text
+                font: "times"
+            },
+            alternateRowStyles: { 
+                fillColor: [249, 250, 251] // Matches #f9fafb
+            },
+            margin: { left: 14, right: 14 },
+            tableWidth: 'auto',
+            styles: { 
+                font: "times", 
+                lineWidth: 0.2, 
+                lineColor: [217, 223, 229] // Matches #d9dfe5
+            }
+        });
+
+        // Add payment history to PDF without rupee symbol
+        const ul = details.querySelector('.payment-history ul');
+        if (ul) {
+            doc.setFontSize(14);
+            doc.setFont("times", "bold");
+            doc.setTextColor(0, 0, 0); // Black text
+            doc.text("Payment History", 14, doc.lastAutoTable.finalY + 10);
+
+            const paymentData = Array.from(ul.children).map(li => {
+                const text = li.textContent;
+                const [prefix, rest] = text.split(': ');
+                const [amount, date] = rest.split(' on ');
+                return [prefix.replace('Student ', ''), amount.replace(/₹/g, ''), date];
+            });
+
+            doc.autoTable({
+                startY: doc.lastAutoTable.finalY + 15,
+                head: [['Payment No.', 'Amount', 'Date']],
+                body: paymentData.length > 0 ? paymentData : [['-', 'No payments recorded yet', '-']],
+                theme: 'striped',
+                headStyles: { 
+                    fillColor: [255, 255, 255], // White background
+                    textColor: [0, 0, 0], // Black text
+                    fontSize: 12,
+                    fontStyle: 'bold',
+                    font: "times"
+                },
+                bodyStyles: { 
+                    fontSize: 11,
+                    textColor: [0, 0, 0], // Black text
+                    font: "times"
+                },
+                alternateRowStyles: { 
+                    fillColor: [249, 250, 251]
+                },
+                margin: { left: 14, right: 14 },
+                tableWidth: 'auto',
+                styles: { 
+                    font: "times", 
+                    lineWidth: 0.2, 
+                    lineColor: [217, 223, 229]
+                },
+                columnStyles: {
+                    0: { cellWidth: 30 }, // Payment No.
+                    1: { cellWidth: 40 }, // Amount
+                    2: { cellWidth: 'auto' } // Date
+                }
+            });
+        }
+
+        // Save the PDF
+        const studentId = document.getElementById('student-id').value.trim();
+        doc.save(`student-statement-${studentId || 'unknown'}.pdf`);
+    } else {
+        alert('Please enter a Student ID to download the statement.');
+    }
+});
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+</body>
+</html>

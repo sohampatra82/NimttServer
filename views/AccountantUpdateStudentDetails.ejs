@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Student Data</title>
+    <link rel="shortcut icon" href="https://ik.imagekit.io/7de5cntkw/1692626704665-photoaidcom-cropped%20(1).jpeg?updatedAt=1738048156918" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f4f7fc;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 25px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 40px 12px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+
+        #user-details {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #user-details p {
+            margin: 8px 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: #444;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .edit-btn {
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .edit-btn:hover {
+            background: #218838;
+        }
+        #see-update-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#see-update-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+#see-update-btn:active {
+    background-color: #004494;
+    transform: scale(0.98);
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="header">Student Data</div>
+    <div class="content">
+        <label for="student-id">Enter Student ID:</label>
+        <div class="input-container">
+            <input type="text" id="student-id" placeholder="Enter Student ID">
+        </div>
+        <div id="user-details"></div>
+        
+    </div>
+</div>
+
+    <script>
+        document.getElementById('student-id').addEventListener('input', async (event) => {
+            const Stdid = event.target.value.trim();
+            const userDetails = document.getElementById('user-details');
+            
+            if (Stdid === '') {
+                userDetails.innerHTML = '';
+                userDetails.style.display = 'none';
+                return;
+            }
+
+            try {
+                const response = await fetch('/admin-fetch-data', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ Stdid }),
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    const formatDate = (isoDate) => {
+                        const date = new Date(isoDate);
+                        return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                    };
+
+                    userDetails.innerHTML = `
+                        <p><strong>Student Name:</strong> ${data.Stdname}</p>
+                        <!-- <p><strong>Date of Admission:</strong> ${formatDate(data.stdDateOfAdmission)}</p> -->
+                        <!-- <p><strong>Admitted By:</strong> ${data.StdAdmittedBy}</p> -->
+                        <!-- <p><strong>University Name:</strong> ${data.stdUniversityName}</p> -->
+                        <!-- <p><strong>Course:</strong> ${data.Stdcourse}</p> -->
+                        <!-- <p><strong>Exam Session:</strong> ${data.StdExamSession}</p> -->
+                        <!-- <p><strong>Total Fee:</strong> ${data.Stdgrandtotal}</p> -->
+                         <!-- <p><strong>Full Course-Fee:</strong> ${data.Stdfullfees}</p> -->
+                        <!-- <p><strong>Paid Fee:</strong> ${data.Stdpaidfee}</p> -->
+                        <!-- <p><strong>Due Fee:</strong> ${data.Stdduefee}</p> -->
+                        <p><strong>Payment Number:</strong> ${data.stdpaymentnumber }</p>
+                        <p><strong>Last Payment Date:</strong> ${data.Stdlastpaiddate ? formatDate(data.Stdlastpaiddate) : "No payment yet"}</p>
+                        <!-- <button class="edit-btn" onclick="editStudent('${Stdid}')">Edit Student Details</button> -->
+                    `;
+                    userDetails.style.display = 'block';
+                } else {
+                    userDetails.innerHTML = `<p class="error">${data.message}</p>`;
+                    userDetails.style.display = 'block';
+                }
+            } catch (error) {
+                userDetails.innerHTML = '<p class="error">Error fetching data. Try again later.</p>';
+                userDetails.style.display = 'block';
+            }
+        });
+
+        function editStudent(studentId) {
+            window.location.href = 'AccountantEditPage';
+        }
+   function editStudent(Stdid) {
+    window.open(`AccountantEditPage`, '_blank');
+}
+  document.getElementById('see-update-btn').addEventListener('click', function() {
+        const studentId = document.getElementById('student-id').value.trim();
+        if (studentId) {
+            window.location.href = '/Accountant-SeeUpdated-Student-And-Edit';
+        } 
+    });
+    document.getElementById("see-update-btn").addEventListener("click", function () {
+    const studentId = "yourStudentId"; // Replace with the actual student ID dynamically
+    const url = '/Accountant-SeeUpdated-Student-And-Edit';
+    window.open(url, '_blank');
+});
+    </script>
+</body>
+</html>
+
+

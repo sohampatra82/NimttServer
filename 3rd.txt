@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Show Student Details</title>
+    <link rel="shortcut icon" href="https://ik.imagekit.io/7de5cntkw/1692626704665-photoaidcom-cropped%20(1).jpeg?updatedAt=1738048156918" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: "Poppins", serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 40px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #000000;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+        }
+        #user-details {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f1f3f5;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+        #user-details p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Admin - Show Student Data</h2>
+        <form>
+            <label for="student-id">Enter Student ID Here :</label>
+            <input type="text" id="student-id" name="Stdid" placeholder="Enter Student ID">
+            <div id="user-details"></div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('student-id').addEventListener('input', async (event) => {
+            const Stdid = event.target.value.trim();
+
+            if (Stdid === '') {
+                document.getElementById('user-details').innerHTML = '';
+                document.getElementById('user-details').style.display = 'none';
+                return;
+            }
+
+            try {
+                const response = await fetch('/admin-fetch-data', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ Stdid })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    const formatDate = (isoDate) => {
+                        const date = new Date(isoDate);
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const year = date.getFullYear();
+                        return `${day}-${month}-${year}`;
+                    };
+
+                    const paymentHistoryHTML = data.PaymentHistory.map(payment => `
+                        <li>Student ${payment.paymentNumber}: ₹${payment.amountPaid} on ${formatDate(payment.paymentDate)}</li>
+                    `).join('');
+
+                    document.getElementById('user-details').innerHTML = `
+                        <p><strong>Student Name:</strong> ${data.Stdname}</p>
+                        <p><strong>Date of Admission:</strong> ${data.stdDateOfAdmission ? formatDate(data.stdDateOfAdmission) : "N/A"}</p>
+                        <p><strong>Admitted By:</strong> ${data.StdAdmittedBy || "N/A"}</p>
+                        <p><strong>University Name:</strong> ${data.stdUniversityName || "N/A"}</p>
+                        <p><strong>Course:</strong> ${data.Stdcourse || "N/A"}</p>
+                        <p><strong>Exam Session:</strong> ${data.StdExamSession || "N/A"}</p>
+                        <p><strong>Full Course Fee:</strong> ${data.Stdfullfees}</p>
+                        <p><strong>Total Paid Fee:</strong> ${data.Stdpaidfee}</p>
+                        <p><strong>Due Fee:</strong> ${data.Stdduefee}</p>
+                        <p><strong>Last Payment Date:</strong> ${data.Stdlastpaiddate ? formatDate(data.Stdlastpaiddate) : "No payment yet"}</p>
+                        <h3>Payment History:</h3>
+                        <ul>${paymentHistoryHTML || '<li>No payments recorded yet</li>'}</ul>
+                    `;
+                    document.getElementById('user-details').style.display = 'block';
+                } else {
+                    document.getElementById('user-details').innerHTML = `<p class="error">${data.message}</p>`;
+                    document.getElementById('user-details').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('user-details').innerHTML = '<p class="error">Failed to fetch data. Please try again later.</p>';
+                document.getElementById('user-details').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+ <script>
+    const form = document.getElementById('studentForm');
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const studentId = document.getElementById('studentId').value;
+
+      try {
+        const response = await fetch('http://localhost:3000/get-student', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ studentId }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Student not found');
+        }
+
+        const student = await response.json();
+        resultDiv.innerHTML = `
+          <h3>Student Details</h3>
+          <p><strong>ID:</strong> ${student.studentId}</p>
+          <p><strong>Name:</strong> ${student.name}</p>
+          <p><strong>Age:</strong> ${student.age}</p>
+          <p><strong>Grade:</strong> ${student.grade}</p>
+        `;
+      } catch (error) {
+        resultDiv.innerHTML = `<p style="color: red;">${error.message}</p>`;
+      }
+    });
+  </script>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Student Details</title>
+     <link rel="shortcut icon" href="https://ik.imagekit.io/7de5cntkw/1692626704665-photoaidcom-cropped%20(1).jpeg?updatedAt=1738048156918" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e9ecef;
+        }
+        .container {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #495057;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease-in-out;
+        }
+        input[type="text"]:focus {
+            border-color: #80bdff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .student-details {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+        }
+        .student-details h3 {
+            color: #343a40;
+            margin-bottom: 10px;
+        }
+        .student-details p {
+            margin: 5px 0;
+            color: #495057;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Details Lookup</h1>
+        <form action="" id="student-form">
+            <div class="form-group">
+                <label for="student-id">Student ID:</label>
+                <input type="text" id="student-id" name="Stdid" placeholder="Enter student ID">
+            </div>
+            <button type="button" id="fetch-details">Get Details</button>
+        </form>
+        <div id="details-container" class="student-details" style="display: none;">
+            <h3>Student Details</h3>
+            <p><strong>Name:</strong> <span id="name"></span></p>
+            <p><strong>Age:</strong> <span id="age"></span></p>
+            <p><strong>Class:</strong> <span id="class"></span></p>
+        </div>
+    </div>
+    <footer>
+        &copy; Admin Portal. All rights reserved.
+    </footer>
+    <script>
+        document.getElementById('fetch-details').addEventListener('click', function() {
+            const studentId = document.getElementById('student-id').value.trim();
+
+            if (!studentId) {
+                alert('Please enter a Student ID');
+                return;
+            }
+
+            // Simulating a fetch operation (replace with actual API call)
+            const sampleData = {
+                "101": { name: "John Doe", age: 20, class: "10th Grade" },
+                "102": { name: "Jane Smith", age: 19, class: "11th Grade" },
+            };
+
+            const studentDetails = sampleData[studentId];
+
+            if (studentDetails) {
+                document.getElementById('name').textContent = studentDetails.name;
+                document.getElementById('age').textContent = studentDetails.age;
+                document.getElementById('class').textContent = studentDetails.class;
+                document.getElementById('details-container').style.display = 'block';
+            } else {
+                alert('No student found with this ID.');
+            }
+        });
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>
+
+
+   
