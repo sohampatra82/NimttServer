@@ -31,11 +31,11 @@ app.post('/nimtt', (req, res) => {
     else if (admin) res.render('adminlogin');
 });
 
-app.get('/AccountantIndex', (req, res) => {
+app.get('/accountantlogin', (req, res) => {
     res.render('select');
 });
 
-app.get('/AdminIndex', (req, res) => {
+app.get('/adminlogin', (req, res) => {
     res.render('select');
 });
 
