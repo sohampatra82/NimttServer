@@ -22,13 +22,13 @@ app.get('/nimtt', (req, res) => {
 });
 app.post('/', (req, res) => {
     const { account, admin } = req.body;
-    if (account) res.render('AccountantIndex');
-    else if (admin) res.render('AdminIndex');
+    if (account) res.render('accountantlogin');
+    else if (admin) res.render('adminlogin');
 });
 app.post('/nimtt', (req, res) => {
     const { account, admin } = req.body;
-    if (account) res.render('AccountantIndex');
-    else if (admin) res.render('AdminIndex');
+    if (account) res.render('accountantlogin');
+    else if (admin) res.render('adminlogin');
 });
 
 app.get('/AccountantIndex', (req, res) => {
@@ -94,6 +94,20 @@ app.get('/Accountant-SeeUpdated-Student-And-Edit', (req, res) => {
 app.get('/AccountantEditPage', (req, res) => {
     res.render('AccountantEditPage');
 });
+
+app.get('/adminlogin', (req, res) => {
+    res.render('adminlogin');
+});
+app.post('/adminlogin', (req, res) => {
+    res.render('adminlogin');
+})
+app.get('/accountantlogin', (req, res) => {
+    res.render('accountantlogin');
+});
+app.post('/accountantlogin', (req, res) => {
+    res.render('accountantlogin');
+})
+
 
 // Admin Fetch All Payment Records
 app.post('/admin-fetch-data', async (req, res) => {
@@ -320,7 +334,7 @@ app.post('/AccountantIndex', (req, res) => {
         if (username === DEFAULT_AccUSERNAME && password === DEFAULT_AccPASSWORD) {
             res.render('account');
         } else {
-            res.render('AccountantIndex');
+            res.render('accountantlogin');
         }
     } catch (error) {
         console.error('Unexpected error:', error);
@@ -338,7 +352,7 @@ app.post('/AdminIndex', (req, res) => {
         if (username === DEFAULT_AdminUSERNAME && password === DEFAULT_AdminPASSWORD) {
             res.render('AdminDataFetch');
         } else {
-            res.render('AdminIndex');
+            res.render('adminlogin');
         }
     } catch (error) {
         console.error('Unexpected error:', error);
