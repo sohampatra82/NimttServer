@@ -14,10 +14,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // All Routes from Your Original Code
+app.get('/', (req, res) => {
+    res.render('select');
+});
 app.get('/nimtt', (req, res) => {
     res.render('select');
 });
-
+app.post('/', (req, res) => {
+    const { account, admin } = req.body;
+    if (account) res.render('AccountantIndex');
+    else if (admin) res.render('AdminIndex');
+});
 app.post('/nimtt', (req, res) => {
     const { account, admin } = req.body;
     if (account) res.render('AccountantIndex');
