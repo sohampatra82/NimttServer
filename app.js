@@ -34,8 +34,14 @@ app.post('/nimtt', (req, res) => {
 app.get('/accountantlogin', (req, res) => {
     res.render('select');
 });
+app.get('/AccountantIndex', (req, res) => {
+    res.render('select');
+});
 
 app.get('/adminlogin', (req, res) => {
+    res.render('select');
+});
+app.get('/AdminIndex', (req, res) => {
     res.render('select');
 });
 
