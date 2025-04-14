@@ -333,8 +333,8 @@ app.post('/update-student-details', async (req, res) => {
 // Accountant Login
 app.post('/AccountantIndex', (req, res) => {
     const { username, password } = req.body;
-    const DEFAULT_AccUSERNAME = 'nimtt@accountant';
-    const DEFAULT_AccPASSWORD = 'nimttacc12345';
+    const DEFAULT_AccUSERNAME = process.env.AccountantUsername  ;
+    const DEFAULT_AccPASSWORD = process.env.AccountantPassword ;
 
     try {
         if (username === DEFAULT_AccUSERNAME && password === DEFAULT_AccPASSWORD) {
@@ -351,8 +351,8 @@ app.post('/AccountantIndex', (req, res) => {
 // Admin Login
 app.post('/AdminIndex', (req, res) => {
     const { username, password } = req.body;
-    const DEFAULT_AdminUSERNAME = 'nimtt@admin';
-    const DEFAULT_AdminPASSWORD = 'nimttadmin56789';
+    const DEFAULT_AdminUSERNAME = process.env.AdminUsername;
+    const DEFAULT_AdminPASSWORD = process.env.AdminPassword;
 
     try {
         if (username === DEFAULT_AdminUSERNAME && password === DEFAULT_AdminPASSWORD) {
