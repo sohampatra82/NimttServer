@@ -351,8 +351,8 @@ app.post('/AccountantIndex', (req, res) => {
 // Admin Login
 app.post('/AdminIndex', (req, res) => {
     const { username, password } = req.body;
-    const DEFAULT_AdminUSERNAME = process.env.AdminUsername;
-    const DEFAULT_AdminPASSWORD = process.env.AdminPassword;
+    const DEFAULT_AdminUSERNAME = process.env.AdminUsername ;
+    const DEFAULT_AdminPASSWORD = process.env.AdminPassword ;
 
     try {
         if (username === DEFAULT_AdminUSERNAME && password === DEFAULT_AdminPASSWORD) {
