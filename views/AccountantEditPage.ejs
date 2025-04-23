@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accountant Edit Page</title>
-    <link rel="shortcut icon" href="https://ik.imagekit.io/7de5cntkw/1692626704665-photoaidcom-cropped%20(1).jpeg?updatedAt=1738048156918" type="image/x-icon">
+    <link rel="shortcut icon"
+        href="https://ik.imagekit.io/7de5cntkw/1692626704665-photoaidcom-cropped%20(1).jpeg?updatedAt=1738048156918"
+        type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -85,17 +87,22 @@
         }
 
         .update-btn {
-            width: 150px; /* Reduced width */
-            padding: 10px 15px; /* Reduced padding */
-            font-size: 16px; /* Reduced font size */
+            width: 150px;
+            /* Reduced width */
+            padding: 10px 15px;
+            /* Reduced padding */
+            font-size: 16px;
+            /* Reduced font size */
             background-color: #007bff;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin: 20px auto 0; /* Center the button */
-            display: block; /* Ensure the button behaves like a block element */
+            margin: 20px auto 0;
+            /* Center the button */
+            display: block;
+            /* Ensure the button behaves like a block element */
         }
 
         .update-btn:hover {
@@ -127,27 +134,32 @@
             width: 300px;
         }
 
-    .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    border-radius: 50%; /* This makes the button circular */
-    width: 30px; /* Define the width */
-    height: 30px; /* Define the height */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0; /* Remove any internal padding */
-    cursor: pointer;
-    font-size: 18px; /* Adjust font size of the cross */
-}
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            /* This makes the button circular */
+            width: 30px;
+            /* Define the width */
+            height: 30px;
+            /* Define the height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            /* Remove any internal padding */
+            cursor: pointer;
+            font-size: 18px;
+            /* Adjust font size of the cross */
+        }
 
-.close-btn:hover {
-    background-color: #ff1a1a;
-}
+        .close-btn:hover {
+            background-color: #ff1a1a;
+        }
 
         .message {
             font-size: 18px;
@@ -170,10 +182,11 @@
             }
         }
 
-        #course{
-           width: 371px;
+        #course {
+            width: 371px;
         }
-        a{
+
+        a {
             text-decoration: none;
         }
     </style>
@@ -184,139 +197,145 @@
         <div class="header">
             <h2>Edit Student Details</h2>
         </div>
-<form action="/update-student-details" method="post">
-        <div class="form-content">
-            <div class="form-section">
-                  <div class="form-group" id="paymentNum">
-            <label for="paymentNum" class="paymentNum">Payment Number</label>
-            <input type="text" id="id" name="Updatepaymentnumber" placeholder="Enter payment no." required>
-        </div>
-                <div class="form-group">
-                    <label for="id">ID</label>
-                    <input type="text" id="id" name="UpdateStudentId" placeholder="Enter ID" required>
+        <form action="/update-student-details" method="post">
+            <div class="form-content">
+                <div class="form-section">
+                    <div class="form-group" id="paymentNum">
+                        <label for="paymentNum" class="paymentNum">Payment Number</label>
+                        <input type="text" id="id" name="Updatepaymentnumber" placeholder="Enter payment no." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id">ID</label>
+                        <input type="text" id="id" name="UpdateStudentId" placeholder="Enter ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="UpdateStudenName" placeholder="Enter student name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="UpdateStudentEmail" placeholder="Enter email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="UpdateStudentPhone" placeholder="Enter phone number"
+                            required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="UpdateStudenName" placeholder="Enter student name" required>
-                </div>
-               <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="UpdateStudentEmail" placeholder="Enter email" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="UpdateStudentPhone" placeholder="Enter phone number" required>
-                </div>
-            </div>
 
-            <div class="form-section">
-                <div class="form-group">
-                    <label for="course">Course</label>
-                    <select id="course" name="UpdateStudentCourse" required>
-                <option value="">Select a course</option>
-                <option value="10TH BOARD">10TH BOARD</option>
-                <option value="12TH BOARD">12TH BOARD</option>
-                <option value="BA">BA</option>
-                <option value="MA ">MA </option>
-                <option value="BSW ">BSW  </option>
-                <option value="MSW ">MSW </option>
-                <option value="BFA ">BFA </option>
-                 <option value="B.COM">B.COM</option>
-                <option value="M.COM">M.COM </option>
-                <option value="B.SC ">B.SC </option>
-                <option value="M.SC">M.SC</option>
-                <option value="BBA">BBA</option>
-                <option value="MBA">MBA </option>
-                <option value="E - MBA">E - MBA</option>
-                <option value="BHM">BHM</option>
- <option value="DCA">DCA</option>
-                <option value="BCA">BCA</option>
-                <option value="MCA">MCA</option>
-                <option value="MCA - LE">MCA - LE</option>
-            <option value="DIPLOMA">DIPLOMA</option>
-                <option value="PGDCA">PGDCA</option>
-                <option value="LLB">LLB</option>
-                <option value="B.A.L.L.B">B.A.L.L.B</option>
-                <option value="BBA.LLB">BBA.LLB</option>
-                <option value="LLM">LLM</option>
-             <option value="D PHARMA">D PHARMA</option>
-                <option value="B PHARMA">B PHARMA</option>
-                <option value="M PHARMA">M PHARMA</option>
-                <option value="ANM">ANM</option>
-                <option value="GNM">GNM</option>
-            <option value="PB B.SC NURSING">PB B.SC NURSING</option>
-<option value="DMLT">DMLT </option>
-        <option value="BPT">BPT </option>
-                <option value="MPT">MPT </option>
-            <option value="BMLT">BMLT</option>
-                <option value="BRIT">BRIT </option>
-                <option value="BOTT ">BOTT </option>
-                <option value="BPH ">BPH </option>
-                <option value="MPH">MPH</option>
-                <option value="MPHW ">MPHW </option>
-                <option value="GDA ">GDA </option>
-                <option value="TBHV">TBHV </option>
-              <option value="B.D A">B.D A </option>
-                <option value="BVA">BVA</option>
-                <option value="BFA">BFA</option>
-                <option value="MDA">MDA </option>
-                <option value="MVA">MVA </option>
-                <option value="MFA ">MFA </option>
-              <option value="BNYS ">BNYS</option>
-                <option value="B.ED">B.ED</option>
-                <option value="B.EL.B.ED">B.EL.B.ED</option>
-                <option value="NTT">NTT</option>
-            <option value="M ED">M ED </option>
-                <option value="MPED">MPED </option>
-            <option value="B.LIB  ">B.LIB  </option>
-                <option value="M.LIB ">M.LIB  </option>
-                <option value="D.LIB ">D.LIB  </option>
-             <option value="BJMC ">BJMC  </option>
-            <option value="MJMC ">MJMC  </option>
-            <option value="PHD ">PHD </option>
-                <option value="B.TECH ">B.TECH </option>
-                <option value="B.TECH - LE">B.TECH - LE </option>
-                <option value="M.TECH">M.TECH </option>
-                <option value="B.TECH + M.TECH ">B.TECH + M.TECH </option>
-            
-            </select>
-                </div>
-                <div class="form-group">
-                    <label for="admission_date">Last Payment Data</label>
-                    <input type="date" id="admission_date" name="UpdateStudentLastPayDate" required>
-                </div>
-                <div class="form-group">
-                    <label for="fees">Full Course Fees</label>
-                    <input type="number" id="fees" name="UpdateStudentFullfees" placeholder="Enter full course fees" required>
-                </div>
-         <div class="form-group">
-    <label for="paidfees">Paid Fees</label>
-    <input type="text" id="paidfees" name="UpdateStudentPaidfees" placeholder="Enter calculation (e.g., 2+3)" onkeydown="calculateFees(event)" required>
-</div>
-            </div>
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="course">Course</label>
+                        <select id="course" name="UpdateStudentCourse" required>
+                            <option value="">Select a course</option>
+                            <option value="10TH BOARD">10TH BOARD</option>
+                            <option value="12TH BOARD">12TH BOARD</option>
+                            <option value="BA">BA</option>
+                            <option value="MA ">MA </option>
+                            <option value="BSW ">BSW </option>
+                            <option value="MSW ">MSW </option>
+                            <option value="BFA ">BFA </option>
+                            <option value="B.COM">B.COM</option>
+                            <option value="M.COM">M.COM </option>
+                            <option value="B.SC ">B.SC </option>
+                            <option value="M.SC">M.SC</option>
+                            <option value="BBA">BBA</option>
+                            <option value="MBA">MBA </option>
+                            <option value="E - MBA">E - MBA</option>
+                            <option value="BHM">BHM</option>
+                            <option value="DCA">DCA</option>
+                            <option value="BCA">BCA</option>
+                            <option value="MCA">MCA</option>
+                            <option value="MCA - LE">MCA - LE</option>
+                            <option value="DIPLOMA">DIPLOMA</option>
+                            <option value="PGDCA">PGDCA</option>
+                            <option value="LLB">LLB</option>
+                            <option value="B.A.L.L.B">B.A.L.L.B</option>
+                            <option value="BBA.LLB">BBA.LLB</option>
+                            <option value="LLM">LLM</option>
+                            <option value="D PHARMA">D PHARMA</option>
+                            <option value="B PHARMA">B PHARMA</option>
+                            <option value="M PHARMA">M PHARMA</option>
+                            <option value="ANM">ANM</option>
+                            <option value="GNM">GNM</option>
+                            <option value="PB B.SC NURSING">PB B.SC NURSING</option>
+                            <option value="DMLT">DMLT </option>
+                            <option value="BPT">BPT </option>
+                            <option value="MPT">MPT </option>
+                            <option value="BMLT">BMLT</option>
+                            <option value="BRIT">BRIT </option>
+                            <option value="BOTT ">BOTT </option>
+                            <option value="BPH ">BPH </option>
+                            <option value="MPH">MPH</option>
+                            <option value="MPHW ">MPHW </option>
+                            <option value="GDA ">GDA </option>
+                            <option value="TBHV">TBHV </option>
+                            <option value="B.D A">B.D A </option>
+                            <option value="BVA">BVA</option>
+                            <option value="BFA">BFA</option>
+                            <option value="MDA">MDA </option>
+                            <option value="MVA">MVA </option>
+                            <option value="MFA ">MFA </option>
+                            <option value="BNYS ">BNYS</option>
+                            <option value="B.ED">B.ED</option>
+                            <option value="B.EL.B.ED">B.EL.B.ED</option>
+                            <option value="NTT">NTT</option>
+                            <option value="M ED">M ED </option>
+                            <option value="MPED">MPED </option>
+                            <option value="B.LIB  ">B.LIB </option>
+                            <option value="M.LIB ">M.LIB </option>
+                            <option value="D.LIB ">D.LIB </option>
+                            <option value="BJMC ">BJMC </option>
+                            <option value="MJMC ">MJMC </option>
+                            <option value="PHD ">PHD </option>
+                            <option value="B.TECH ">B.TECH </option>
+                            <option value="B.TECH - LE">B.TECH - LE </option>
+                            <option value="M.TECH">M.TECH </option>
+                            <option value="B.TECH + M.TECH ">B.TECH + M.TECH </option>
 
-            <div class="form-section">
-                <div class="form-group">
-                    <label for="admission_date">Date of Admission</label>
-                    <input type="date" id="admission_date" name="UpdateStudentDateOfAdmission" required>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="admission_date">Last Payment Data</label>
+                        <input type="date" id="admission_date" name="UpdateStudentLastPayDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fees">Full Course Fees</label>
+                        <input type="number" id="fees" name="UpdateStudentFullfees" placeholder="Enter full course fees"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paidfees">Paid Fees</label>
+                        <input type="text" id="paidfees" name="UpdateStudentPaidfees"
+                            placeholder="Enter calculation (e.g., 2+3)" onkeydown="calculateFees(event)" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="admitted_by">Admitted By</label>
-                    <input type="text" id="admitted_by" name="UpdateStudentAdmittedBy" placeholder="Enter name of the person who admitted" required>
-                </div>
-                <div class="form-group">
-                    <label for="university_name">University Name</label>
-                    <input type="text" id="university_name" name="UpdateStudentUniversityName" placeholder="Enter university name" required>
-                </div>
-                <div class="form-group">
-                    <label for="exam_session">Exam Session</label>
-                    <input type="text" id="exam_session" name="UpdateStudentExamSession" placeholder="Enter exam session" required>
+
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="admission_date">Date of Admission</label>
+                        <input type="date" id="admission_date" name="UpdateStudentDateOfAdmission" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="admitted_by">Admitted By</label>
+                        <input type="text" id="admitted_by" name="UpdateStudentAdmittedBy"
+                            placeholder="Enter name of the person who admitted" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="university_name">University Name</label>
+                        <input type="text" id="university_name" name="UpdateStudentUniversityName"
+                            placeholder="Enter university name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exam_session">Exam Session</label>
+                        <input type="text" id="exam_session" name="UpdateStudentExamSession"
+                            placeholder="Enter exam session" required>
+                    </div>
                 </div>
             </div>
-        </div>
-<a href="accountantback">
-        <button class="update-btn" onclick="openNewPage()">Update</button>
-        </a>
+            <a href="accountantback">
+                <button class="update-btn" onclick="openNewPage()">Update</button>
+            </a>
     </div>
 
     <!-- Modal for confirmation -->
@@ -326,7 +345,7 @@
             <p class="message">Student details uploaded successfully!</p>
         </div>
     </div> -->
-</form>
+    </form>
     <script>
         function showPopup() {
             document.getElementById("modalOverlay").style.display = "block";
@@ -335,23 +354,23 @@
         function closePopup() {
             document.getElementById("modalOverlay").style.display = "none";
 
-            
+
         }
 
-      function calculateFees(event) {
-        if (event.key === "Enter") {  // Check if Enter key is pressed
-            let input = document.getElementById("paidfees").value;
-            try {
-                let result = eval(input);  // Evaluate the math expression
-                if (!isNaN(result)) {
-                    document.getElementById("paidfees").value = result; // Replace input with the result
+        function calculateFees(event) {
+            if (event.key === "Enter") {  // Check if Enter key is pressed
+                let input = document.getElementById("paidfees").value;
+                try {
+                    let result = eval(input);  // Evaluate the math expression
+                    if (!isNaN(result)) {
+                        document.getElementById("paidfees").value = result; // Replace input with the result
+                    }
+                } catch (e) {
+                    alert("Invalid Expression! Please enter a valid calculation.");
                 }
-            } catch (e) {
-                alert("Invalid Expression! Please enter a valid calculation.");
+                event.preventDefault(); // Prevent form submission on Enter
             }
-            event.preventDefault(); // Prevent form submission on Enter
         }
-    }
     </script>
 </body>
 
