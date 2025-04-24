@@ -53,12 +53,12 @@ app.get("/select", (req, res) => {
   res.render("select");
 });
 
-// app.get('/account', (req, res) => {
-//     res.render('account');
-// });
-app.get("/account", (req, res) => {
-  res.render("select");
+app.get('/account', (req, res) => {
+    res.render('account');
 });
+// app.get("/account", (req, res) => {
+//   res.render("select");
+// });
 
 // app.get('/admin', (req, res) => {
 //     res.render('admin');
@@ -68,12 +68,12 @@ app.get("/account", (req, res) => {
 //     res.render('accountPrint');
 // });
 
-// app.get('/admin-fetch-data', (req, res) => {
-//     res.render('AdminDataFetch');
-// });
-app.get("/admin-fetch-data", (req, res) => {
-  res.render("select");
+app.get('/admin-fetch-data', (req, res) => {
+    res.render('AdminDataFetch');
 });
+// app.get("/admin-fetch-data", (req, res) => {
+//   res.render("select");
+// });
 
 // app.get('/admin-fetch-update-data', (req, res) => {
 //     res.render('AdminFetchUptadeData');
