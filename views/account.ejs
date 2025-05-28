@@ -1276,9 +1276,10 @@
                 <div id="fee-breakdown-section">
                     <div class="form-group">
                         <label for="fee_breakdown_textarea"><strong>Enter Fee Breakdown</strong></label>
-                        <textarea id="fee_breakdown_textarea" name="stdtotalbreakdetails" rows="6"
-                            placeholder="Enter fee details here"></textarea>
+                        <textarea id="fee_breakdown_textarea" name="stdtotalbreakdetails" class="message-box" rows="6"
+                            placeholder="Enter fee details here"><%= typeof stdtotalbreakdetails !== 'undefined' ? stdtotalbreakdetails : '' %></textarea>
                     </div>
+                    
                     
                     <!-- <div class="total-display">
                         <strong>Total Payable: <span id="total_fee"></span></strong>

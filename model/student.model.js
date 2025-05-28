@@ -42,7 +42,10 @@ const StudentSchema = new mongoose.Schema({
   brkothersfee: Number,
   brkdiscount: Number,
   brktotalpayble: Number, // Total payable amount
-  stdtotalbreakdetails: String, // Details of the break-up
+  stdtotalbreakdetails: {
+    type: String,
+    default: ""
+  } // Details of the break-up
 });
 
 const StudentModel = mongoose.model('Student', StudentSchema);
