@@ -189,3 +189,168 @@ app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`)
             <input type="text" id="id" name="stdpaymentnumber" placeholder="Enter payment no." required>
         </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ @media print {
+            .header {
+              text-align: center;
+              margin-bottom: 0cqmin;
+            }
+          
+            .header img {
+              width: 50px;
+              height: auto;
+              margin-bottom: 0px;
+            }
+          
+            .header h2 {
+              font-size: 16px;
+              margin: 0px 0;
+            }
+          
+            .header .notes p {
+              font-size: 10px;
+              margin: 2px 0;
+            }
+
+            body {
+                zoom: 0.85; /* Reduce overall page scale for print */
+              }
+            
+              .form-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                margin-top: 20px;
+              }
+            
+              .form-group {
+                font-size: 12px;
+              }
+            
+              .form-group label {
+                display: block;
+                margin-bottom: 3px;
+                font-weight: bold;
+              }
+            
+              .form-group input,
+              .form-group select,
+              .form-group textarea {
+                width: 100%;
+                padding: 4px;
+                font-size: 11px;
+              }
+            
+              /* Optional: Remove elements not needed on print */
+              .no-print {
+                display: none !important;
+              }
+              .table {
+                width: 100%;
+                font-size: 11px;
+                border-collapse: collapse;
+              }
+            
+              .table th,
+              .table td {
+                padding: 4px;
+                 /* Keeps only minimal borders for structure */
+              }
+            
+              .amount-input,
+              .total {
+                width: 100%;
+                font-size: 10px;
+                padding: 2px;
+             
+              }
+            
+              .amount-words {
+                font-size: 11px;
+                margin-top: 8px;
+              }
+            
+              .amount-words input {
+                width: 100%;
+                font-size: 10px;
+                padding: 10px;
+               
+              }
+
+              .payment-details {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+                margin: 0;
+              }
+            
+              .payment-column {
+                flex: 1;
+                min-width: 130px;
+                padding: 2px;
+              }
+            
+              .payment-column label {
+                font-size: 7px;
+                display: block;
+                margin: 1px 0 0;
+              }
+            
+              .payment-column input {
+                font-size: 7px;
+                padding: 3px 3px;
+                margin-bottom: 2px;
+                width: 100%;
+                box-sizing: border-box;
+              }
+            
+              input[type="text"],
+              input[type="number"],
+              input[type="date"] {
+            
+                font-size: 10px;
+                padding: 3px;
+                
+              }
+            
+              /* Hide buttons and non-print content */
+              .submit,
+              .update-btn,
+              .sub-btn,
+              button,
+              .reset-print-btns button:not(.print-btn) {
+                display: none !important;
+              }
+            
+              /* Shrink full page slightly to fit everything */
+              html {
+                zoom: 100%;
+              }
+            
+              .footer {
+                font-size: 13px;
+                text-align: center;
+                margin-top: 5px;
+               
+              }
+            
+          }
+          

@@ -166,7 +166,7 @@ app.get("/money-recipt", (req, res) => {
 });
 
 app.post("/money-recipt", async (req, res) => {
-  const { Stdid, Stdname, stdDateOfAdmission, StdAdmittedBy, stdUniversityName, Stdcourse, StdExamSession, Stdgrandtotal, Stdfullfees, Stdpaidfee: amountPaidStr, stdpaymentnumber, Stdlastpaiddate, brkcoursefee, brkprospectusfee, brkexamfee, brkothersfee, brkdiscount, brktotalpayble } = req.body; // Current payment amount as string
+  const { Stdid, Stdname, stdDateOfAdmission, StdAdmittedBy, stdUniversityName, Stdcourse, StdExamSession, Stdgrandtotal, Stdfullfees, Stdpaidfee: amountPaidStr, stdpaymentnumber, Stdlastpaiddate, brkcoursefee, brkprospectusfee, brkexamfee, brkothersfee, brkdiscount, brktotalpayble, stdtotalbreakdetails } = req.body; // Current payment amount as string
 
   try {
     // Convert and validate inputs
@@ -198,6 +198,7 @@ app.post("/money-recipt", async (req, res) => {
         brkothersfee,
         brkdiscount,
         brktotalpayble,
+        stdtotalbreakdetails,
         Stdfullfees: fullFees,
         Stdpaidfee: amountPaid,
         Stdduefee: fullFees - amountPaid,
@@ -293,6 +294,7 @@ app.post("/update-student-details", async (req, res) => {
         brkothersfee,
         brkdiscount,
         brktotalpayble,
+        stdtotalbreakdetails,
         Stdfullfees: fullFees,
         Stdpaidfee: amountPaid,
         Stdduefee: fullFees - amountPaid,

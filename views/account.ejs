@@ -8,12 +8,36 @@
     <link rel="shortcut icon"
         href="https://ik.imagekit.io/7de5cntkw/1692626704665-photoaidcom-cropped%20(1).jpeg?updatedAt=1738048156918"
         type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
     <link rel="shortcut icon" href="school.png" type="image/x-icon">
     <link rel="stylesheet" href="styel.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        
+        @media print {
+
+            /* Hide all placeholders by default */
+            input::placeholder,
+            textarea::placeholder {
+                color: transparent !important;
+            }
+
+            /* Exception: show placeholder for .amount-words inputs */
+            .amount-words input::placeholder {
+                color: #000 !important;
+                /* Or any visible color */
+            }
+
+            /* Optional: make the placeholder look like normal text (if inputs are disabled) */
+            .amount-words input[disabled]::placeholder {
+                opacity: 1 !important;
+            }
+        }
+
         body {
-            font-family: Arial, sans-serif;
+           font-family: 'Lato', sans-serif;
             margin: 0;
             padding: 0;
 
@@ -25,6 +49,38 @@
 
         .receipt-form p {
             text-align: left;
+        }
+
+        @media print {
+
+            /* Remove elements not needed for print, like buttons or navigation */
+            .no-print {
+                display: none !important;
+            }
+
+            /* Form fields print as plain text with border */
+            input,
+            textarea {
+                background: transparent;
+                color: #000;
+                font-size: 16px;
+                width: 100%;
+                border: 1px solid #CCCCCC;
+                /* Added border */
+                padding: 4px;
+            }
+
+            /* Ensure textarea displays all content without scrollbars */
+            textarea {
+                white-space: pre-wrap;
+                overflow: visible;
+                height: auto !important;
+            }
+
+            /* Optional: force page break before/after sections */
+            .page-break {
+                page-break-before: always;
+            }
         }
 
         .receipt-form {
@@ -186,6 +242,8 @@
             width: 100%;
 
         }
+
+        #remove-border {}
 
         /* Styles for the new payment details section */
         .payment-details {
@@ -372,6 +430,14 @@
 
         }
 
+        #receiver_signature {
+            border: none;
+        }
+
+        #account {
+            border: none;
+        }
+
         .sub-btn .submit {
             height: 33px;
             width: 10%;
@@ -467,6 +533,60 @@
             /* Darker green on hover */
             transform: scale(1.05);
             /* Slight zoom effect */
+        }
+
+        #date_of_receipt {
+
+            width: 200px;
+            /* or try 150px, depending on your layout */
+            padding: 8px;
+            border: 1px solid #CCCCCC;
+
+        }
+
+        .rupedit {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .only {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .rupedit,
+        .only {
+            background-color: rgb(255, 255, 255);
+            font-weight: bold;
+
+        }
+
+        #admitted_by {
+            width: 100%;
+        }
+
+        #university_name {
+            width: 100%;
+        }
+
+        #exam_session {
+            width: 100%;
+        }
+
+        #course_fee,
+        #prospectus_fee,
+        #exam_fee,
+        #other_fee,
+        #discount {
+            width: calc(100% - 20px);
         }
 
         #paymentNum {
@@ -577,6 +697,345 @@
                 /* Hide placeholder text */
             }
         }
+
+        /* Styles for the main form */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+
+        }
+
+        input,
+        select {
+            padding: 8px;
+            width: 100%;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .payment-section {
+            display: none;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+
+        @media print {
+
+            input::placeholder,
+            textarea::placeholder {
+                color: transparent !important;
+            }
+        }
+
+        @page {
+            size: A4 portrait;
+            
+        }
+        
+        @media print {
+
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                zoom: 0.88;
+                font-family: Arial, sans-serif;
+                color: #000;
+            }
+        
+            .header {
+                text-align: center;
+                margin-bottom: 6px;
+            }
+        
+            .header img {
+                width: 50px;
+                height: auto;
+                margin-bottom: 0;
+            }
+        
+            .header h2 {
+                font-size: 16px;
+                margin: 0;
+                font-weight: bold;
+            }
+        
+            .header .notes p {
+                font-size: 10px;
+                margin: 2px 0;
+            }
+        
+            .form-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+                margin-top: 12px;
+            }
+        
+            .form-group {
+                font-size: 12px;
+            }
+        
+            .form-group label {
+                display: block;
+                margin-bottom: 2px;
+                font-weight: bold;
+            }
+        
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                width: 100%;
+                padding: 4px;
+                font-size: 11px;
+                border: 1px solid #000;
+                border-radius: 0;
+                box-sizing: border-box;
+            }
+        
+            /* Reduced font-size for specific fields */
+            #course,
+            #specialization,
+            #email,
+            #ph {
+                font-size: 9px !important;
+                padding: 3px !important;
+            }
+        
+            /* Increased width for address field */
+            #address {
+                border: 1px solid #000 !important;
+                color: #000;
+                resize: none;
+                width: 100% !important;
+                font-size: 9px !important;
+                padding: 3px !important;
+            }
+        
+            #date_of_receipt {
+                border: 1px solid #000 !important;
+                color: #000;
+                resize: none;
+            }
+        
+            input[type="text"],
+            input[type="number"],
+            input[type="date"] {
+                font-size: 10px;
+                padding: 3px;
+                border: 1px solid #000;
+                border-radius: 0;
+                box-sizing: border-box;
+            }
+        
+            .table {
+                width: 100%;
+                font-size: 9px;
+                border-collapse: collapse;
+                margin-top: 6px;
+                margin-bottom: 6px;
+                page-break-inside: avoid;
+            }
+        
+            .table thead th,
+            .table tfoot td,
+            .table td {
+                padding: 3px 4px;
+                border: 1px solid #000;
+                text-align: left;
+                font-size: 8.5px;
+            }
+        
+            .amount-input,
+            .total {
+                width: 90%;
+                font-size: 8.5px;
+                padding: 2px 3px;
+                margin: 0 auto;
+                text-align: center;
+                border: 1px solid #000;
+                background: transparent;
+                box-sizing: border-box;
+            }
+        
+            #grand-total {
+                font-weight: bold;
+                font-size: 9px;
+                text-align: center;
+            }
+        
+            .grand-total {
+                font-weight: bold;
+                font-size: 9px;
+            }
+        
+            .amount-words {
+                font-size: 11px;
+                margin-top: 8px;
+            }
+        
+            .amount-words input {
+                width: 100%;
+                font-size: 10px;
+                padding: 5px;
+                border: 1px solid #000;
+                border-radius: 0;
+                box-sizing: border-box;
+            }
+        
+            .payment-details {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                margin-top: 10px;
+            }
+        
+            .payment-column {
+                flex: 1 1 130px;
+                padding: 2px;
+            }
+        
+            .payment-column label {
+                font-size: 9px;
+                display: block;
+                margin-bottom: 1px;
+            }
+        
+            .payment-column input {
+                font-size: 9px;
+                padding: 4px;
+                width: 100%;
+                border: 1px solid #000;
+                border-radius: 0;
+                box-sizing: border-box;
+            }
+        
+            .footer {
+                font-size: 11px;
+                text-align: center;
+                margin-top: 23px;
+            }
+        
+            .notes p {
+                color: #000 !important;
+            }
+        
+            .no-print,
+            .submit,
+            .update-btn,
+            .sub-btn,
+            button,
+            .reset-print-btns button:not(.print-btn) {
+                display: none !important;
+            }
+        
+            .no-print-textarea {
+                display: none !important;
+            }
+        
+            .print-address {
+                display: block !important;
+            }
+        
+            select {
+                -webkit-appearance: none !important;
+                -moz-appearance: none !important;
+                appearance: none !important;
+                background: none !important;
+                border: 1px solid #000 !important;
+                padding-right: 0 !important;
+            }
+        
+            option[value=""] {
+                display: none;
+            }
+        
+            input[type="date"] {
+                color: #000 !important;
+            }
+        
+            #fee-breakdown-section {
+                display: none !important;
+            }
+        
+            .paynotshow {
+                display: none !important;
+            }
+        
+            .payment-section {
+                border: 1px solid #000;
+                padding: 4px 6px;
+                margin-bottom: 6px;
+                font-size: 10px;
+                page-break-inside: avoid;
+            }
+        
+            .payment-section h3 {
+                font-size: 12px;
+                margin: 4px 0 6px;
+            }
+        
+            .payment-section label {
+                font-size: 9px;
+                margin-bottom: 2px;
+                display: block;
+            }
+        
+            .payment-section input {
+                font-size: 9px;
+                padding: 3px;
+                width: 100%;
+                margin-bottom: 3px;
+                border: 1px solid #000;
+                border-radius: 0;
+                box-sizing: border-box;
+            }
+        
+            .fee-table,
+            .amount-words,
+            .signature-section,
+            .footer {
+                page-break-inside: avoid;
+            }
+        
+            .table input::placeholder {
+                color: transparent;
+            }
+        }
+        
+        .money-account-column {
+            display: flex;
+            align-items: center; /* vertically center label and input */
+            gap: 10px; /* spacing between label and input */
+          }
+          
+          .money-account-column label {
+            white-space: nowrap; /* prevent label from breaking into multiple lines */
+          }
+          
+          .acc-int {
+            flex: 1; /* optional: let the input expand to fill space */
+            padding: 6px;
+          }
+        
+        .payment-section input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #333; /* Match your other input borders */
+  border-radius: 4px;
+}
+#amword{
+    color: #000000;
+    font-weight: 540;
+}
+
+
+
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -584,6 +1043,7 @@
 
 <body>
     <form class="receipt-form" action="/money-recipt" method="post">
+
         <div class="header">
 
             <img src="https://media.licdn.com/dms/image/v2/D560BAQFVC52YqmPUdA/company-logo_200_200/company-logo_200_200/0/1692626704665?e=2147483647&v=beta&t=8NtQowu1te5Z34ukLiahUrYtv2Dz3t1JnEKg7PthdqY"
@@ -612,7 +1072,7 @@
             <div class="form-section">
                 <div class="form-group">
                     <label for="name">ID</label>
-                    <input type="text" id="id" name="Stdid" placeholder="Enter Id" required>
+                    <input type="text" id="id" name="Stdid" placeholder="Enter id" required>
                 </div>
                 <div class="form-group" id="paymentNum">
                     <label for="paymentNum" class="paymentNum">Payment Number</label>
@@ -673,15 +1133,28 @@
 
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="Stdname" placeholder="Enter student name">
+                    <input type="text" id="name" name="Stdname" placeholder="Enter stundent name">
                 </div>
                 <div class="form-group">
                     <label for="address">Address</label>
-                    <input type="text" id="address" name="Stdaddress" placeholder="Enter address">
+
+                    <!-- Visible on screen -->
+                    <textarea id="address" name="Stdaddress" placeholder="Enter address" rows="3"
+                        class="no-print-textarea"
+                        style="width: 100%; resize: vertical; border: 1px solid #CCCCCC; padding: 8px;"></textarea>
+
+                    <!-- Hidden on screen, visible in print -->
+                    <div class="print-address" style="display: none;">
+                        <p id="printedAddress"
+                            style="margin-top: 4px; font-size: 12px; border: 1px solid #000; padding: 8px;"></p>
+                    </div>
                 </div>
+
+
+
                 <div id="fullfee" class="form-group">
                     <label for="fees">Full Course Fees</label>
-                    <input type="number" id="fees" name="Stdfullfees" placeholder="Enter full course fees" step="0.01">
+                    <input type="number" id="fees" name="Stdfullfees" placeholder="Enter full course fee" step="0.01">
                 </div>
             </div>
 
@@ -765,32 +1238,29 @@
                     <label for="email">Email</label>
                     <input type="email" id="email" name="Stdemail" placeholder="Enter email">
                 </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="Stdphone" placeholder="Enter phone number">
+                <div id="universityname" class="form-group">
+                    <label for="university_name">University Name</label>
+                    <input type="text" id="university_name" name="stdUniversityName"
+                        placeholder="Enter university name">
                 </div>
-
                 <div id="paidfee" class="form-group">
                     <label for="paidfees">Paid Fees</label>
-                    <input type="number" id="fees" name="Stdpaidfee" placeholder="Enter paid fees" required>
+                    <input type="number" id="fees" name="Stdpaidfee" placeholder="Enter paid fee" required>
                 </div>
             </div>
 
             <div class="form-section">
                 <div class="form-group">
                     <label for="admission_date">Specialization</label>
-                    <input type="text" id="admission_date" name="stdDateOfAdmission"
-                        placeholder="Enter course specialization ">
+                    <input type="text" id="admission_date" name="stdDateOfAdmission" placeholder="Enter specialization">
                 </div>
                 <div id="admittedby" class="form-group">
                     <label for="admitted_by">Admitted By</label>
-                    <input type="text" id="admitted_by" name="StdAdmittedBy"
-                        placeholder="Enter name of the person who admitted">
+                    <input type="text" id="admitted_by" name="StdAdmittedBy" placeholder="Enter admitted by name">
                 </div>
-                <div id="universityname" class="form-group">
-                    <label for="university_name">University Name</label>
-                    <input type="text" id="university_name" name="stdUniversityName"
-                        placeholder="Enter university name">
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="Stdphone" placeholder="Enter mobile number">
                 </div>
                 <div id="examsession" class="form-group">
                     <label for="exam_session">Exam Session</label>
@@ -805,44 +1275,29 @@
 
                 <div id="fee-breakdown-section">
                     <div class="form-group">
-                        <label>Course Fee</label>
-                        <input type="number" id="course_fee" oninput="calculateTotal()" placeholder="Enter course fee" name="brkcoursefee">
+                        <label for="fee_breakdown_textarea"><strong>Enter Fee Breakdown</strong></label>
+                        <textarea id="fee_breakdown_textarea" name="stdtotalbreakdetails" rows="6"
+                            placeholder="Enter fee details here"></textarea>
+                    </div>
+                    
+                    <!-- <div class="total-display">
+                        <strong>Total Payable: <span id="total_fee"></span></strong>
                     </div>
 
                     <div class="form-group">
-                        <label>Prospectus Fee</label>
-                        <input type="number" id="prospectus_fee" oninput="calculateTotal()"
-                            placeholder="Enter prospectus fee" name="brkprospectusfee">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Exam Fee</label>
-                        <input type="number" id="exam_fee" oninput="calculateTotal()" placeholder="Enter exam fee" name="brkexamfee">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Other Fee</label>
-                        <input type="number" id="other_fee" oninput="calculateTotal()" placeholder="Enter other fee" name="brkothersfee">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Discount</label>
-                        <input type="number" id="discount" oninput="calculateTotal()" placeholder="Enter discount" name="brkdiscount">
-                    </div>
-
-                    <div class="total-display" >
-                        <strong>Total Payable: ₹<span id="total_fee">0</span></strong >
-                    </div>
-
-                <div class="form-group">
-                    <label></label>
-                    <input type="number" id="discount" placeholder="Enter Total Payable" name="brktotalpayble" step="0.01">
+                        <label></label>
+                        <input type="number" id="discount" placeholder="Enter Total Payable" name="brktotalpayble"
+                            step="0.01">
+                    </div> -->
                 </div>
 
-                </div>
+
 
 
             </div>
+
+
+        </div>
         </div>
 
 
@@ -917,11 +1372,11 @@
 
         <div class="amount-words">
             <input type="text" class="rupedit" placeholder="Rupees {in word} : " disabled>
-            <input type="text" class="only" placeholder="ONLY">
+            <input type="text" class="only" placeholder="" id="amword">
         </div>
 
 
-        <div class="payment-details">
+        <!-- <div class="payment-details">
             <div class="payment-column">
                 <label for="cheque_no">Cheque Payment</label><br>
                 <label for="cheque_no">Cheque No</label>
@@ -978,10 +1433,86 @@
                 <label for="online_amount">Amount</label>
                 <input type="number" id="online_amount" name="online_amount" placeholder="Enter amount">
                 <label for="online_amount">Upi Number </label>
-                <input type="number" id="online_amount" name="online_amount" placeholder="Enter upi number ">
+                <input type="number" id="online_amount" name="online_amount" placeholder=" Enter upi number">
             </div>
 
+        </div> -->
+
+        <div class="form-group">
+            <label for="payment_type" class="paynotshow">Select Payment Type</label>
+            <select id="payment_type" class="paynotshow" onchange="handlePaymentSelection()">
+                <option value="" class="paynotshow">-- Select Payment Type --</option>
+                <option value="cheque">Cheque Payment</option>
+                <option value="draft">Draft Payment</option>
+                <option value="cash">Cash Payment</option>
+                <option value="online">Online Payment</option>
+            </select>
         </div>
+
+        <!-- Cheque Payment -->
+        <div class="payment-section" id="cheque_section">
+            <h3>Cheque Payment</h3>
+            <label>Cheque No</label>
+            <input type="text" name="cheque_no" placeholder="Enter cheque number">
+
+            <label>Cheque Date</label>
+            <input type="date" name="cheque_date">
+
+            <label>Bank</label>
+            <input type="text" name="cheque_bank" placeholder="Enter bank name">
+
+            <label>Branch</label>
+            <input type="text" name="cheque_branch" placeholder="Enter branch name">
+
+            <label>Amount</label>
+            <input  type="number" name="cheque_amount" placeholder="Enter amount" id="cheam">
+        </div>
+
+        <!-- Draft Payment -->
+        <div class="payment-section" id="draft_section">
+            <h3>Draft Payment</h3>
+            <label>DD No</label>
+            <input type="text" name="dd_no" placeholder="Enter DD number">
+
+            <label>DD Date</label>
+            <input type="date" name="dd_date">
+
+            <label>Bank</label>
+            <input type="text" name="dd_bank" placeholder="Enter bank name">
+
+            <label>Branch</label>
+            <input type="text" name="dd_branch" placeholder="Enter branch name">
+
+            <label>Amount</label>
+            <input type="number" name="dd_amount" placeholder="Enter amount" id="cheam">
+        </div>
+
+        <!-- Cash Payment -->
+        <div class="payment-section" id="cash_section">
+            <h3>Cash Payment</h3>
+            <label>Amount</label>
+            <input type="number" name="cash_amount" placeholder="Enter amount" id="cheam">
+        </div>
+
+        <!-- Online Payment -->
+        <div class="payment-section" id="online_section">
+            <h3>Online Payment</h3>
+            <label>Date</label>
+            <input type="date" name="online_date">
+
+            <label>Bank</label>
+            <input type="text" name="online_bank" placeholder="Enter bank name">
+
+            <label>Branch</label>
+            <input type="text" name="online_branch" placeholder="Enter branch name">
+
+            <label>Amount</label>
+            <input type="number" name="online_amount" placeholder="Enter amount" id="cheam" >
+
+            <label>UPI Number</label>
+            <input type="text" name="upi_number" placeholder="Enter UPI number">
+        </div>
+
         <div class="money-account-section">
             <div class="money-account-column">
                 <label for="account_no">Money Receipt Number : </label>
@@ -995,8 +1526,7 @@
                 </div>
                 <div class="extra-column">
                     <label for="receiver_signature">Receiver's Signature</label>
-                    <input type="text" id="receiver_signature" name="receiver_signature"
-                        placeholder="Receiver's Signature">
+                    <input type="text" id="receiver_signature" name="receiver_signature" placeholder="">
                 </div>
                 <div class="extra-column">
                     <label for="account">Accountant</label>
@@ -1004,6 +1534,7 @@
                 </div>
 
             </div>
+            <br>
             <div class="update-btn">
                 <button class="update-student" onclick="redirectToUpdatePage()">Update Student Details</button>
             </div>
@@ -1020,7 +1551,7 @@
                         <button type="button" class="print-btn" onclick="window.print()">Print</button>
                         <button type="reset" class="reset-btn">Reset</button>
                     </div>
-
+                  
                     <div class="footer">
                         <p>1/2d,BosePukur Prantik Pally, Ground Floor, Kolkata-700042 </p>
                     </div>
@@ -1150,6 +1681,134 @@
         }
 
     </script>
+    <script>
+        window.addEventListener("beforeprint", function () {
+            const addressValue = document.getElementById("address").value;
+            document.getElementById("printedAddress").textContent = addressValue;
+        });
+    </script>
+
+
+    <script>
+        // Function to remove the "Select a course" option before printing
+        function removeSelectCourse() {
+            const select = document.getElementById('course');
+            const firstOption = select.querySelector('.selectcourse');
+            if (firstOption) {
+                firstOption.style.display = 'none';
+            }
+        }
+
+        // Function to restore the "Select a course" option after printing
+        function restoreSelectCourse() {
+            const select = document.getElementById('course');
+            const firstOption = select.querySelector('.selectcourse');
+            if (firstOption) {
+                firstOption.style.display = 'block';
+            }
+        }
+
+        // Listen for the beforeprint and afterprint events
+        window.addEventListener('beforeprint', removeSelectCourse);
+        window.addEventListener('afterprint', restoreSelectCourse);
+    </script>
+
+    <script>
+        // Listen for print events
+        window.onbeforeprint = function () {
+            // Find the select element and its first option
+            const courseSelect = document.getElementById('course');
+            const firstOption = courseSelect.querySelector('option[value=""]');
+
+            // Remove the first option text when printing
+            if (firstOption) {
+                firstOption.textContent = ''; // Removes the text
+            }
+        };
+
+        // Optional: Reset text after printing (if needed)
+        window.onafterprint = function () {
+            const courseSelect = document.getElementById('course');
+            const firstOption = courseSelect.querySelector('option[value=""]');
+            if (firstOption) {
+                firstOption.textContent = 'Select a course'; // Reset the text
+            }
+        };
+    </script>
+    <script>
+        const sections = {
+            cheque: document.getElementById("cheque_section"),
+            draft: document.getElementById("draft_section"),
+            cash: document.getElementById("cash_section"),
+            online: document.getElementById("online_section")
+        };
+
+        function handlePaymentSelection() {
+            const selected = document.getElementById("payment_type").value;
+
+            // Hide all sections first
+            for (let key in sections) {
+                sections[key].style.display = "none";
+                sections[key].classList.remove("printable");
+            }
+
+            // Show selected section
+            if (selected && sections[selected]) {
+                sections[selected].style.display = "block";
+                sections[selected].classList.add("printable");
+            }
+        }
+
+        function printSelected() {
+            window.print();
+        }
+    </script>
+
+    <script>
+        function calculateTotal() {
+            const inputs = document.querySelectorAll('.amount-input');
+            let sum = 0;
+            inputs.forEach(input => {
+                const value = parseFloat(input.value);
+                if (!isNaN(value)) sum += value;
+            });
+            return sum;
+        }
+
+        function updateTotalAndSave() {
+            const total = calculateTotal();
+            document.getElementById('grand-total').value = total;
+            sessionStorage.setItem('grandTotal', total);
+        }
+
+        function attachListeners() {
+            const inputs = document.querySelectorAll('.amount-input');
+            inputs.forEach(input => {
+                input.addEventListener('input', updateTotalAndSave);
+            });
+        }
+
+        // This will run on every page load (or refresh)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Optional: clear grand total on every fresh load
+            sessionStorage.removeItem('grandTotal');
+
+            const savedTotal = sessionStorage.getItem('grandTotal');
+            if (savedTotal) {
+                document.getElementById('grand-total').value = savedTotal;
+            }
+
+            attachListeners();
+        });
+
+        // You can still use this function after print if needed
+        window.clearPaymentForm = function () {
+            document.querySelectorAll('.amount-input').forEach(input => input.value = '');
+            document.getElementById('grand-total').value = '';
+            sessionStorage.removeItem('grandTotal');
+        };
+    </script>
+      
 </body>
 
 </html>
