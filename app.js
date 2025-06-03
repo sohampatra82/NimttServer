@@ -166,7 +166,7 @@ app.get("/money-recipt", (req, res) => {
 });
 
 app.post("/money-recipt", async (req, res) => {
-  const { Stdid, Stdname, stdDateOfAdmission, StdAdmittedBy, stdUniversityName, Stdcourse, StdExamSession, Stdgrandtotal, Stdfullfees, Stdpaidfee: amountPaidStr, stdpaymentnumber, Stdlastpaiddate, brkcoursefee, brkprospectusfee, brkexamfee, brkothersfee, brkdiscount, brktotalpayble, stdtotalbreakdetails } = req.body; // Current payment amount as string
+  const { Stdid, Stdname, stdDateOfAdmission, StdAdmittedBy, stdUniversityName, Stdcourse, StdExamSession, Stdgrandtotal, Stdfullfees, stdmode, Stdpaidfee: amountPaidStr, stdpaymentnumber, Stdlastpaiddate, brkcoursefee, brkprospectusfee, brkexamfee, brkothersfee, brkdiscount, brktotalpayble, stdtotalbreakdetails } = req.body; // Current payment amount as string
 
   try {
     // Convert and validate inputs
@@ -190,6 +190,7 @@ app.post("/money-recipt", async (req, res) => {
         StdAdmittedBy,
         stdUniversityName,
         Stdcourse,
+        stdmode,
         StdExamSession,
         Stdgrandtotal,
         brkcoursefee,
@@ -287,6 +288,7 @@ app.post("/update-student-details", async (req, res) => {
         StdAdmittedBy,
         stdUniversityName,
         Stdcourse,
+        stdmode,
         StdExamSession,
          brkcoursefee,
         brkprospectusfee,
@@ -343,8 +345,8 @@ app.post("/update-student-details", async (req, res) => {
 // Accountant Login
 app.post("/AccountantIndex", (req, res) => {
   const { username, password } = req.body;
-  const DEFAULT_AccUSERNAME = process.env.ACC_ID ;
-  const DEFAULT_AccPASSWORD = process.env.ACC_PASS ;
+  const DEFAULT_AccUSERNAME = "nimtt@accountant";
+  const DEFAULT_AccPASSWORD ='accountant@20'  ;
 
   try {
     if (username === DEFAULT_AccUSERNAME && password === DEFAULT_AccPASSWORD) {
@@ -361,8 +363,8 @@ app.post("/AccountantIndex", (req, res) => {
 // Admin Login
 app.post("/AdminIndex", (req, res) => {
   const { username, password } = req.body;
-  const DEFAULT_AdminUSERNAME = process.env.ADMIN_ID   ;
-  const DEFAULT_AdminPASSWORD = process.env.ADMIN_PASS;
+  const DEFAULT_AdminUSERNAME = "nimtt@admin";
+  const DEFAULT_AdminPASSWORD = 'admin@04'  ;
 
   try {
     if (

@@ -1150,11 +1150,13 @@
                     </div>
                 </div>
 
-
-
-                <div id="fullfee" class="form-group">
+          <div id="fullfee" class="form-group">
                     <label for="fees">Full Course Fees</label>
                     <input type="number" id="fees" name="Stdfullfees" placeholder="Enter full course fee" step="0.01">
+                </div>
+                <div id="paidfee" class="form-group">
+                    <label for="paidfees">Paid Fees</label>
+                    <input type="number" id="fees" name="Stdpaidfee" placeholder="Enter paid fee" required>
                 </div>
             </div>
 
@@ -1238,15 +1240,16 @@
                     <label for="email">Email</label>
                     <input type="email" id="email" name="Stdemail" placeholder="Enter email">
                 </div>
+                <div class="form-group">
+                    <label for="admission_date">Mode</label>
+                    <input type="text" id="admission_date" name="stdmode" placeholder="Enter course mode">
+                </div>
                 <div id="universityname" class="form-group">
                     <label for="university_name">University Name</label>
                     <input type="text" id="university_name" name="stdUniversityName"
                         placeholder="Enter university name">
                 </div>
-                <div id="paidfee" class="form-group">
-                    <label for="paidfees">Paid Fees</label>
-                    <input type="number" id="fees" name="Stdpaidfee" placeholder="Enter paid fee" required>
-                </div>
+               
             </div>
 
             <div class="form-section">
@@ -1537,7 +1540,7 @@
             </div>
             <br>
             <div class="update-btn">
-                <button class="update-student" onclick="redirectToUpdatePage()">Update Student Details</button>
+                <button class="update-student" onclick="redirectToUpdatePage()">Check Details</button>
             </div>
 
             <div class="sub-btn">

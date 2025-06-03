@@ -41,6 +41,7 @@ const StudentSchema = new mongoose.Schema({
   brkexamfee: Number,
   brkothersfee: Number,
   brkdiscount: Number,
+  stdmode: String,
   brktotalpayble: Number, // Total payable amount
   stdtotalbreakdetails: {
     type: String,
