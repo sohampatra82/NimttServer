@@ -1072,7 +1072,7 @@
             <div class="form-section">
                 <div class="form-group">
                     <label for="name">ID</label>
-                    <input type="text" id="id" name="Stdid" placeholder="Enter id" required>
+                    <input type="text" id="id" name="Stdid" placeholder="Enter id"  onblur="fetchStudentDetails()" required>
                 </div>
                 <div class="form-group" id="paymentNum">
                     <label for="paymentNum" class="paymentNum">Payment Number</label>
@@ -1813,6 +1813,33 @@
         };
     </script>
       
+
+
+<script>
+    async function fetchStudentDetails() {
+        const studentId = document.getElementById('Stdid').value.trim();
+        if (!studentId) return;
+    
+        try {
+            const res = await fetch(`/api/student/${Stdid}`);
+            if (!res.ok) throw new Error('Student not found');
+            const data = await res.json();
+    
+            document.getElementById('name').value = data.name || '';
+            document.getElementById('email').value = data.email || '';
+            document.getElementById('address').value = data.address || '';
+            document.getElementById('course').value = data.course || '';
+            document.getElementById('specialization').value = data.specialization || '';
+            document.getElementById('phone').value = data.phone || '';
+            document.getElementById('mode').value = data.mode || '';
+            document.getElementById('examSession').value = data.examSession || '';
+            // Fill others similarly
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+    </script>    
+    
 </body>
 
 </html>
