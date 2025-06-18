@@ -8,14 +8,38 @@
     <link rel="shortcut icon"
         href="https://ik.imagekit.io/7de5cntkw/1692626704665-photoaidcom-cropped%20(1).jpeg?updatedAt=1738048156918"
         type="image/x-icon">
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
     <link rel="shortcut icon" href="school.png" type="image/x-icon">
     <link rel="stylesheet" href="styel.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        .message-box {
+            margin-top: 15px;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: opacity 0.5s ease-in-out;
+            max-width: 400px;
+          }
         
+          .message-box.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+          }
+        
+          .message-box.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+          }
+        
+          .hidden {
+            display: none;
+          }
         @media print {
 
             /* Hide all placeholders by default */
@@ -37,7 +61,7 @@
         }
 
         body {
-           font-family: 'Lato', sans-serif;
+            font-family: 'Lato', sans-serif;
             margin: 0;
             padding: 0;
 
@@ -130,9 +154,9 @@
         }
 
         #course {
-            width: 106%;
+            width: 100%;
             /* Slightly wider than other inputs */
-            max-width: 405px;
+            max-width: 400px;
             /* Prevent it from becoming too large */
         }
 
@@ -185,6 +209,7 @@
         }
 
         .table th {
+           
             background-color: #f2f2f2;
             font-weight: bold;
         }
@@ -733,197 +758,216 @@
 
         @page {
             size: A4 portrait;
-            
+
         }
-        
+
         @media print {
 
             html,
             body {
                 margin: 0;
                 padding: 0;
-                zoom: 0.88;
+                zoom: 0.85;
                 font-family: Arial, sans-serif;
                 color: #000;
             }
-        
+
             .header {
                 text-align: center;
-                margin-bottom: 6px;
+                margin-bottom: 1px;
             }
-        
+
             .header img {
-                width: 50px;
+                width: 80px;
                 height: auto;
                 margin-bottom: 0;
             }
-        
+
             .header h2 {
                 font-size: 16px;
+                /* Increased from 14px */
                 margin: 0;
                 font-weight: bold;
             }
-        
+
             .header .notes p {
-                font-size: 10px;
-                margin: 2px 0;
+                font-size: 11px;
+                /* Increased from 9px */
+                margin: 0;
             }
-        
+
             .form-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-                margin-top: 12px;
+                gap: 0.5px;
+                margin-top: 2px;
             }
-        
+
             .form-group {
-                font-size: 12px;
+                font-size: 14px;
+                /* Increased from 11px */
+                margin-bottom: 0;
             }
-        
+
             .form-group label {
                 display: block;
-                margin-bottom: 2px;
+                margin-bottom: 0;
                 font-weight: bold;
             }
-        
+
             .form-group input,
             .form-group select,
             .form-group textarea {
                 width: 100%;
                 padding: 4px;
-                font-size: 11px;
+                font-size: 13px;
+                /* Increased from 12px */
                 border: 1px solid #000;
                 border-radius: 0;
                 box-sizing: border-box;
+                margin: 0;
             }
-        
-            /* Reduced font-size for specific fields */
+
             #course,
             #specialization,
             #email,
             #ph {
-                font-size: 9px !important;
-                padding: 3px !important;
+                font-size: 14px !important;
+                /* Increased from 11px */
+                padding: 4px !important;
             }
-        
-            /* Increased width for address field */
+
             #address {
                 border: 1px solid #000 !important;
                 color: #000;
                 resize: none;
                 width: 100% !important;
-                font-size: 9px !important;
-                padding: 3px !important;
+                font-size: 13px !important;
+                /* Increased from 11px */
+                padding: 4px !important;
             }
-        
+
             #date_of_receipt {
                 border: 1px solid #000 !important;
                 color: #000;
                 resize: none;
+                font-size: 14px !important;
+                /* Increased from 12px */
             }
-        
+
             input[type="text"],
             input[type="number"],
             input[type="date"] {
-                font-size: 10px;
-                padding: 3px;
+                font-size: 15px;
+                /* Increased from 12px */
+                padding: 4px;
                 border: 1px solid #000;
                 border-radius: 0;
                 box-sizing: border-box;
             }
-        
+
             .table {
                 width: 100%;
-                font-size: 9px;
+                font-size: 15px;
+                /* Increased from 9px */
                 border-collapse: collapse;
-                margin-top: 6px;
-                margin-bottom: 6px;
+                margin-top: 2px;
+                margin-bottom: 2px;
                 page-break-inside: avoid;
             }
-        
+
             .table thead th,
             .table tfoot td,
             .table td {
-                padding: 3px 4px;
+                padding: 1px 2px;
                 border: 1px solid #000;
                 text-align: left;
-                font-size: 8.5px;
+                font-size: 11px;
+                /* Increased from 8px */
             }
-        
+
             .amount-input,
             .total {
                 width: 90%;
-                font-size: 8.5px;
-                padding: 2px 3px;
+                font-size: 16px;
+                /* Increased from 10px */
+                padding: 3px;
                 margin: 0 auto;
                 text-align: center;
                 border: 1px solid #000;
                 background: transparent;
                 box-sizing: border-box;
             }
-        
+
             #grand-total {
                 font-weight: bold;
-                font-size: 9px;
+                font-size: 15px;
+                /* Increased from 9px */
                 text-align: center;
             }
-        
+
             .grand-total {
                 font-weight: bold;
-                font-size: 9px;
+                font-size: 15px;
+                /* Increased from 9px */
             }
-        
+
             .amount-words {
-                font-size: 11px;
-                margin-top: 8px;
+                font-size: 15px;
+                /* Increased from 11px */
+                margin-top: 2px;
             }
-        
+
             .amount-words input {
                 width: 100%;
-                font-size: 10px;
-                padding: 5px;
+                font-size: 15px;
+                /* Increased from 12px */
+                padding: 4px;
                 border: 1px solid #000;
                 border-radius: 0;
                 box-sizing: border-box;
             }
-        
+
             .payment-details {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 6px;
-                margin-top: 10px;
+                gap: 2px;
+                margin-top: 3px;
             }
-        
+
             .payment-column {
-                flex: 1 1 130px;
-                padding: 2px;
+                flex: 1 1 110px;
+                padding: 0;
             }
-        
+
             .payment-column label {
-                font-size: 9px;
+                font-size: 15px;
+                /* Increased from 9px */
                 display: block;
-                margin-bottom: 1px;
+                margin-bottom: 0;
             }
-        
+
             .payment-column input {
-                font-size: 9px;
+                font-size: 15px;
+                /* Increased from 10px */
                 padding: 4px;
                 width: 100%;
                 border: 1px solid #000;
                 border-radius: 0;
                 box-sizing: border-box;
             }
-        
+
             .footer {
-                font-size: 11px;
+                font-size: 14px;
+                /* Increased from 10px */
                 text-align: center;
-                margin-top: 23px;
+                margin-top: 3px;
             }
-        
+
             .notes p {
                 color: #000 !important;
             }
-        
+
             .no-print,
             .submit,
             .update-btn,
@@ -932,15 +976,15 @@
             .reset-print-btns button:not(.print-btn) {
                 display: none !important;
             }
-        
+
             .no-print-textarea {
                 display: none !important;
             }
-        
+
             .print-address {
                 display: block !important;
             }
-        
+
             select {
                 -webkit-appearance: none !important;
                 -moz-appearance: none !important;
@@ -948,101 +992,110 @@
                 background: none !important;
                 border: 1px solid #000 !important;
                 padding-right: 0 !important;
+                font-size: 13px !important;
+                /* Increased from 12px */
             }
-        
+
             option[value=""] {
                 display: none;
             }
-        
+
             input[type="date"] {
                 color: #000 !important;
             }
-        
+
             #fee-breakdown-section {
                 display: none !important;
             }
-        
+
             .paynotshow {
                 display: none !important;
             }
-        
+
             .payment-section {
                 border: 1px solid #000;
-                padding: 4px 6px;
-                margin-bottom: 6px;
-                font-size: 10px;
+                padding: 5px 8px;
+                margin-bottom: 5px;
+                font-size: 14px;
+                /* Increased from 9px */
                 page-break-inside: avoid;
             }
-        
+
             .payment-section h3 {
-                font-size: 12px;
-                margin: 4px 0 6px;
+                font-size: 13px;
+                /* Increased from 11px */
+                margin: 1px 0 2px;
             }
-        
+
             .payment-section label {
-                font-size: 9px;
-                margin-bottom: 2px;
+                font-size: 15px;
+                /* Increased from 9px */
+                margin-bottom: 0;
                 display: block;
             }
-        
+
             .payment-section input {
-                font-size: 9px;
-                padding: 3px;
+                font-size: 15px;
+                /* Increased from 10px */
+                padding: 4px;
                 width: 100%;
-                margin-bottom: 3px;
+                margin-bottom: 0.5px;
                 border: 1px solid #000;
                 border-radius: 0;
                 box-sizing: border-box;
             }
-        
+
             .fee-table,
             .amount-words,
             .signature-section,
             .footer {
                 page-break-inside: avoid;
             }
-        
+
             .table input::placeholder {
                 color: transparent;
             }
         }
-        
+
         .money-account-column {
             display: flex;
-            align-items: center; /* vertically center label and input */
-            gap: 10px; /* spacing between label and input */
-          }
-          
-          .money-account-column label {
-            white-space: nowrap; /* prevent label from breaking into multiple lines */
-          }
-          
-          .acc-int {
-            flex: 1; /* optional: let the input expand to fill space */
+            align-items: center;
+            /* vertically center label and input */
+            gap: 10px;
+            /* spacing between label and input */
+        }
+
+        .money-account-column label {
+            white-space: nowrap;
+            /* prevent label from breaking into multiple lines */
+        }
+
+        .acc-int {
+            flex: 1;
+            /* optional: let the input expand to fill space */
             padding: 6px;
-          }
-        
+        }
+
         .payment-section input {
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-  border: 1px solid #333; /* Match your other input borders */
-  border-radius: 4px;
-}
-#amword{
-    color: #000000;
-    font-weight: 540;
-}
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #333;
+            /* Match your other input borders */
+            border-radius: 4px;
+        }
 
-
-
+        #amword {
+            color: #000000;
+            font-weight: 540;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 
 <body>
-    <form class="receipt-form" action="/money-recipt" method="post">
+    <form class="receipt-form" action="/money-recipt" method="post" id="paymentForm">
 
         <div class="header">
 
@@ -1067,13 +1120,69 @@
 
 </div> -->
 
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input type="text" id="id" name="Stdid" placeholder="Enter id" required onblur=
+            "fetchStudentDetails(this.value)" required
+                style="width: 150px;">
+        </div>
 
         <div class="form-content">
             <div class="form-section">
                 <div class="form-group">
-                    <label for="name">ID</label>
-                    <input type="text" id="id" name="Stdid" placeholder="Enter id"  onblur="fetchStudentDetails()" required>
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="Stdname" placeholder="Enter stundent name">
                 </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+
+                    <!-- Visible on screen -->
+                    <textarea id="address" name="Stdaddress" placeholder="Enter address" rows="3"
+                        class="no-print-textarea"
+                        style="width: 100%; resize: vertical; border: 1px solid #CCCCCC; padding: 8px;"></textarea>
+
+                    <!-- Hidden on screen, visible in print -->
+                    <div class="print-address" style="display: none;">
+                        <p id="printedAddress"
+                            style="margin-top: 4px; font-size: 12px; border: 1px solid #000; padding: 8px;"></p>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="admission_date">Specialization</label>
+                    <input type="text" id="admission_date" name="stdDateOfAdmission" placeholder="Enter specialization">
+                </div>
+                <div id="admittedby" class="form-group">
+                    <label for="admitted_by">Admitted By</label>
+                    <input type="text" id="admitted_by" name="StdAdmittedBy" placeholder="Enter admitted by name">
+                </div>
+
+                <div id="fullfee" class="form-group">
+                    <label for="fees">Full Course Fees</label>
+                    <input type="number" id="fees" name="Stdfullfees" placeholder="Enter full course fee" step="0.01">
+                </div>
+
+            </div>
+
+            <div class="form-section">
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="Stdphone" placeholder="Enter mobile number">
+                </div>
+                <div class="form-group">
+                    <label for="course">Course</label>
+                    <input type="text" id="course" name="Stdcourse" placeholder="Enter course name">
+                </div>
+
+                <div id="universityname" class="form-group">
+                    <label for="university_name">University Name</label>
+                    <input type="text" id="university_name" name="stdUniversityName"
+                        placeholder="Enter university name">
+                </div>
+
                 <div class="form-group" id="paymentNum">
                     <label for="paymentNum" class="paymentNum">Payment Number</label>
                     <select id="id" name="stdpaymentnumber" required>
@@ -1130,30 +1239,6 @@
 
                     </select>
                 </div>
-
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="Stdname" placeholder="Enter stundent name">
-                </div>
-                <div class="form-group">
-                    <label for="address">Address</label>
-
-                    <!-- Visible on screen -->
-                    <textarea id="address" name="Stdaddress" placeholder="Enter address" rows="3"
-                        class="no-print-textarea"
-                        style="width: 100%; resize: vertical; border: 1px solid #CCCCCC; padding: 8px;"></textarea>
-
-                    <!-- Hidden on screen, visible in print -->
-                    <div class="print-address" style="display: none;">
-                        <p id="printedAddress"
-                            style="margin-top: 4px; font-size: 12px; border: 1px solid #000; padding: 8px;"></p>
-                    </div>
-                </div>
-
-          <div id="fullfee" class="form-group">
-                    <label for="fees">Full Course Fees</label>
-                    <input type="number" id="fees" name="Stdfullfees" placeholder="Enter full course fee" step="0.01">
-                </div>
                 <div id="paidfee" class="form-group">
                     <label for="paidfees">Paid Fees</label>
                     <input type="number" id="fees" name="Stdpaidfee" placeholder="Enter paid fee" required>
@@ -1162,112 +1247,22 @@
 
             <div class="form-section">
                 <div class="form-group">
-                    <label for="course">Course</label>
-                    <select id="course" name="Stdcourse">
-                        <option value="">Select a course</option>
-                        <option value="10TH BOARD">10TH BOARD</option>
-                        <option value="12TH BOARD">12TH BOARD</option>
-                        <option value="BA">BA</option>
-                        <option value="MA ">MA </option>
-                        <option value="BSW ">BSW </option>
-                        <option value="MSW ">MSW </option>
-                        <option value="BFA ">BFA </option>
-                        <option value="B.COM">B.COM</option>
-                        <option value="M.COM">M.COM </option>
-                        <option value="B.SC ">B.SC </option>
-                        <option value="M.SC">M.SC</option>
-                        <option value="BBA">BBA</option>
-                        <option value="MBA">MBA </option>
-                        <option value="E - MBA">E - MBA</option>
-                        <option value="BHM">BHM</option>
-                        <option value="DCA">DCA</option>
-                        <option value="BCA">BCA</option>
-                        <option value="MCA">MCA</option>
-                        <option value="MCA - LE">MCA - LE</option>
-                        <option value="DIPLOMA">DIPLOMA</option>
-                        <option value="PGDCA">PGDCA</option>
-                        <option value="LLB">LLB</option>
-                        <option value="B.A.L.L.B">B.A.L.L.B</option>
-                        <option value="BBA.LLB">BBA.LLB</option>
-                        <option value="LLM">LLM</option>
-                        <option value="D PHARMA">D PHARMA</option>
-                        <option value="B PHARMA">B PHARMA</option>
-                        <option value="M PHARMA">M PHARMA</option>
-                        <option value="ANM">ANM</option>
-                        <option value="GNM">GNM</option>
-                        <option value="PB B.SC NURSING">PB B.SC NURSING</option>
-                        <option value="DMLT">DMLT </option>
-                        <option value="BPT">BPT </option>
-                        <option value="MPT">MPT </option>
-                        <option value="BMLT">BMLT</option>
-                        <option value="BRIT">BRIT </option>
-                        <option value="BOTT ">BOTT </option>
-                        <option value="BPH ">BPH </option>
-                        <option value="MPH">MPH</option>
-                        <option value="MPHW ">MPHW </option>
-                        <option value="GDA ">GDA </option>
-                        <option value="TBHV">TBHV </option>
-                        <option value="B.D A">B.D A </option>
-                        <option value="BVA">BVA</option>
-                        <option value="BFA">BFA</option>
-                        <option value="MDA">MDA </option>
-                        <option value="MVA">MVA </option>
-                        <option value="MFA ">MFA </option>
-                        <option value="BNYS ">BNYS</option>
-                        <option value="B.ED">B.ED</option>
-                        <option value="B.EL.B.ED">B.EL.B.ED</option>
-                        <option value="NTT">NTT</option>
-                        <option value="M ED">M ED </option>
-                        <option value="MPED">MPED </option>
-                        <option value="B.LIB  ">B.LIB </option>
-                        <option value="M.LIB ">M.LIB </option>
-                        <option value="D.LIB ">D.LIB </option>
-                        <option value="BJMC ">BJMC </option>
-                        <option value="MJMC ">MJMC </option>
-                        <option value="PHD ">PHD </option>
-                        <option value="B.TECH ">B.TECH </option>
-                        <option value="B.TECH - LE">B.TECH - LE </option>
-                        <option value="M.TECH">M.TECH </option>
-                        <option value="B.TECH + M.TECH ">B.TECH + M.TECH </option>
-
-                    </select>
-                </div>
-                <div class="form-group" id="lastPayPrint">
-                    <label for="admission_date">Last Payment Data</label>
-                    <input type="date" id="admission_date" name="Stdlastpaiddate" required>
-                </div>
-                <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="Stdemail" placeholder="Enter email">
                 </div>
+
                 <div class="form-group">
                     <label for="admission_date">Mode</label>
                     <input type="text" id="admission_date" name="stdmode" placeholder="Enter course mode">
                 </div>
-                <div id="universityname" class="form-group">
-                    <label for="university_name">University Name</label>
-                    <input type="text" id="university_name" name="stdUniversityName"
-                        placeholder="Enter university name">
-                </div>
-               
-            </div>
 
-            <div class="form-section">
-                <div class="form-group">
-                    <label for="admission_date">Specialization</label>
-                    <input type="text" id="admission_date" name="stdDateOfAdmission" placeholder="Enter specialization">
-                </div>
-                <div id="admittedby" class="form-group">
-                    <label for="admitted_by">Admitted By</label>
-                    <input type="text" id="admitted_by" name="StdAdmittedBy" placeholder="Enter admitted by name">
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="Stdphone" placeholder="Enter mobile number">
-                </div>
                 <div id="examsession" class="form-group">
                     <label for="exam_session">Exam Session</label>
                     <input type="text" id="exam_session" name="StdExamSession" placeholder="Enter exam session">
+                </div>
+                <div class="form-group" id="lastPayPrint">
+                    <label for="admission_date">Last Payment Data</label>
+                    <input type="date" id="admission_date" name="Stdlastpaiddate" required>
                 </div>
 
                 <div class="form-group" id="brk">
@@ -1282,8 +1277,8 @@
                         <textarea id="fee_breakdown_textarea" name="stdtotalbreakdetails" class="message-box" rows="6"
                             placeholder="Enter fee details here"><%= typeof stdtotalbreakdetails !== 'undefined' ? stdtotalbreakdetails : '' %></textarea>
                     </div>
-                    
-                    
+
+
                     <!-- <div class="total-display">
                         <strong>Total Payable: <span id="total_fee"></span></strong>
                     </div>
@@ -1469,7 +1464,7 @@
             <input type="text" name="cheque_branch" placeholder="Enter branch name">
 
             <label>Amount</label>
-            <input  type="number" name="cheque_amount" placeholder="Enter amount" id="cheam">
+            <input type="number" name="cheque_amount" placeholder="Enter amount" id="cheam">
         </div>
 
         <!-- Draft Payment -->
@@ -1511,7 +1506,7 @@
             <input type="text" name="online_branch" placeholder="Enter branch name">
 
             <label>Amount</label>
-            <input type="number" name="online_amount" placeholder="Enter amount" id="cheam" >
+            <input type="number" name="online_amount" placeholder="Enter amount" id="cheam">
 
             <label>UPI Number</label>
             <input type="text" name="upi_number" placeholder="Enter UPI number">
@@ -1520,7 +1515,9 @@
         <div class="money-account-section">
             <div class="money-account-column">
                 <label for="account_no">Money Receipt Number : </label>
-                <input class="acc-int" type="text" id="account_no" name="account_no" placeholder="">
+                <input class="acc-int" type="text" id="account_no" name="account_no" placeholder=""
+                    style="width: 400px ;">
+
             </div>
 
             <div class="extra-details">
@@ -1544,9 +1541,9 @@
             </div>
 
             <div class="sub-btn">
-                <button class="submit">Submit</button>
+                <button type="submit" class="submit">Submit</button>
             </div>
-
+            <div id="messageBox" class="message-box hidden"></div>
             <br>
             <form class="receipt-form">
                 <div class="prnt">
@@ -1555,7 +1552,7 @@
                         <button type="button" class="print-btn" onclick="window.print()">Print</button>
                         <button type="reset" class="reset-btn">Reset</button>
                     </div>
-                  
+
                     <div class="footer">
                         <p>1/2d,BosePukur Prantik Pally, Ground Floor, Kolkata-700042 </p>
                     </div>
@@ -1566,7 +1563,55 @@
 
     </form>
 
+    <script>
+        document.getElementById("paymentForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
 
+            const formData = new FormData(this);
+            const formObj = {};
+            formData.forEach((value, key) => formObj[key] = value);
+
+            const messageBox = document.getElementById("messageBox");
+
+            try {
+                const response = await fetch("/money-recipt", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formObj)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    messageBox.className = "message-box success";
+                    messageBox.textContent = result.message;
+                } else {
+                    messageBox.className = "message-box error";
+                    messageBox.textContent = result.message || "Something went wrong.";
+                }
+
+                messageBox.classList.remove("hidden");
+
+                // Auto hide after 4 seconds
+                setTimeout(() => {
+                    messageBox.classList.add("hidden");
+                }, 4000);
+
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                messageBox.className = "message-box error";
+                messageBox.textContent = "Server error. Please try again.";
+                messageBox.classList.remove("hidden");
+
+                setTimeout(() => {
+                    messageBox.classList.add("hidden");
+                }, 4000);
+            }
+        });
+    </script>
+      
     <script>
         document.querySelectorAll('.amount-input').forEach(input => {
             input.addEventListener('input', () => {
@@ -1812,34 +1857,69 @@
             sessionStorage.removeItem('grandTotal');
         };
     </script>
-      
 
 
-<script>
-    async function fetchStudentDetails() {
-        const studentId = document.getElementById('Stdid').value.trim();
-        if (!studentId) return;
-    
-        try {
-            const res = await fetch(`/api/student/${Stdid}`);
-            if (!res.ok) throw new Error('Student not found');
-            const data = await res.json();
-    
-            document.getElementById('name').value = data.name || '';
-            document.getElementById('email').value = data.email || '';
-            document.getElementById('address').value = data.address || '';
-            document.getElementById('course').value = data.course || '';
-            document.getElementById('specialization').value = data.specialization || '';
-            document.getElementById('phone').value = data.phone || '';
-            document.getElementById('mode').value = data.mode || '';
-            document.getElementById('examSession').value = data.examSession || '';
-            // Fill others similarly
-        } catch (error) {
-            alert(error.message);
+
+    <!-- <script>
+        async function fetchStudentDetails() {
+            const studentId = document.getElementById('Stdid').value.trim();
+            if (!studentId) return;
+
+            try {
+                const res = await fetch(`/api/student/${Stdid}`);
+                if (!res.ok) throw new Error('Student not found');
+                const data = await res.json();
+
+                document.getElementById('name').value = data.name || '';
+                document.getElementById('email').value = data.email || '';
+                document.getElementById('address').value = data.address || '';
+                document.getElementById('course').value = data.course || '';
+                document.getElementById('specialization').value = data.specialization || '';
+                document.getElementById('phone').value = data.phone || '';
+                document.getElementById('mode').value = data.mode || '';
+                document.getElementById('examSession').value = data.examSession || '';
+                // Fill others similarly
+            } catch (error) {
+                alert(error.message);
+            }
         }
-    }
-    </script>    
-    
+    </script> -->
+
+
+    <script>
+        function fetchStudentDetails(studentId) {
+            if (!studentId) return;
+
+            fetch(`/get-student/${studentId}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('name').value = data.student.name || '';
+                        document.getElementById('address').value = data.student.address || '';
+                        document.getElementById('admission_date').value = data.student.admission_date || '';
+                        document.getElementById('admitted_by').value = data.student.admitted_by || '';
+                        document.getElementById('fees').value = data.student.fees || '';
+                        document.getElementById('phone').value = data.student.phone || '';
+                        document.getElementById('course').value = data.student.course || '';
+                        document.getElementById('university_name').value = data.student.university_name || '';
+                        document.getElementById('id').value = data.student.id || '';
+                        document.getElementById('email').value = data.student.email || '';
+                        document.getElementById('exam_session').value = data.student.exam_session || '';
+                        document.getElementById('mode').value = data.student.mode || '';
+
+                        // Fill more fields as needed
+                    } else {
+                        alert("Student not found");
+                    }
+                })
+                .catch(err => {
+                    console.error("Error fetching student details:", err);
+                });
+        }
+    </script>
+
+
+
 </body>
 
 </html>

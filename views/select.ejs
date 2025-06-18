@@ -4,102 +4,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Login Selection</title>
     <link rel="shortcut icon"
         href="https://ik.imagekit.io/7de5cntkw/1692626704665-photoaidcom-cropped%20(1).jpeg?updatedAt=1738048156918"
         type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            color: white;
+        * {
             margin: 0;
             padding: 0;
-            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e6e9f0, #eef1f5);
+            color: #1a202c;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            background: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar .logo i {
+            color: #4299e1;
+        }
+
+        .navbar .info {
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
             justify-content: center;
             align-items: center;
+            padding: 80px 40px 40px;
+            background: #f7fafc;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+            padding: 48px;
+            max-width: 650px;
+            width: 100%;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
         }
 
         p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
+            font-size: 1.1rem;
+            color: #718096;
+            margin-bottom: 40px;
+            line-height: 1.6;
         }
 
         .container {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 24px;
         }
 
         .option {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            flex: 1;
         }
 
-        .option:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            border-radius: 4px;
+        .option a {
+            text-decoration: none;
+            display: block;
         }
 
         .option button {
-            background-color: transparent;
-            /* Transparent background */
+            background: linear-gradient(90deg, #4299e1, #2b6cb0);
             color: #ffffff;
-            /* White text */
-            border: 2px solid #ffffff;
-            /* White border */
-            padding: 12px 0;
-            font-size: 16px;
-            font-weight: bold;
+            border: none;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 500;
             border-radius: 10px;
-            /* Softer corners */
             cursor: pointer;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-            width: 150px;
-            height: 50px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             text-transform: uppercase;
-            /* Uppercase text for emphasis */
+            letter-spacing: 0.5px;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+        }
+
+        .option button i {
+            font-size: 1.3rem;
         }
 
         .option button:hover {
-            background-color: #ffffff;
-            /* White background on hover */
-            color: #2575fc;
-            /* Blue text matching gradient */
-            border-color: #2575fc;
-            /* Blue border matching gradient */
+            background: linear-gradient(90deg, #63b3ed, #4299e1);
+            transform: scale(1.02);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .option button:active {
+            transform: scale(1);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 20px;
+            }
+
+            .navbar .logo {
+                font-size: 1.4rem;
+            }
+
+            .navbar .info {
+                font-size: 0.8rem;
+            }
+
+            .main-content {
+                padding: 70px 20px 20px;
+            }
+
+            .card {
+                padding: 32px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .container {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .option button {
+                padding: 14px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <br><br>
-    <h1>Welcome to the Admin And Accountant Page</h1>
-    <p>Please choose an option below</p>
-    <div class="container">
-        <form action="/accountantlogin" method="post">
-            <div class="option">
-                <button id="account" name="account"
-                    onclick="window.location.href='/AccountantIndex'">Accountant</button>
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i>
+            Portal Dashboard
+        </div>
+        <div class="info">Version 1.2.0 | © 2025 Nimtt Pvt. Ltd.</div>
+    </div>
+    <div class="main-content">
+        <div class="card">
+            <h1>Admin & Accountant Portal</h1>
+            <p>Securely access the system by selecting your role</p>
+            <div class="container">
+                <div class="option">
+                    <a href="/accountantlogin">
+                        <button id="account" name="account"><i class="fas fa-calculator"></i> Accountant</button>
+                    </a>
+                </div>
+                <div class="option">
+                    <a href="/adminlogin">
+                        <button id="admin" name="admin"><i class="fas fa-user-shield"></i> Admin</button>
+                    </a>
+                </div>
             </div>
-        </form>
-        <form action="/adminlogin" method="post">
-            <div class="option">
-                <button id="admin" name="admin" onclick="window.location.href='/AdminIndex'">Admin</button>
-            </div>
-        </form>
+        </div>
     </div>
 </body>
 
