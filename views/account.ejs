@@ -91,7 +91,7 @@
                 width: 100%;
                 border: 1px solid #CCCCCC;
                 /* Added border */
-                padding: 4px;
+                padding: 1px;
             }
 
             /* Ensure textarea displays all content without scrollbars */
@@ -725,7 +725,7 @@
 
         /* Styles for the main form */
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
 
         label {
@@ -746,6 +746,7 @@
             display: none;
             border: 1px solid #ccc;
             padding: 5px;
+            
         }
 
         @media print {
@@ -762,7 +763,6 @@
         }
 
         @media print {
-
             html,
             body {
                 margin: 0;
@@ -771,203 +771,185 @@
                 font-family: Arial, sans-serif;
                 color: #000;
             }
-
+        
             .header {
                 text-align: center;
-                margin-bottom: 1px;
+                margin-bottom: 0;
             }
-
+        
             .header img {
                 width: 80px;
                 height: auto;
                 margin-bottom: 0;
             }
-
+        
             .header h2 {
-                font-size: 16px;
-                /* Increased from 14px */
+                font-size: 17px;
                 margin: 0;
                 font-weight: bold;
             }
-
+        
             .header .notes p {
-                font-size: 11px;
-                /* Increased from 9px */
+                font-size: 13px;
                 margin: 0;
             }
-
+        
             .form-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                gap: 0.5px;
-                margin-top: 2px;
+                gap: 0;
+                margin-top: 0;
             }
-
+        
             .form-group {
-                font-size: 14px;
-                /* Increased from 11px */
+                font-size: 15px;
                 margin-bottom: 0;
             }
-
+        
             .form-group label {
                 display: block;
-                margin-bottom: 0;
                 font-weight: bold;
+                margin-bottom: 2px;
             }
-
+        
             .form-group input,
             .form-group select,
             .form-group textarea {
                 width: 100%;
-                padding: 4px;
-                font-size: 13px;
-                /* Increased from 12px */
+                padding: 1px;
+                font-size: 14px;
                 border: 1px solid #000;
                 border-radius: 0;
                 box-sizing: border-box;
                 margin: 0;
             }
-
+        
             #course,
             #specialization,
             #email,
             #ph {
-                font-size: 14px !important;
-                /* Increased from 11px */
-                padding: 4px !important;
+                font-size: 15px !important;
+                padding: 1px !important;
             }
-
+        
             #address {
                 border: 1px solid #000 !important;
                 color: #000;
                 resize: none;
                 width: 100% !important;
-                font-size: 13px !important;
-                /* Increased from 11px */
-                padding: 4px !important;
+                font-size: 14px !important;
+                padding: 1px !important;
             }
-
+        
             #date_of_receipt {
                 border: 1px solid #000 !important;
                 color: #000;
                 resize: none;
-                font-size: 14px !important;
-                /* Increased from 12px */
+                font-size: 15px !important;
             }
-
+        
             input[type="text"],
             input[type="number"],
             input[type="date"] {
-                font-size: 15px;
-                /* Increased from 12px */
-                padding: 4px;
+                font-size: 16px;
+                padding: 2px;
                 border: 1px solid #000;
                 border-radius: 0;
                 box-sizing: border-box;
             }
-
+        
             .table {
                 width: 100%;
-                font-size: 15px;
-                /* Increased from 9px */
+                font-size: 17px;
                 border-collapse: collapse;
-                margin-top: 2px;
-                margin-bottom: 2px;
+                margin-top: 0;
+                margin-bottom: 0;
                 page-break-inside: avoid;
             }
-
+        
             .table thead th,
             .table tfoot td,
             .table td {
                 padding: 1px 2px;
                 border: 1px solid #000;
                 text-align: left;
-                font-size: 11px;
-                /* Increased from 8px */
+                font-size: 14px;
             }
-
+        
             .amount-input,
             .total {
                 width: 90%;
-                font-size: 16px;
-                /* Increased from 10px */
-                padding: 3px;
+                font-size: 17px;
+                padding: 2px;
                 margin: 0 auto;
                 text-align: center;
                 border: 1px solid #000;
                 background: transparent;
                 box-sizing: border-box;
             }
-
+        
             #grand-total {
                 font-weight: bold;
-                font-size: 15px;
-                /* Increased from 9px */
+                font-size: 16px;
                 text-align: center;
             }
-
+        
             .grand-total {
                 font-weight: bold;
-                font-size: 15px;
-                /* Increased from 9px */
+                font-size: 16px;
             }
-
+        
             .amount-words {
-                font-size: 15px;
-                /* Increased from 11px */
-                margin-top: 2px;
+                font-size: 16px;
+                margin-top: 0;
             }
-
+        
             .amount-words input {
                 width: 100%;
-                font-size: 15px;
-                /* Increased from 12px */
-                padding: 4px;
+                font-size: 16px;
+                padding: 2px;
                 border: 1px solid #000;
                 border-radius: 0;
                 box-sizing: border-box;
             }
-
+        
             .payment-details {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 2px;
-                margin-top: 3px;
+                gap: 0;
+                margin-top: 0;
             }
-
+        
             .payment-column {
                 flex: 1 1 110px;
                 padding: 0;
             }
-
+        
             .payment-column label {
-                font-size: 15px;
-                /* Increased from 9px */
+                font-size: 16px;
                 display: block;
                 margin-bottom: 0;
             }
-
+        
             .payment-column input {
-                font-size: 15px;
-                /* Increased from 10px */
-                padding: 4px;
+                font-size: 16px;
+                padding: 1px;
                 width: 100%;
                 border: 1px solid #000;
                 border-radius: 0;
                 box-sizing: border-box;
             }
-
+        
             .footer {
-                font-size: 14px;
-                /* Increased from 10px */
+                font-size: 12px;
                 text-align: center;
-                margin-top: 3px;
+                margin-top: 0;
             }
-
+        
             .notes p {
                 color: #000 !important;
             }
-
+        
             .no-print,
             .submit,
             .update-btn,
@@ -976,15 +958,15 @@
             .reset-print-btns button:not(.print-btn) {
                 display: none !important;
             }
-
+        
             .no-print-textarea {
                 display: none !important;
             }
-
+        
             .print-address {
                 display: block !important;
             }
-
+        
             select {
                 -webkit-appearance: none !important;
                 -moz-appearance: none !important;
@@ -992,66 +974,60 @@
                 background: none !important;
                 border: 1px solid #000 !important;
                 padding-right: 0 !important;
-                font-size: 13px !important;
-                /* Increased from 12px */
+                font-size: 14px !important;
             }
-
+        
             option[value=""] {
                 display: none;
             }
-
+        
             input[type="date"] {
                 color: #000 !important;
             }
-
+        
             #fee-breakdown-section {
                 display: none !important;
             }
-
+        
             .paynotshow {
                 display: none !important;
             }
-
+        
             .payment-section {
                 border: 1px solid #000;
-                padding: 5px 8px;
-                margin-bottom: 5px;
-                font-size: 14px;
-                /* Increased from 9px */
+                padding: 1px 4px;
+                margin-bottom: 0;
+                font-size: 15px;
                 page-break-inside: avoid;
             }
-
+        
             .payment-section h3 {
-                font-size: 13px;
-                /* Increased from 11px */
-                margin: 1px 0 2px;
+                font-size: 14px;
+                margin: 0;
             }
-
+        
             .payment-section label {
-                font-size: 15px;
-                /* Increased from 9px */
+                font-size: 16px;
                 margin-bottom: 0;
                 display: block;
             }
-
+        
             .payment-section input {
-                font-size: 15px;
-                /* Increased from 10px */
-                padding: 4px;
+                font-size: 16px;
+                padding: 1px;
                 width: 100%;
-                margin-bottom: 0.5px;
                 border: 1px solid #000;
                 border-radius: 0;
                 box-sizing: border-box;
             }
-
+        
             .fee-table,
             .amount-words,
             .signature-section,
             .footer {
                 page-break-inside: avoid;
             }
-
+        
             .table input::placeholder {
                 color: transparent;
             }
@@ -1061,7 +1037,7 @@
             display: flex;
             align-items: center;
             /* vertically center label and input */
-            gap: 10px;
+            gap: 5px;
             /* spacing between label and input */
         }
 
@@ -1089,6 +1065,14 @@
             color: #000000;
             font-weight: 540;
         }
+
+        .form-section {
+            margin-bottom: 2px;
+        }
+        .form-group {
+            margin-bottom: 1px;
+        }
+      
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -1102,7 +1086,7 @@
             <img src="https://media.licdn.com/dms/image/v2/D560BAQFVC52YqmPUdA/company-logo_200_200/company-logo_200_200/0/1692626704665?e=2147483647&v=beta&t=8NtQowu1te5Z34ukLiahUrYtv2Dz3t1JnEKg7PthdqY"
                 alt="Random Image">
             <br>
-            <h2>NIMTT Money Receipt</h2>
+            <h2>Money Receipt</h2>
             <br>
             <div class="notes">
                 <p>#cheque payment are to realisation of the payment</p>
