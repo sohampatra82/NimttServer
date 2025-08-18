@@ -12,7 +12,7 @@ const StudentSchema = new mongoose.Schema({
   stdUniversityName: String,
   Stdcourse: String,
   StdExamSession: String,
-  Stdgrandtotal: Number, // Optional legacy field
+  // Stdgrandtotal: Number, 
   Stdfullfees: {
     type: Number,
     required: true // Total "loan" or course fee

@@ -1,166 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Student Data</title>
-    <link rel="shortcut icon" href="https://ik.imagekit.io/7de5cntkw/1692626704665-photoaidcom-cropped%20(1).jpeg?updatedAt=1738048156918" type="image/x-icon">
+    <title>Updated Student Details</title>
+    <link rel="shortcut icon"
+        href="https://ik.imagekit.io/7de5cntkw/1692626704665-photoaidcom-cropped%20(1).jpeg?updatedAt=1738048156918"
+        type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
-            font-family: "Poppins", sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            background-color: #f4f7fc;
-            color: #333;
+            background: #f4f7fa;
+            color: #1e2a44;
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
+            padding: 24px;
         }
 
         .header {
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            color: white;
-            text-align: center;
+            width: 100%;
+            max-width: 800px;
             padding: 20px;
-            font-size: 22px;
-            font-weight: bold;
+            text-align: center;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
         }
 
-        .content {
-            padding: 25px;
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e2a44;
         }
 
-        label {
+        .search-bar {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .search-bar label {
             font-size: 16px;
             font-weight: 600;
-            display: block;
-            margin-bottom: 10px;
+            color: #1e2a44;
+            margin-right: 12px;
         }
 
-        .input-container {
-            position: relative;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px 40px 12px 12px;
-            border: 1px solid #ccc;
+        .search-bar .search-input-container {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            border: 1px solid #d1d5db;
             border-radius: 8px;
-            font-size: 16px;
-            outline: none;
-            transition: 0.3s;
+            background: #ffffff;
+            overflow: hidden;
+            transition: box-shadow 0.2s ease;
         }
 
-        input:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        .search-bar .search-input-container:focus-within {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-bar input[type="text"] {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            font-size: 14px;
+            background: transparent;
+        }
+
+        .search-bar input[type="text"]:focus {
+            outline: none;
+        }
+
+        .search-bar input[type="text"]::placeholder {
+            color: #9ca3af;
+        }
+
+        .search-bar button {
+            padding: 12px 16px;
+            background: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .search-bar button:hover {
+            background: #1e3a8a;
         }
 
         #user-details {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            width: 100%;
+            max-width: 800px;
+            padding: 24px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             display: none;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        #user-details p {
-            margin: 8px 0;
-            font-size: 16px;
+        .excel-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .excel-table th,
+        .excel-table td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .excel-table th {
+            background: #1e2a44;
+            color: #ffffff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .excel-table td {
+            color: #1e2a44;
             font-weight: 500;
-            color: #444;
+        }
+
+        .excel-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .excel-table tr:hover td {
+            background: #e3f2fd;
+            transition: background 0.2s ease;
         }
 
         .error {
-            color: red;
-            font-weight: bold;
+            padding: 14px;
+            border-radius: 8px;
+            margin: 16px 0;
             text-align: center;
-            padding: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #dc2626;
+            animation: fadeIn 0.3s ease;
         }
 
-        .edit-btn {
-            display: block;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            margin-top: 15px;
-            padding: 10px;
-            background: #28a745;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-content h3 {
+            font-size: 18px;
+            color: #1e2a44;
+            margin-bottom: 16px;
+        }
+
+        .modal-content p {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 24px;
+        }
+
+        .modal-content button {
+            padding: 10px 20px;
+            background: #3b82f6;
+            color: #ffffff;
             border: none;
             border-radius: 8px;
+            font-size: 14px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: background 0.2s ease;
         }
 
-        .edit-btn:hover {
-            background: #218838;
+        .modal-content button:hover {
+            background: #1e3a8a;
         }
-        #see-update-btn {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
 
-#see-update-btn:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
 
-#see-update-btn:active {
-    background-color: #004494;
-    transform: scale(0.98);
-}
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .search-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-bar .search-input-container {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .excel-table th,
+            .excel-table td {
+                font-size: 13px;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .excel-table {
+                font-size: 12px;
+            }
+
+            .excel-table th,
+            .excel-table td {
+                padding: 10px;
+            }
+
+            .search-bar input[type="text"],
+            .search-bar button {
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <div class="container">
-    <div class="header">Student Data</div>
-    <div class="content">
-        <label for="student-id">Enter Student ID:</label>
-        <div class="input-container">
-            <input type="text" id="student-id" placeholder="Enter Student ID">
-        </div>
-        <div id="user-details"></div>
-        
+    <div class="header">
+        <h1>Updated Student Records</h1>
     </div>
-</div>
+    <div class="search-bar">
+        <label for="student-id">Student ID</label>
+        <div class="search-input-container">
+            <input type="text" id="student-id" name="Stdid" placeholder="Enter Student ID">
+            <button type="button" id="search-btn">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                Search
+            </button>
+        </div>
+    </div>
+    <div id="user-details"></div>
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h3 id="modal-title"></h3>
+            <p id="modal-message"></p>
+            <button id="modal-close">OK</button>
+        </div>
+    </div>
 
     <script>
-        document.getElementById('student-id').addEventListener('input', async (event) => {
-            const Stdid = event.target.value.trim();
-            const userDetails = document.getElementById('user-details');
-            
+        const showModal = (title, message) => {
+            const modal = document.getElementById('modal');
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            modal.style.display = 'flex';
+        };
+
+        document.getElementById('modal-close').addEventListener('click', () => {
+            document.getElementById('modal').style.display = 'none';
+        });
+
+        const fetchStudentData = async (Stdid) => {
             if (Stdid === '') {
-                userDetails.innerHTML = '';
-                userDetails.style.display = 'none';
+                document.getElementById('user-details').innerHTML = '';
+                document.getElementById('user-details').style.display = 'none';
                 return;
             }
 
@@ -168,61 +349,78 @@
                 const response = await fetch('/admin-fetch-data', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ Stdid }),
+                    body: JSON.stringify({ Stdid })
                 });
+
                 const data = await response.json();
 
                 if (response.ok) {
                     const formatDate = (isoDate) => {
                         const date = new Date(isoDate);
-                        return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const year = date.getFullYear();
+                        return `${day}-${month}-${year}`;
                     };
 
-                    userDetails.innerHTML = `
-                        <p><strong>Student Name:</strong> ${data.Stdname}</p>
-                        <!-- <p><strong>Date of Admission:</strong> ${formatDate(data.stdDateOfAdmission)}</p> -->
-                        <!-- <p><strong>Admitted By:</strong> ${data.StdAdmittedBy}</p> -->
-                        <!-- <p><strong>University Name:</strong> ${data.stdUniversityName}</p> -->
-                        <!-- <p><strong>Course:</strong> ${data.Stdcourse}</p> -->
-                        <!-- <p><strong>Exam Session:</strong> ${data.StdExamSession}</p> -->
-                        <!-- <p><strong>Total Fee:</strong> ${data.Stdgrandtotal}</p> -->
-                         <!-- <p><strong>Full Course-Fee:</strong> ${data.Stdfullfees}</p> -->
-                        <!-- <p><strong>Paid Fee:</strong> ${data.Stdpaidfee}</p> -->
-                        <!-- <p><strong>Due Fee:</strong> ${data.Stdduefee}</p> -->
-                        <p><strong>Payment Number:</strong> ${data.stdpaymentnumber }</p>
-                        <p><strong>Last Payment Date:</strong> ${data.Stdlastpaiddate ? formatDate(data.Stdlastpaiddate) : "No payment yet"}</p>
-                        <!-- <button class="edit-btn" onclick="editStudent('${Stdid}')">Edit Student Details</button> -->
+                    let lastPaymentNumber = 'No payments yet';
+                    let lastPaymentDate = 'N/A';
+
+                    if (data.PaymentHistory && data.PaymentHistory.length > 0) {
+                        // Find the last payment by most recent date
+                        const lastPayment = data.PaymentHistory.reduce((max, p) =>
+                            new Date(p.paymentDate) > new Date(max.paymentDate) ? p : max,
+                            data.PaymentHistory[0]
+                        );
+                        lastPaymentNumber = lastPayment.paymentNumber;
+                        lastPaymentDate = formatDate(lastPayment.paymentDate);
+                    }
+
+                    document.getElementById('user-details').innerHTML = `
+                        <table class="excel-table">
+                            <tr>
+                                <th>Field</th>
+                                <th>Details</th>
+                            </tr>
+                            <tr>
+                                <td>Student Name</td>
+                                <td>${data.Stdname}</td>
+                            </tr>
+                            <tr>
+                                <td>Last Payment Number</td>
+                                <td>${lastPaymentNumber}</td>
+                            </tr>
+                            <tr>
+                                <td>Last Payment Date</td>
+                                <td>${lastPaymentDate}</td>
+                            </tr>
+                        </table>
                     `;
-                    userDetails.style.display = 'block';
+                    document.getElementById('user-details').style.display = 'block';
                 } else {
-                    userDetails.innerHTML = `<p class="error">${data.message}</p>`;
-                    userDetails.style.display = 'block';
+                    document.getElementById('user-details').innerHTML = `<p class="error">${data.message}</p>`;
+                    document.getElementById('user-details').style.display = 'block';
                 }
             } catch (error) {
-                userDetails.innerHTML = '<p class="error">Error fetching data. Try again later.</p>';
-                userDetails.style.display = 'block';
+                console.error('Error fetching data:', error);
+                document.getElementById('user-details').innerHTML = '<p class="error">Failed to fetch data. Please try again later.</p>';
+                document.getElementById('user-details').style.display = 'block';
             }
+        };
+
+        document.getElementById('search-btn').addEventListener('click', () => {
+            const Stdid = document.getElementById('student-id').value.trim();
+            fetchStudentData(Stdid);
         });
 
-        function editStudent(studentId) {
-            window.location.href = 'AccountantEditPage';
-        }
-   function editStudent(Stdid) {
-    window.open(`AccountantEditPage`, '_blank');
-}
-  document.getElementById('see-update-btn').addEventListener('click', function() {
-        const studentId = document.getElementById('student-id').value.trim();
-        if (studentId) {
-            window.location.href = '/Accountant-SeeUpdated-Student-And-Edit';
-        } 
-    });
-    document.getElementById("see-update-btn").addEventListener("click", function () {
-    const studentId = "yourStudentId"; // Replace with the actual student ID dynamically
-    const url = '/Accountant-SeeUpdated-Student-And-Edit';
-    window.open(url, '_blank');
-});
+        document.getElementById('student-id').addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const Stdid = document.getElementById('student-id').value.trim();
+                fetchStudentData(Stdid);
+            }
+        });
     </script>
 </body>
+
 </html>
-
-

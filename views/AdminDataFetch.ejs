@@ -318,7 +318,8 @@
 
         .download-btn,
         .update-btn,
-        .save-btn {
+        .save-btn,
+        .add-payment-btn {
             padding: 12px 24px;
             border: none;
             border-radius: 8px;
@@ -335,7 +336,8 @@
 
         .download-btn:hover,
         .update-btn:hover,
-        .save-btn:hover {
+        .save-btn:hover,
+        .add-payment-btn:hover {
             background: #1e3a8a;
             transform: translateY(-1px);
         }
@@ -472,7 +474,8 @@
 
             .download-btn,
             .update-btn,
-            .save-btn {
+            .save-btn,
+            .add-payment-btn {
                 width: 100%;
                 justify-content: center;
             }
@@ -505,6 +508,96 @@
                 font-size: 13px;
             }
         }
+
+        .slider {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slider.open {
+            left: 0;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .slider-header h3 {
+            font-size: 18px;
+            color: #1e2a44;
+        }
+
+        .slider-header button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #9ca3af;
+            cursor: pointer;
+        }
+
+        .slider-content {
+            padding: 16px;
+        }
+
+        .slider-content button {
+            width: 100%;
+            padding: 12px;
+            background: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .slider-content button:hover {
+            background: #1e3a8a;
+        }
+
+        .editable-input[readonly] {
+            background: #f9fafb;
+            color: #6b7280;
+            cursor: not-allowed;
+        }
+
+        .payment-entry {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+        }
+
+        .payment-entry input {
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .delete-payment-btn {
+            background: #dc2626;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .delete-payment-btn:hover {
+            background: #b91c1c;
+        }
     </style>
 </head>
 
@@ -517,10 +610,42 @@
         </div>
         <nav>
             <a href="#" class="active">Student Details</a>
-            <!-- <a href="#">Reports</a>
-            <a href="#">Settings</a>
-            <a href="#">Logout</a> -->
         </nav>
+        <a href="#" id="settings-icon" style="
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+        border-radius: 6px;
+        transition: background 0.2s ease, color 0.2s ease;
+        color: white;
+        text-decoration: none;
+    ">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 
+            1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 
+            2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4
+            a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 
+            2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 
+            .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 
+            2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9
+            a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 
+            0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 
+            0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3
+            a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09
+            a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 
+            0 1.82-.33l.06-.06a2 2 0 0 1 
+            2.83 0 2 2 0 0 1 0 2.83l-.06.06
+            a1.65 1.65 0 0 0-.33 1.82V9
+            a1.65 1.65 0 0 0 1.51 1H21
+            a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09
+            a1.65 1.65 0 0 0-1.51 1z">
+                </path>
+            </svg>
+            <span style="font-size: 14px;">Settings</span>
+        </a>
     </div>
     <div class="main-content">
         <div class="container">
@@ -572,9 +697,20 @@
             <button id="modal-close">OK</button>
         </div>
     </div>
+    <div id="slider" class="slider">
+        <div class="slider-header">
+            <h3>Settings</h3>
+            <button id="close-slider">×</button>
+        </div>
+        <div class="slider-content">
+            <button id="secret-btn">Authorized User Only⚠️</button>
+        </div>
+    </div>
 
     <script>
         let isEditing = false;
+        let paymentHistoryChanged = false; // Flag to track payment history changes
+        let originalPaymentDates = {}; // Store original payment dates
 
         const showModal = (title, message) => {
             const modal = document.getElementById('modal');
@@ -594,6 +730,8 @@
                 document.getElementById('update-data').style.display = 'none';
                 document.getElementById('save-data').style.display = 'none';
                 isEditing = false;
+                paymentHistoryChanged = false;
+                originalPaymentDates = {};
                 return;
             }
 
@@ -615,8 +753,16 @@
                         return `${day}-${month}-${year}`;
                     };
 
+                    // Store original payment dates
+                    originalPaymentDates = {};
+                    data.PaymentHistory.forEach(payment => {
+                        originalPaymentDates[payment.paymentNumber] = payment.paymentDate;
+                    });
+
                     const paymentHistoryHTML = data.PaymentHistory.map(payment => `
-                        <li>Payment Number ${payment.paymentNumber} : ₹${payment.amountPaid} on ${formatDate(payment.paymentDate)}</li>
+                        <li data-payment-number="${payment.paymentNumber}">
+                            Payment Number ${payment.paymentNumber} : ₹${payment.amountPaid} on ${formatDate(payment.paymentDate)}
+                        </li>
                     `).join('');
 
                     document.getElementById('user-details').innerHTML = `
@@ -678,17 +824,25 @@
                                 Payment History
                             </h3>
                             <ul>${paymentHistoryHTML || '<li>No payments recorded yet</li>'}</ul>
+                            <button class="add-payment-btn" id="add-payment" style="display: none; margin-top: 12px;">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                </svg>
+                                Add Payment
+                            </button>
                         </div>
                     `;
                     document.getElementById('user-details').style.display = 'block';
                     document.getElementById('update-data').style.display = 'flex';
                     document.getElementById('save-data').style.display = 'none';
                     isEditing = false;
+                    paymentHistoryChanged = false;
                 } else {
                     document.getElementById('user-details').innerHTML = `<p class="error">${data.message}</p>`;
                     document.getElementById('user-details').style.display = 'block';
                     document.getElementById('update-data').style.display = 'none';
                     document.getElementById('save-data').style.display = 'none';
+                    originalPaymentDates = {};
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -696,6 +850,7 @@
                 document.getElementById('user-details').style.display = 'block';
                 document.getElementById('update-data').style.display = 'none';
                 document.getElementById('save-data').style.display = 'none';
+                originalPaymentDates = {};
             }
         };
 
@@ -715,9 +870,12 @@
         document.getElementById('update-data').addEventListener('click', () => {
             if (!isEditing) {
                 isEditing = true;
+                paymentHistoryChanged = false;
                 document.getElementById('update-data').style.display = 'none';
                 document.getElementById('save-data').style.display = 'flex';
+                document.getElementById('add-payment').style.display = 'flex';
 
+                // Make table fields editable
                 document.querySelectorAll('.excel-table td[data-field]').forEach(cell => {
                     const field = cell.dataset.field;
                     const currentValue = cell.textContent.replace(/₹/g, '').trim();
@@ -730,39 +888,208 @@
                         input.min = '0';
                         input.step = '0.01';
                     }
+                    if (field === 'Stdduefee') {
+                        input.readOnly = true;
+                        input.classList.add('editable-input');
+                    }
                     cell.innerHTML = '';
                     cell.appendChild(input);
                 });
+
+                // Make payment history editable
+                document.querySelectorAll('.payment-history ul li').forEach(li => {
+                    const paymentNumber = li.dataset.paymentNumber;
+                    if (!paymentNumber) return; // Skip "No payments recorded yet"
+                    const text = li.textContent.split(': ')[1];
+                    const [amount, date] = text.split(' on ');
+                    const originalDate = originalPaymentDates[paymentNumber];
+                    const formattedDate = date.split('-').reverse().join('-'); // Convert DD-MM-YYYY to YYYY-MM-DD
+                    li.innerHTML = '';
+                    li.classList.add('payment-entry');
+                    li.innerHTML = `
+                        <input type="number" class="editable-input payment-amount" min="0" step="0.01" value="${amount.replace(/₹/g, '')}" data-payment-number="${paymentNumber}">
+                        <input type="date" class="editable-input payment-date" value="${formattedDate}" data-payment-number="${paymentNumber}" data-original-date="${originalDate}">
+                        <button class="delete-payment-btn" data-payment-number="${paymentNumber}">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    `;
+                    // Track if the date was changed
+                    const dateInput = li.querySelector('.payment-date');
+                    dateInput.addEventListener('change', () => {
+                        dateInput.dataset.dateChanged = 'true';
+                        paymentHistoryChanged = true;
+                    });
+                });
+
+                // Add event listeners for dynamic fee and payment history updates
+                const fullInput = document.querySelector('td[data-field="Stdfullfees"] input');
+                const paidInput = document.querySelector('td[data-field="Stdpaidfee"] input');
+                const dueInput = document.querySelector('td[data-field="Stdduefee"] input');
+
+                const updateDueFee = () => {
+                    const full = parseFloat(fullInput.value) || 0;
+                    const paid = parseFloat(paidInput.value) || 0;
+                    const due = full - paid;
+                    dueInput.value = due >= 0 ? due.toFixed(2) : '0.00';
+                    if (due < 0) {
+                        fullInput.classList.add('input-error');
+                        paidInput.classList.add('input-error');
+                        showModal('Validation Error', 'Paid fee cannot exceed full course fee.');
+                    } else {
+                        fullInput.classList.remove('input-error');
+                        paidInput.classList.remove('input-error');
+                    }
+                };
+
+                const updatePaidFeeFromHistory = () => {
+                    paymentHistoryChanged = true;
+                    const paymentAmounts = document.querySelectorAll('.payment-amount');
+                    let totalPaid = 0;
+                    paymentAmounts.forEach(input => {
+                        const amount = parseFloat(input.value) || 0;
+                        totalPaid += amount;
+                    });
+                    totalPaid = Number(totalPaid.toFixed(2));
+                    paidInput.value = totalPaid.toFixed(2);
+                    updateDueFee();
+                };
+
+                fullInput.addEventListener('input', updateDueFee);
+                paidInput.addEventListener('input', updateDueFee);
+                document.querySelectorAll('.payment-amount').forEach(input => {
+                    input.addEventListener('input', updatePaidFeeFromHistory);
+                });
+
+                // Add delete functionality for payment entries
+                document.querySelectorAll('.delete-payment-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        paymentHistoryChanged = true;
+                        btn.closest('li').remove();
+                        updatePaidFeeFromHistory();
+                    });
+                });
+
+                // Add new payment entry
+                document.getElementById('add-payment').addEventListener('click', () => {
+                    paymentHistoryChanged = true;
+                    const ul = document.querySelector('.payment-history ul');
+                    const paymentNumber = ul.querySelectorAll('li[data-payment-number]').length + 1;
+                    const li = document.createElement('li');
+                    li.classList.add('payment-entry');
+                    li.dataset.paymentNumber = paymentNumber;
+                    const today = new Date().toISOString().split('T')[0];
+                    li.innerHTML = `
+                        <input type="number" class="editable-input payment-amount" min="0" step="0.01" value="0" data-payment-number="${paymentNumber}">
+                        <input type="date" class="editable-input payment-date" value="${today}" data-payment-number="${paymentNumber}" data-original-date="${today}" data-date-changed="true">
+                        <button class="delete-payment-btn" data-payment-number="${paymentNumber}">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    `;
+                    ul.appendChild(li);
+                    li.querySelector('.payment-amount').addEventListener('input', updatePaidFeeFromHistory);
+                    li.querySelector('.payment-date').addEventListener('change', () => {
+                        li.querySelector('.payment-date').dataset.dateChanged = 'true';
+                        paymentHistoryChanged = true;
+                    });
+                    li.querySelector('.delete-payment-btn').addEventListener('click', () => {
+                        paymentHistoryChanged = true;
+                        li.remove();
+                        updatePaidFeeFromHistory();
+                    });
+                    updatePaidFeeFromHistory();
+                });
+
+                updateDueFee();
             }
         });
 
         document.getElementById('save-data').addEventListener('click', async () => {
             const Stdid = document.getElementById('student-id').value.trim();
             const updatedData = {};
-
             let isValid = true;
+
+            // Collect table fields
             document.querySelectorAll('.excel-table td[data-field]').forEach(cell => {
                 const input = cell.querySelector('input');
                 if (input) {
                     let value = input.value.trim();
                     if (cell.dataset.field.includes('fee')) {
-                        const numValue = Number(value);
+                        const numValue = parseFloat(value);
                         if (isNaN(numValue) || numValue < 0) {
                             input.classList.add('input-error');
                             isValid = false;
                             return;
                         }
                         input.classList.remove('input-error');
+                        updatedData[cell.dataset.field] = numValue.toFixed(2);
+                    } else {
+                        updatedData[cell.dataset.field] = value;
                     }
-                    updatedData[cell.dataset.field] = value;
-                    cell.textContent = cell.dataset.field.includes('fee') ? `₹${value}` : value;
+                    cell.textContent = cell.dataset.field.includes('fee') ? `₹${parseFloat(value).toFixed(2)}` : value;
                 }
             });
 
-            const fullFees = Number(updatedData.Stdfullfees) || 0;
-            const paidFee = Number(updatedData.Stdpaidfee) || 0;
-            const dueFee = Number(updatedData.Stdduefee) || 0;
-            if (fullFees !== paidFee + dueFee) {
+            // Collect payment history only if it was changed
+            if (paymentHistoryChanged) {
+                const paymentHistory = [];
+                document.querySelectorAll('.payment-history ul li[data-payment-number]').forEach(li => {
+                    const paymentNumber = li.dataset.paymentNumber;
+                    const amountInput = li.querySelector('.payment-amount');
+                    const dateInput = li.querySelector('.payment-date');
+                    const amount = parseFloat(amountInput.value);
+                    const date = dateInput.dataset.dateChanged === 'true' ? dateInput.value : originalPaymentDates[paymentNumber];
+
+                    if (isNaN(amount) || amount < 0) {
+                        amountInput.classList.add('input-error');
+                        isValid = false;
+                        return;
+                    }
+                    if (!date || isNaN(Date.parse(date))) {
+                        dateInput.classList.add('input-error');
+                        isValid = false;
+                        return;
+                    }
+
+                    amountInput.classList.remove('input-error');
+                    dateInput.classList.remove('input-error');
+                    paymentHistory.push({
+                        paymentNumber,
+                        amountPaid: amount.toFixed(2),
+                        paymentDate: date
+                    });
+                });
+                updatedData.PaymentHistory = paymentHistory;
+
+                // Validate payment history total
+                const totalPaidFromHistory = Number(paymentHistory.reduce((sum, payment) => sum + parseFloat(payment.amountPaid), 0).toFixed(2));
+                const paidFee = Number(parseFloat(updatedData.Stdpaidfee).toFixed(2));
+                if (Math.abs(totalPaidFromHistory - paidFee) > 0.01) {
+                    showModal('Validation Error', `Total Paid Fee (₹${paidFee}) must equal the sum of payment history amounts (₹${totalPaidFromHistory}).`);
+                    document.querySelectorAll('.excel-table td[data-field="Stdpaidfee"] input, .payment-amount').forEach(input => {
+                        input.classList.add('input-error');
+                    });
+                    return;
+                }
+            }
+
+            // Validate fee structure
+            const fullFees = Number(parseFloat(updatedData.Stdfullfees).toFixed(2)) || 0;
+            const paidFee = Number(parseFloat(updatedData.Stdpaidfee).toFixed(2)) || 0;
+            const dueFee = Number(parseFloat(updatedData.Stdduefee).toFixed(2)) || 0;
+
+            if (fullFees < paidFee) {
+                showModal('Validation Error', 'Paid fee cannot exceed full course fee.');
+                document.querySelectorAll('.excel-table td[data-field="Stdfullfees"] input, .excel-table td[data-field="Stdpaidfee"] input').forEach(input => {
+                    input.classList.add('input-error');
+                });
+                return;
+            }
+
+            if (Math.abs(fullFees - (paidFee + dueFee)) > 0.01) {
                 showModal('Validation Error', 'Full Course Fee must equal Total Paid Fee plus Due Fee.');
                 document.querySelectorAll('.excel-table td[data-field="Stdfullfees"] input, .excel-table td[data-field="Stdpaidfee"] input, .excel-table td[data-field="Stdduefee"] input').forEach(input => {
                     input.classList.add('input-error');
@@ -771,7 +1098,7 @@
             }
 
             if (!isValid) {
-                showModal('Validation Error', 'Please correct invalid inputs (numeric fields must be non-negative numbers).');
+                showModal('Validation Error', 'Please correct invalid inputs (numeric fields must be non-negative numbers, dates must be valid).');
                 return;
             }
 
@@ -796,10 +1123,17 @@
                     }, 3000);
 
                     isEditing = false;
+                    paymentHistoryChanged = false;
+                    originalPaymentDates = {};
                     document.getElementById('update-data').style.display = 'flex';
                     document.getElementById('save-data').style.display = 'none';
+                    document.getElementById('add-payment').style.display = 'none';
+
+                    // Refresh display with updated data
+                    fetchStudentData(Stdid);
                 } else {
                     showModal('Update Failed', `Failed to update data: ${result.message}`);
+                    // Restore inputs for table fields
                     document.querySelectorAll('.excel-table td[data-field]').forEach(cell => {
                         const field = cell.dataset.field;
                         const input = document.createElement('input');
@@ -807,13 +1141,79 @@
                         input.className = 'editable-input';
                         input.value = cell.textContent.replace(/₹/g, '').trim();
                         if (field.includes('fee')) input.step = '0.01';
+                        if (field === 'Stdduefee') input.readOnly = true;
                         cell.innerHTML = '';
                         cell.appendChild(input);
+                    });
+
+                    // Restore payment history inputs if payment history was changed
+                    if (paymentHistoryChanged) {
+                        document.querySelectorAll('.payment-history ul li[data-payment-number]').forEach(li => {
+                            const paymentNumber = li.dataset.paymentNumber;
+                            const amountInput = li.querySelector('.payment-amount');
+                            const dateInput = li.querySelector('.payment-date');
+                            li.innerHTML = `
+                                <input type="number" class="editable-input payment-amount" min="0" step="0.01" value="${amountInput.value}" data-payment-number="${paymentNumber}">
+                                <input type="date" class="editable-input payment-date" value="${dateInput.value}" data-payment-number="${paymentNumber}" data-original-date="${originalPaymentDates[paymentNumber]}" data-date-changed="${dateInput.dataset.dateChanged || 'false'}">
+                                <button class="delete-payment-btn" data-payment-number="${paymentNumber}">
+                                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            `;
+                            li.querySelector('.payment-date').addEventListener('change', () => {
+                                li.querySelector('.payment-date').dataset.dateChanged = 'true';
+                                paymentHistoryChanged = true;
+                            });
+                        });
+                    }
+
+                    // Re-attach event listeners
+                    const fullInput = document.querySelector('td[data-field="Stdfullfees"] input');
+                    const paidInput = document.querySelector('td[data-field="Stdpaidfee"] input');
+                    const dueInput = document.querySelector('td[data-field="Stdduefee"] input');
+                    const updateDueFee = () => {
+                        const full = parseFloat(fullInput.value) || 0;
+                        const paid = parseFloat(paidInput.value) || 0;
+                        const due = full - paid;
+                        dueInput.value = due >= 0 ? due.toFixed(2) : '0.00';
+                        if (due < 0) {
+                            fullInput.classList.add('input-error');
+                            paidInput.classList.add('input-error');
+                        } else {
+                            fullInput.classList.remove('input-error');
+                            paidInput.classList.remove('input-error');
+                        }
+                    };
+                    const updatePaidFeeFromHistory = () => {
+                        paymentHistoryChanged = true;
+                        const paymentAmounts = document.querySelectorAll('.payment-amount');
+                        let totalPaid = 0;
+                        paymentAmounts.forEach(input => {
+                            const amount = parseFloat(input.value) || 0;
+                            totalPaid += amount;
+                        });
+                        totalPaid = Number(totalPaid.toFixed(2));
+                        paidInput.value = totalPaid.toFixed(2);
+                        updateDueFee();
+                    };
+                    fullInput.addEventListener('input', updateDueFee);
+                    paidInput.addEventListener('input', updateDueFee);
+                    document.querySelectorAll('.payment-amount').forEach(input => {
+                        input.addEventListener('input', updatePaidFeeFromHistory);
+                    });
+                    document.querySelectorAll('.delete-payment-btn').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            paymentHistoryChanged = true;
+                            btn.closest('li').remove();
+                            updatePaidFeeFromHistory();
+                        });
                     });
                 }
             } catch (error) {
                 console.error('Error updating data:', error);
                 showModal('Update Failed', 'Failed to update data. Please try again later.');
+                // Restore inputs for table fields
                 document.querySelectorAll('.excel-table td[data-field]').forEach(cell => {
                     const field = cell.dataset.field;
                     const input = document.createElement('input');
@@ -821,8 +1221,73 @@
                     input.className = 'editable-input';
                     input.value = cell.textContent.replace(/₹/g, '').trim();
                     if (field.includes('fee')) input.step = '0.01';
+                    if (field === 'Stdduefee') input.readOnly = true;
                     cell.innerHTML = '';
                     cell.appendChild(input);
+                });
+
+                // Restore payment history inputs if payment history was changed
+                if (paymentHistoryChanged) {
+                    document.querySelectorAll('.payment-history ul li[data-payment-number]').forEach(li => {
+                        const paymentNumber = li.dataset.paymentNumber;
+                        const amountInput = li.querySelector('.payment-amount');
+                        const dateInput = li.querySelector('.payment-date');
+                        li.innerHTML = `
+                            <input type="number" class="editable-input payment-amount" min="0" step="0.01" value="${amountInput.value}" data-payment-number="${paymentNumber}">
+                            <input type="date" class="editable-input payment-date" value="${dateInput.value}" data-payment-number="${paymentNumber}" data-original-date="${originalPaymentDates[paymentNumber]}" data-date-changed="${dateInput.dataset.dateChanged || 'false'}">
+                            <button class="delete-payment-btn" data-payment-number="${paymentNumber}">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        `;
+                        li.querySelector('.payment-date').addEventListener('change', () => {
+                            li.querySelector('.payment-date').dataset.dateChanged = 'true';
+                            paymentHistoryChanged = true;
+                        });
+                    });
+                }
+
+                // Re-attach event listeners
+                const fullInput = document.querySelector('td[data-field="Stdfullfees"] input');
+                const paidInput = document.querySelector('td[data-field="Stdpaidfee"] input');
+                const dueInput = document.querySelector('td[data-field="Stdduefee"] input');
+                const updateDueFee = () => {
+                    const full = parseFloat(fullInput.value) || 0;
+                    const paid = parseFloat(paidInput.value) || 0;
+                    const due = full - paid;
+                    dueInput.value = due >= 0 ? due.toFixed(2) : '0.00';
+                    if (due < 0) {
+                        fullInput.classList.add('input-error');
+                        paidInput.classList.add('input-error');
+                    } else {
+                        fullInput.classList.remove('input-error');
+                        paidInput.classList.remove('input-error');
+                    }
+                };
+                const updatePaidFeeFromHistory = () => {
+                    paymentHistoryChanged = true;
+                    const paymentAmounts = document.querySelectorAll('.payment-amount');
+                    let totalPaid = 0;
+                    paymentAmounts.forEach(input => {
+                        const amount = parseFloat(input.value) || 0;
+                        totalPaid += amount;
+                    });
+                    totalPaid = Number(totalPaid.toFixed(2));
+                    paidInput.value = totalPaid.toFixed(2);
+                    updateDueFee();
+                };
+                fullInput.addEventListener('input', updateDueFee);
+                paidInput.addEventListener('input', updateDueFee);
+                document.querySelectorAll('.payment-amount').forEach(input => {
+                    input.addEventListener('input', updatePaidFeeFromHistory);
+                });
+                document.querySelectorAll('.delete-payment-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        paymentHistoryChanged = true;
+                        btn.closest('li').remove();
+                        updatePaidFeeFromHistory();
+                    });
                 });
             }
         });
@@ -934,6 +1399,24 @@
             } else {
                 showModal('Download Error', 'Please enter a Student ID to download the statement.');
             }
+        });
+
+        const settingsIcon = document.getElementById('settings-icon');
+        const slider = document.getElementById('slider');
+        const closeSlider = document.getElementById('close-slider');
+        const secretBtn = document.getElementById('secret-btn');
+
+        settingsIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            slider.classList.add('open');
+        });
+
+        closeSlider.addEventListener('click', () => {
+            slider.classList.remove('open');
+        });
+
+        secretBtn.addEventListener('click', () => {
+            window.open('/authorized', '_blank');
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>

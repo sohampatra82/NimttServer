@@ -137,6 +137,165 @@ app.post("/accountantlogin", (req, res) => {
   res.render("accountantlogin");
 });
  
+app.get("/authorized", (req, res) => {
+  res.render("authorized");
+});
+app.get("/student-record-delete", (req, res) => {
+  res.render("delete");
+});
+ 
+
+app.delete("/student-record-delete/:id", async (req, res) => {
+  try {
+    const { id } = req.params; 
+    const result = await StudentModel.deleteOne({ Stdid: id });
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+    res.json({ message: `Student ${id} deleted successfully` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error deleting student" });
+  }
+});
+
+
+
+app.post("/authorized", (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    if (
+      username === process.env.ADMIN_USERNAME &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      // Success message + redirect after 2 seconds
+      res.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Login Success</title>
+            <script src="https://cdn.tailwindcss.com"></script>
+            <style>
+              @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+              .animate-fadeIn {
+                animation: fadeIn 0.5s ease-out;
+              }
+              .spinner {
+                border: 4px solid rgba(0, 0, 0, 0.1);
+                border-left-color: #22c55e;
+                border-radius: 50%;
+                width: 24px;
+                height: 24px;
+                animation: spin 1s linear infinite;
+              }
+              @keyframes spin {
+                to { transform: rotate(360deg); }
+              }
+            </style>
+          </head>
+          <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+            <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center animate-fadeIn">
+              <div class="flex justify-center mb-4">
+                <svg class="w-16 h-16 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-green-600 mb-2">Login Successful!</h2>
+              <p class="text-gray-600 mb-4">Please wait, opening the Remove Details page...</p>
+              <div class="flex justify-center">
+                <div class="spinner"></div>
+              </div>
+              <script>
+                setTimeout(function(){
+                  window.location.href = "/student-record-delete";
+                }, 2000);
+              </script>
+            </div>
+          </body>
+        </html>
+      `);
+    } else {
+      // Error message + redirect after 2 seconds
+      res.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Login Failed</title>
+            <script src="https://cdn.tailwindcss.com"></script>
+            <style>
+              @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+              .animate-fadeIn {
+                animation: fadeIn 0.5s ease-out;
+              }
+              .spinner {
+                border: 4px solid rgba(0, 0, 0, 0.1);
+                border-left-color: #ef4444;
+                border-radius: 50%;
+                width: 24px;
+                height: 24px;
+                animation: spin 1s linear infinite;
+              }
+              @keyframes spin {
+                to { transform: rotate(360deg); }
+              }
+            </style>
+          </head>
+          <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+            <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center animate-fadeIn">
+              <div class="flex justify-center mb-4">
+                <svg class="w-16 h-16 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-red-600 mb-2">Invalid Username or Password!</h2>
+              <p class="text-gray-600 mb-4">Redirecting back...</p>
+              <div class="flex justify-center">
+                <div class="spinner"></div>
+              </div>
+              <script>
+                setTimeout(function(){
+                  window.history.back();
+                }, 2000);
+              </script>
+            </div>
+          </body>
+        </html>
+      `);
+    }
+  } catch (error) {
+    console.error("Error during authorization:", error);
+    res.status(500).send(`
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Server Error</title>
+          <script src="https://cdn.tailwindcss.com"></script>
+        </head>
+        <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+          <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+            <h2 class="text-2xl font-bold text-red-600 mb-2">Internal Server Error</h2>
+            <p class="text-gray-600">Something went wrong. Please try again later.</p>
+          </div>
+        </body>
+      </html>
+    `);
+  }
+});
+
+
 
 // route: /api/student/:id
 app.get("/api/student/:id", async (req, res) => {
@@ -298,7 +457,8 @@ app.post("/admin-update-data", async (req, res) => {
       Stdfullfees,
       Stdpaidfee,
       Stdduefee,
-      stdtotalbreakdetails
+      stdtotalbreakdetails,
+      PaymentHistory
     } = req.body;
 
     if (!Stdid) {
@@ -326,6 +486,37 @@ app.post("/admin-update-data", async (req, res) => {
         .json({ message: "Full fees must equal paid fee plus due fee" });
     }
 
+    // Validate PaymentHistory
+    let totalPaidFromHistory = 0;
+    if (PaymentHistory && Array.isArray(PaymentHistory)) {
+      for (const payment of PaymentHistory) {
+        const amount = Number(payment.amountPaid);
+        if (isNaN(amount) || amount < 0) {
+          return res
+            .status(400)
+            .json({
+              message: `Invalid amount in payment number ${payment.paymentNumber}`
+            });
+        }
+        if (!payment.paymentDate || isNaN(Date.parse(payment.paymentDate))) {
+          return res
+            .status(400)
+            .json({
+              message: `Invalid date in payment number ${payment.paymentNumber}`
+            });
+        }
+        totalPaidFromHistory += amount;
+      }
+      // Ensure PaymentHistory total matches Stdpaidfee
+      if (Math.abs(totalPaidFromHistory - paidFee) > 0.01) {
+        return res
+          .status(400)
+          .json({
+            message: "Total paid fee must equal sum of payment history amounts"
+          });
+      }
+    }
+
     const student = await StudentModel.findOne({ Stdid });
     if (!student) {
       return res.status(404).json({ message: "Student not found" });
@@ -347,7 +538,8 @@ app.post("/admin-update-data", async (req, res) => {
           Stdpaidfee: paidFee,
           Stdduefee: dueFee,
           stdtotalbreakdetails:
-            stdtotalbreakdetails || student.stdtotalbreakdetails
+            stdtotalbreakdetails || student.stdtotalbreakdetails,
+          PaymentHistory: PaymentHistory || student.PaymentHistory
         }
       },
       { new: true }
