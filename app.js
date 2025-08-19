@@ -163,11 +163,13 @@ app.delete("/student-record-delete/:id", async (req, res) => {
 
 app.post("/authorized", (req, res) => {
   const { username, password } = req.body;
+  let AdminUserName = "nimtt@admin2004";
+  let AdminPassword = "admin@remove";
 
   try {
     if (
-      username === process.env.ADMIN_USERNAME &&
-      password === process.env.ADMIN_PASSWORD
+      username === AdminUserName &&
+      password === AdminPassword
     ) {
       // Success message + redirect after 2 seconds
       res.send(`
