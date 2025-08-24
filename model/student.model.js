@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const StudentSchema = new mongoose.Schema({
   Stdid: {
@@ -12,7 +12,6 @@ const StudentSchema = new mongoose.Schema({
   stdUniversityName: String,
   Stdcourse: String,
   StdExamSession: String,
-  // Stdgrandtotal: Number, 
   Stdfullfees: {
     type: Number,
     required: true // Total "loan" or course fee
@@ -33,7 +32,8 @@ const StudentSchema = new mongoose.Schema({
     {
       paymentNumber: { type: String, required: true }, // Transaction ID (e.g., "1st", "2nd")
       amountPaid: { type: Number, required: true }, // Transaction amount
-      paymentDate: { type: Date, default: Date.now } // Transaction timestamp
+      paymentDate: { type: Date, default: Date.now }, // Transaction timestamp
+      paymentMode: { type: String } // Payment mode (e.g., "Online", "Cash")
     }
   ],
   brkcoursefee: Number,
@@ -42,6 +42,7 @@ const StudentSchema = new mongoose.Schema({
   brkothersfee: Number,
   brkdiscount: Number,
   stdmode: String,
+  stdpaymode: String,
   brktotalpayble: Number, // Total payable amount
   stdtotalbreakdetails: {
     type: String,
@@ -49,5 +50,5 @@ const StudentSchema = new mongoose.Schema({
   } // Details of the break-up
 });
 
-const StudentModel = mongoose.model('Student', StudentSchema);
+const StudentModel = mongoose.model("Student", StudentSchema);
 module.exports = StudentModel;

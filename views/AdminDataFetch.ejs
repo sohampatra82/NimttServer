@@ -581,7 +581,8 @@
             padding: 8px 0;
         }
 
-        .payment-entry input {
+        .payment-entry input,
+        .payment-entry select {
             flex: 1;
             min-width: 100px;
         }
@@ -711,6 +712,7 @@
         let isEditing = false;
         let paymentHistoryChanged = false; // Flag to track payment history changes
         let originalPaymentDates = {}; // Store original payment dates
+        let originalPaymentModes = {}; // Store original payment modes
 
         const showModal = (title, message) => {
             const modal = document.getElementById('modal');
@@ -732,6 +734,7 @@
                 isEditing = false;
                 paymentHistoryChanged = false;
                 originalPaymentDates = {};
+                originalPaymentModes = {};
                 return;
             }
 
@@ -753,15 +756,17 @@
                         return `${day}-${month}-${year}`;
                     };
 
-                    // Store original payment dates
+                    // Store original payment dates and modes
                     originalPaymentDates = {};
+                    originalPaymentModes = {};
                     data.PaymentHistory.forEach(payment => {
                         originalPaymentDates[payment.paymentNumber] = payment.paymentDate;
+                        originalPaymentModes[payment.paymentNumber] = payment.paymentMode || 'N/A';
                     });
 
                     const paymentHistoryHTML = data.PaymentHistory.map(payment => `
                         <li data-payment-number="${payment.paymentNumber}">
-                            Payment Number ${payment.paymentNumber} : ₹${payment.amountPaid} on ${formatDate(payment.paymentDate)}
+                            Payment Number ${payment.paymentNumber} : ₹${payment.amountPaid} via ${payment.paymentMode || 'N/A'} on ${formatDate(payment.paymentDate)}
                         </li>
                     `).join('');
 
@@ -792,7 +797,7 @@
                                 <td data-field="stdmode">${data.stdmode || "N/A"}</td>
                             </tr>
                             <tr>
-                                <td>Date of Admission</td>
+                                <td>Specialization</td>
                                 <td data-field="stdDateOfAdmission">${data.stdDateOfAdmission || "N/A"}</td>
                             </tr>
                             <tr>
@@ -843,6 +848,7 @@
                     document.getElementById('update-data').style.display = 'none';
                     document.getElementById('save-data').style.display = 'none';
                     originalPaymentDates = {};
+                    originalPaymentModes = {};
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -851,6 +857,7 @@
                 document.getElementById('update-data').style.display = 'none';
                 document.getElementById('save-data').style.display = 'none';
                 originalPaymentDates = {};
+                originalPaymentModes = {};
             }
         };
 
@@ -901,13 +908,21 @@
                     const paymentNumber = li.dataset.paymentNumber;
                     if (!paymentNumber) return; // Skip "No payments recorded yet"
                     const text = li.textContent.split(': ')[1];
-                    const [amount, date] = text.split(' on ');
+                    const [amountPart, datePart] = text.split(' on ');
+                    const [amount, mode] = amountPart.split(' via ');
                     const originalDate = originalPaymentDates[paymentNumber];
-                    const formattedDate = date.split('-').reverse().join('-'); // Convert DD-MM-YYYY to YYYY-MM-DD
+                    const originalMode = originalPaymentModes[paymentNumber];
+                    const formattedDate = datePart.split('-').reverse().join('-'); // Convert DD-MM-YYYY to YYYY-MM-DD
                     li.innerHTML = '';
                     li.classList.add('payment-entry');
                     li.innerHTML = `
                         <input type="number" class="editable-input payment-amount" min="0" step="0.01" value="${amount.replace(/₹/g, '')}" data-payment-number="${paymentNumber}">
+                        <select class="editable-input payment-mode" data-payment-number="${paymentNumber}">
+                            <option value="Online" ${originalMode === 'Online' ? 'selected' : ''}>Online</option>
+                            <option value="Cash" ${originalMode === 'Cash' ? 'selected' : ''}>Cash</option>
+                            <option value="Cheque" ${originalMode === 'Cheque' ? 'selected' : ''}>Cheque</option>
+                            <option value="Draft" ${originalMode === 'Draft' ? 'selected' : ''}>Draft</option>
+                        </select>
                         <input type="date" class="editable-input payment-date" value="${formattedDate}" data-payment-number="${paymentNumber}" data-original-date="${originalDate}">
                         <button class="delete-payment-btn" data-payment-number="${paymentNumber}">
                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -915,10 +930,15 @@
                             </svg>
                         </button>
                     `;
-                    // Track if the date was changed
+                    // Track if the date or mode was changed
                     const dateInput = li.querySelector('.payment-date');
+                    const modeSelect = li.querySelector('.payment-mode');
                     dateInput.addEventListener('change', () => {
                         dateInput.dataset.dateChanged = 'true';
+                        paymentHistoryChanged = true;
+                    });
+                    modeSelect.addEventListener('change', () => {
+                        modeSelect.dataset.modeChanged = 'true';
                         paymentHistoryChanged = true;
                     });
                 });
@@ -982,6 +1002,12 @@
                     const today = new Date().toISOString().split('T')[0];
                     li.innerHTML = `
                         <input type="number" class="editable-input payment-amount" min="0" step="0.01" value="0" data-payment-number="${paymentNumber}">
+                        <select class="editable-input payment-mode" data-payment-number="${paymentNumber}" data-mode-changed="true">
+                            <option value="Online">Online</option>
+                            <option value="Cash">Cash</option>
+                            <option value="Cheque">Cheque</option>
+                            <option value="Draft">Draft</option>
+                        </select>
                         <input type="date" class="editable-input payment-date" value="${today}" data-payment-number="${paymentNumber}" data-original-date="${today}" data-date-changed="true">
                         <button class="delete-payment-btn" data-payment-number="${paymentNumber}">
                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -993,6 +1019,10 @@
                     li.querySelector('.payment-amount').addEventListener('input', updatePaidFeeFromHistory);
                     li.querySelector('.payment-date').addEventListener('change', () => {
                         li.querySelector('.payment-date').dataset.dateChanged = 'true';
+                        paymentHistoryChanged = true;
+                    });
+                    li.querySelector('.payment-mode').addEventListener('change', () => {
+                        li.querySelector('.payment-mode').dataset.modeChanged = 'true';
                         paymentHistoryChanged = true;
                     });
                     li.querySelector('.delete-payment-btn').addEventListener('click', () => {
@@ -1040,8 +1070,10 @@
                     const paymentNumber = li.dataset.paymentNumber;
                     const amountInput = li.querySelector('.payment-amount');
                     const dateInput = li.querySelector('.payment-date');
+                    const modeSelect = li.querySelector('.payment-mode');
                     const amount = parseFloat(amountInput.value);
                     const date = dateInput.dataset.dateChanged === 'true' ? dateInput.value : originalPaymentDates[paymentNumber];
+                    const mode = modeSelect.dataset.modeChanged === 'true' ? modeSelect.value : originalPaymentModes[paymentNumber];
 
                     if (isNaN(amount) || amount < 0) {
                         amountInput.classList.add('input-error');
@@ -1053,13 +1085,20 @@
                         isValid = false;
                         return;
                     }
+                    if (!mode) {
+                        modeSelect.classList.add('input-error');
+                        isValid = false;
+                        return;
+                    }
 
                     amountInput.classList.remove('input-error');
                     dateInput.classList.remove('input-error');
+                    modeSelect.classList.remove('input-error');
                     paymentHistory.push({
                         paymentNumber,
                         amountPaid: amount.toFixed(2),
-                        paymentDate: date
+                        paymentDate: date,
+                        paymentMode: mode
                     });
                 });
                 updatedData.PaymentHistory = paymentHistory;
@@ -1098,7 +1137,7 @@
             }
 
             if (!isValid) {
-                showModal('Validation Error', 'Please correct invalid inputs (numeric fields must be non-negative numbers, dates must be valid).');
+                showModal('Validation Error', 'Please correct invalid inputs (numeric fields must be non-negative numbers, dates and payment modes must be valid).');
                 return;
             }
 
@@ -1125,6 +1164,7 @@
                     isEditing = false;
                     paymentHistoryChanged = false;
                     originalPaymentDates = {};
+                    originalPaymentModes = {};
                     document.getElementById('update-data').style.display = 'flex';
                     document.getElementById('save-data').style.display = 'none';
                     document.getElementById('add-payment').style.display = 'none';
@@ -1152,8 +1192,15 @@
                             const paymentNumber = li.dataset.paymentNumber;
                             const amountInput = li.querySelector('.payment-amount');
                             const dateInput = li.querySelector('.payment-date');
+                            const modeSelect = li.querySelector('.payment-mode');
                             li.innerHTML = `
                                 <input type="number" class="editable-input payment-amount" min="0" step="0.01" value="${amountInput.value}" data-payment-number="${paymentNumber}">
+                                <select class="editable-input payment-mode" data-payment-number="${paymentNumber}" data-mode-changed="${modeSelect.dataset.modeChanged || 'false'}">
+                                    <option value="Online" ${modeSelect.value === 'Online' ? 'selected' : ''}>Online</option>
+                                    <option value="Cash" ${modeSelect.value === 'Cash' ? 'selected' : ''}>Cash</option>
+                                    <option value="Cheque" ${modeSelect.value === 'Cheque' ? 'selected' : ''}>Cheque</option>
+                                    <option value="Draft" ${modeSelect.value === 'Draft' ? 'selected' : ''}>Draft</option>
+                                </select>
                                 <input type="date" class="editable-input payment-date" value="${dateInput.value}" data-payment-number="${paymentNumber}" data-original-date="${originalPaymentDates[paymentNumber]}" data-date-changed="${dateInput.dataset.dateChanged || 'false'}">
                                 <button class="delete-payment-btn" data-payment-number="${paymentNumber}">
                                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1163,6 +1210,10 @@
                             `;
                             li.querySelector('.payment-date').addEventListener('change', () => {
                                 li.querySelector('.payment-date').dataset.dateChanged = 'true';
+                                paymentHistoryChanged = true;
+                            });
+                            li.querySelector('.payment-mode').addEventListener('change', () => {
+                                li.querySelector('.payment-mode').dataset.modeChanged = 'true';
                                 paymentHistoryChanged = true;
                             });
                         });
@@ -1232,8 +1283,15 @@
                         const paymentNumber = li.dataset.paymentNumber;
                         const amountInput = li.querySelector('.payment-amount');
                         const dateInput = li.querySelector('.payment-date');
+                        const modeSelect = li.querySelector('.payment-mode');
                         li.innerHTML = `
                             <input type="number" class="editable-input payment-amount" min="0" step="0.01" value="${amountInput.value}" data-payment-number="${paymentNumber}">
+                            <select class="editable-input payment-mode" data-payment-number="${paymentNumber}" data-mode-changed="${modeSelect.dataset.modeChanged || 'false'}">
+                                <option value="Online" ${modeSelect.value === 'Online' ? 'selected' : ''}>Online</option>
+                                <option value="Cash" ${modeSelect.value === 'Cash' ? 'selected' : ''}>Cash</option>
+                                <option value="Cheque" ${modeSelect.value === 'Cheque' ? 'selected' : ''}>Cheque</option>
+                                <option value="Draft" ${modeSelect.value === 'Draft' ? 'selected' : ''}>Draft</option>
+                            </select>
                             <input type="date" class="editable-input payment-date" value="${dateInput.value}" data-payment-number="${paymentNumber}" data-original-date="${originalPaymentDates[paymentNumber]}" data-date-changed="${dateInput.dataset.dateChanged || 'false'}">
                             <button class="delete-payment-btn" data-payment-number="${paymentNumber}">
                                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1243,6 +1301,10 @@
                         `;
                         li.querySelector('.payment-date').addEventListener('change', () => {
                             li.querySelector('.payment-date').dataset.dateChanged = 'true';
+                            paymentHistoryChanged = true;
+                        });
+                        li.querySelector('.payment-mode').addEventListener('change', () => {
+                            li.querySelector('.payment-mode').dataset.modeChanged = 'true';
                             paymentHistoryChanged = true;
                         });
                     });
@@ -1355,14 +1417,15 @@
                     const paymentData = Array.from(ul.children).map(li => {
                         const text = li.textContent;
                         const [prefix, rest] = text.split(': ');
-                        const [amount, date] = rest.split(' on ');
-                        return [prefix.replace('Student ', ''), amount.replace(/₹/g, ''), date];
+                        const [amountPart, date] = rest.split(' on ');
+                        const [amount, mode] = amountPart.split(' via ');
+                        return [prefix.replace('Student ', ''), amount.replace(/₹/g, ''), mode, date];
                     });
 
                     doc.autoTable({
                         startY: doc.lastAutoTable.finalY + 15,
-                        head: [['Payment No.', 'Amount', 'Date']],
-                        body: paymentData.length > 0 ? paymentData : [['-', 'No payments recorded yet', '-']],
+                        head: [['Payment No.', 'Amount', 'Mode', 'Date']],
+                        body: paymentData.length > 0 ? paymentData : [['-', 'No payments recorded yet', '-', '-']],
                         theme: 'striped',
                         headStyles: {
                             fillColor: [30, 58, 138],
@@ -1388,8 +1451,9 @@
                         },
                         columnStyles: {
                             0: { cellWidth: 30 },
-                            1: { cellWidth: 40 },
-                            2: { cellWidth: 'auto' }
+                            1: { cellWidth: 30 },
+                            2: { cellWidth: 30 },
+                            3: { cellWidth: 'auto' }
                         }
                     });
                 }

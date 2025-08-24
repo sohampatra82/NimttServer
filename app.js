@@ -360,7 +360,28 @@ app.get("/money-recipt", (req, res) => {
 });
 
 app.post("/money-recipt", async (req, res) => {
-  const { Stdid, Stdname, stdDateOfAdmission, StdAdmittedBy, stdUniversityName, Stdcourse, StdExamSession, Stdgrandtotal, Stdfullfees, stdmode, Stdpaidfee: amountPaidStr, stdpaymentnumber, Stdlastpaiddate, brkcoursefee, brkprospectusfee, brkexamfee, brkothersfee, brkdiscount, brktotalpayble, stdtotalbreakdetails } = req.body; // Current payment amount as string
+  const {
+    Stdid,
+    Stdname,
+    stdDateOfAdmission,
+    StdAdmittedBy,
+    stdUniversityName,
+    Stdcourse,
+    StdExamSession,
+    Stdfullfees,
+    stdmode,
+    stdpaymode,
+    Stdpaidfee: amountPaidStr,
+    stdpaymentnumber,
+    Stdlastpaiddate,
+    brkcoursefee,
+    brkprospectusfee,
+    brkexamfee,
+    brkothersfee,
+    brkdiscount,
+    brktotalpayble,
+    stdtotalbreakdetails
+  } = req.body; // Current payment amount as string
 
   try {
     // Convert and validate inputs
@@ -371,6 +392,9 @@ app.post("/money-recipt", async (req, res) => {
     }
     if (isNaN(fullFees) || fullFees < 0) {
       return res.status(400).json({ message: "Invalid full fees amount" });
+    }
+    if (!stdpaymode) {
+      return res.status(400).json({ message: "Payment mode is required" });
     }
 
     const student = await StudentModel.findOne({ Stdid });
@@ -385,15 +409,8 @@ app.post("/money-recipt", async (req, res) => {
         stdUniversityName,
         Stdcourse,
         stdmode,
+        stdpaymode,
         StdExamSession,
-        Stdgrandtotal,
-        brkcoursefee,
-        brkprospectusfee,
-        brkexamfee,
-        brkothersfee,
-        brkdiscount,
-        brktotalpayble,
-        stdtotalbreakdetails,
         Stdfullfees: fullFees,
         Stdpaidfee: amountPaid,
         Stdduefee: fullFees - amountPaid,
@@ -403,9 +420,17 @@ app.post("/money-recipt", async (req, res) => {
           {
             paymentNumber: stdpaymentnumber,
             amountPaid,
-            paymentDate: Stdlastpaiddate || new Date()
+            paymentDate: Stdlastpaiddate || new Date(),
+            paymentMode: stdpaymode
           }
-        ]
+        ],
+        brkcoursefee,
+        brkprospectusfee,
+        brkexamfee,
+        brkothersfee,
+        brkdiscount,
+        brktotalpayble,
+        stdtotalbreakdetails
       });
       // console.log('New student created:', newStudent);
     } else {
@@ -420,14 +445,16 @@ app.post("/money-recipt", async (req, res) => {
             PaymentHistory: {
               paymentNumber: stdpaymentnumber,
               amountPaid,
-              paymentDate: Stdlastpaiddate || new Date()
+              paymentDate: Stdlastpaiddate || new Date(),
+              paymentMode: stdpaymode
             }
           },
           $set: {
             Stdpaidfee: newPaidFee,
             Stdduefee: newDueFee,
             stdpaymentnumber,
-            Stdlastpaiddate: Stdlastpaiddate || new Date()
+            Stdlastpaiddate: Stdlastpaiddate || new Date(),
+            stdpaymode
           }
         },
         { new: true }
@@ -436,7 +463,6 @@ app.post("/money-recipt", async (req, res) => {
     }
 
     res.json({ success: true, message: "Payment submitted successfully!" });
-
   } catch (error) {
     console.error("Error processing payment:", error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -454,6 +480,7 @@ app.post("/admin-update-data", async (req, res) => {
       stdUniversityName,
       Stdcourse,
       stdmode,
+      stdpaymode,
       stdDateOfAdmission,
       StdExamSession,
       Stdfullfees,
@@ -596,6 +623,7 @@ app.post("/update-student-details", async (req, res) => {
         stdUniversityName,
         Stdcourse,
         stdmode,
+        stdpaymode,
         StdExamSession,
          brkcoursefee,
         brkprospectusfee,
