@@ -1045,6 +1045,14 @@ app.post(
 
 
 //SIGN UP FOR ADMIN
+const allowedAdminEmails = [
+  process.env.AdminEmail_1,
+  process.env.AdminEmail_2,
+  process.env.AdminEmail_3,
+  process.env.AdminEmail_4,
+  process.env.AdminEmail_5
+];
+
 app.post(
   "/admin-signup",
   body("email").isEmail().trim().isLength({ min: 8 }),
@@ -1082,6 +1090,31 @@ app.post(
       }
 
       const { username, email, password } = req.body;
+// after const { username, email, password } = req.body;
+
+if (!allowedAdminEmails.includes(email)) {
+  return res.send(`
+    <html>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>Unauthorized Email</title>
+      </head>
+      <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+          <h2 class="text-2xl font-semibold text-red-600 mb-4">Signup Restricted</h2>
+          <p class="text-gray-700 mb-6">
+            You are not authorized to create an admin account.
+          </p>
+          <a href="/admin-signup" class="inline-block px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors">
+            Try Again
+          </a>
+        </div>
+      </body>
+    </html>
+  `);
+}
 
       // Check if username or email already exists
       const existingUser = await adminLoginModel.findOne({
@@ -1161,6 +1194,8 @@ app.post(
   }
 );
 
+
+
 // SIGN IN FOR ADMIN
 app.post(
   "/AdminIndex",
@@ -1194,6 +1229,7 @@ app.post(
 
       // Check if user exists
       const Employeedata = await adminLoginModel.findOne({ username });
+
       if (!Employeedata) {
         return res.send(`
           <html>
@@ -1213,6 +1249,28 @@ app.post(
           </html>
         `);
       }
+// Check if email is allowed for admin login
+if (!allowedAdminEmails.includes(Employeedata.email)) {
+  return res.send(`
+    <html>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>Unauthorized Access</title>
+      </head>
+      <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+          <h2 class="text-2xl font-semibold text-red-600 mb-4">Unauthorized Access</h2>
+          <p class="text-gray-700 mb-6">You are not allowed to access this admin panel.</p>
+          <a href="/adminlogin" class="inline-block px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors">
+            Go Back
+          </a>
+        </div>
+      </body>
+    </html>
+  `);
+}
 
       // Verify password
       const loginPassWord = await bcrypt.compare(
