@@ -1,4 +1,6 @@
 require("dotenv").config();
+
+
 const express = require("express");
 const app = express();
 const StudentModel = require("./model/student.model");
@@ -1046,12 +1048,13 @@ app.post(
 
 //SIGN UP FOR ADMIN
 const allowedAdminEmails = [
-  process.env.AdminEmail_1,
-  process.env.AdminEmail_2,
-  process.env.AdminEmail_3,
-  process.env.AdminEmail_4,
-  process.env.AdminEmail_5
+  "sneha@nimttgroup.com",
+  "samir@nimttgroup.com",
+  "naynath@rediffmail.com",
+  "sohampatra866@gmail.com",
+  "jitubhi89@gmail.com"
 ];
+
 
 app.post(
   "/admin-signup",
