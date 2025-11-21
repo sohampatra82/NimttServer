@@ -1050,12 +1050,15 @@ app.post(
 const allowedAdminEmails = [
   "sneha@nimttgroup.com",
   "samir@nimttgroup.com",
-  "naynath@rediffmail.com",
+  "naynanath@rediffmail.com",
   "sohampatra866@gmail.com",
-  "jitubhi89@gmail.com"
+  "jitubhi89@gmail.com",
+  "test@gmail.com",
+  "test1@gmail.com",
+  "test2@gmail.com"
 ];
 
-
+// ADMIN SIGNUP
 app.post(
   "/admin-signup",
   body("email").isEmail().trim().isLength({ min: 8 }),
