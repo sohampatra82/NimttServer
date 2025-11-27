@@ -1045,13 +1045,12 @@ app.post(
 
 
 
-//SIGN UP FOR ADMIN
 const allowedAdminEmails = [
   "sneha@nimttgroup.com",
   "samir@nimttgroup.com",
+  "naynanath@rediffmail.com",
   "sohampatra866@gmail.com",
   "jitubhi89@gmail.com",
-  "naynanath@rediffmail.com",
   "test@gmail.com",
   "test1@gmail.com",
   "test2@gmail.com"
@@ -1094,49 +1093,35 @@ app.post(
         `);
       }
 
-      // Extract user data
-      let { username, email, password } = req.body;
-
-    const normalizedEmail = email.trim().toLowerCase();
-    const normalizedAllowed = allowedAdminEmails.map(e =>
-      e.trim().toLowerCase()
-    );
-
-    console.log("USER TYPED EMAIL:", email);
-    console.log("NORMALIZED EMAIL:", normalizedEmail);
-    console.log("ALLOWED LIST:", normalizedAllowed);
-
-
-      // Check allowed admin email
-      if (!normalizedAllowed.includes(normalizedEmail)) {
+      const { username, email, password } = req.body;
+      if (!allowedAdminEmails.includes(email)) {
         return res.send(`
-          <html>
-            <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <script src="https://cdn.tailwindcss.com"></script>
-              <title>Unauthorized Email</title>
-            </head>
-            <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-              <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
-                <h2 class="text-2xl font-semibold text-red-600 mb-4">Signup Restricted</h2>
-                <p class="text-gray-700 mb-6">
-                  You are not authorized to create an admin account.
-                </p>
-                <a href="/admin-signup" class="inline-block px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors">
-                  Try Again
-                </a>
-              </div>
-            </body>
-          </html>
-        `);
+    <html>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>Unauthorized Email</title>
+      </head>
+      <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+          <h2 class="text-2xl font-semibold text-red-600 mb-4">Signup Restricted</h2>
+          <p class="text-gray-700 mb-6">
+            You are not authorized to create an admin account.
+          </p>
+          <a href="/admin-signup" class="inline-block px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors">
+            Try Again
+          </a>
+        </div>
+      </body>
+    </html>
+  `);
       }
 
-      // Check existing username or email
+      // Check if username or email already exists
       const existingUser = await adminLoginModel.findOne({
-        $or: [{ username }, { email: normalizedEmail }]
+        $or: [{ username }, { email }]
       });
-
       if (existingUser) {
         return res.send(`
           <html>
@@ -1157,17 +1142,15 @@ app.post(
         `);
       }
 
-      // Hash password
+      // Hash password and create new user
       const hashPassword = await bcrypt.hash(password, 10);
-
-      // Save admin user
       await adminLoginModel.create({
         username,
-        email: normalizedEmail,
+        email,
         password: hashPassword
       });
 
-      // Success response
+      // Show success message and redirect to login
       return res.send(`
         <html>
           <head>
@@ -1204,7 +1187,7 @@ app.post(
             <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
               <h2 class="text-2xl font-semibold text-red-600 mb-4">Server Error</h2>
               <p class="text-gray-700 mb-6">An unexpected error occurred during sign-up. Please try again later.</p>
-              <a href="/sign-up" class="inline-block px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors">Try Again</a>
+              <a href="/admin-signup" class="inline-block px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors">Try Again</a>
             </div>
           </body>
         </html>
@@ -1213,9 +1196,7 @@ app.post(
   }
 );
 
-
-
-// SIGN IN FOR ADMIN
+//LOGIN
 app.post(
   "/AdminIndex",
   body("username").trim().isLength({ min: 5 }),
@@ -1248,7 +1229,6 @@ app.post(
 
       // Check if user exists
       const Employeedata = await adminLoginModel.findOne({ username });
-
       if (!Employeedata) {
         return res.send(`
           <html>
@@ -1269,7 +1249,6 @@ app.post(
         `);
       }
 
-      
       // Verify password
       const loginPassWord = await bcrypt.compare(
         password,
