@@ -1255,29 +1255,8 @@ app.post(
           </html>
         `);
       }
-// Check if email is allowed for admin login
-if (!allowedAdminEmails.includes(Employeedata.email)) {
-  return res.send(`
-    <html>
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <title>Unauthorized Access</title>
-      </head>
-      <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-        <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
-          <h2 class="text-2xl font-semibold text-red-600 mb-4">Unauthorized Access</h2>
-          <p class="text-gray-700 mb-6">You are not allowed to access this admin panel.</p>
-          <a href="/adminlogin" class="inline-block px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors">
-            Go Back
-          </a>
-        </div>
-      </body>
-    </html>
-  `);
-}
 
+      
       // Verify password
       const loginPassWord = await bcrypt.compare(
         password,
