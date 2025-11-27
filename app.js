@@ -1049,9 +1049,9 @@ app.post(
 const allowedAdminEmails = [
   "sneha@nimttgroup.com",
   "samir@nimttgroup.com",
-  "naynanath@rediffmail.com",
   "sohampatra866@gmail.com",
   "jitubhi89@gmail.com",
+  "naynanath@rediffmail.com",
   "test@gmail.com",
   "test1@gmail.com",
   "test2@gmail.com"
@@ -1097,13 +1097,15 @@ app.post(
       // Extract user data
       let { username, email, password } = req.body;
 
-      // 🔥🔥🔥 PERMANENT FIX: Normalize email
-      const normalizedEmail = email.trim().toLowerCase();
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedAllowed = allowedAdminEmails.map(e =>
+      e.trim().toLowerCase()
+    );
 
-      // Normalize allowed emails also
-      const normalizedAllowed = allowedAdminEmails.map(e =>
-        e.trim().toLowerCase()
-      );
+    console.log("USER TYPED EMAIL:", email);
+    console.log("NORMALIZED EMAIL:", normalizedEmail);
+    console.log("ALLOWED LIST:", normalizedAllowed);
+
 
       // Check allowed admin email
       if (!normalizedAllowed.includes(normalizedEmail)) {
