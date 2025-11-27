@@ -1,6 +1,5 @@
 require("dotenv").config();
 
-
 const express = require("express");
 const app = express();
 const StudentModel = require("./model/student.model");
@@ -1095,37 +1094,47 @@ app.post(
         `);
       }
 
-      const { username, email, password } = req.body;
-// after const { username, email, password } = req.body;
+      // Extract user data
+      let { username, email, password } = req.body;
 
-if (!allowedAdminEmails.includes(email)) {
-  return res.send(`
-    <html>
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <title>Unauthorized Email</title>
-      </head>
-      <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-        <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
-          <h2 class="text-2xl font-semibold text-red-600 mb-4">Signup Restricted</h2>
-          <p class="text-gray-700 mb-6">
-            You are not authorized to create an admin account.
-          </p>
-          <a href="/admin-signup" class="inline-block px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors">
-            Try Again
-          </a>
-        </div>
-      </body>
-    </html>
-  `);
-}
+      // 🔥🔥🔥 PERMANENT FIX: Normalize email
+      const normalizedEmail = email.trim().toLowerCase();
 
-      // Check if username or email already exists
+      // Normalize allowed emails also
+      const normalizedAllowed = allowedAdminEmails.map(e =>
+        e.trim().toLowerCase()
+      );
+
+      // Check allowed admin email
+      if (!normalizedAllowed.includes(normalizedEmail)) {
+        return res.send(`
+          <html>
+            <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <script src="https://cdn.tailwindcss.com"></script>
+              <title>Unauthorized Email</title>
+            </head>
+            <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+              <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+                <h2 class="text-2xl font-semibold text-red-600 mb-4">Signup Restricted</h2>
+                <p class="text-gray-700 mb-6">
+                  You are not authorized to create an admin account.
+                </p>
+                <a href="/admin-signup" class="inline-block px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors">
+                  Try Again
+                </a>
+              </div>
+            </body>
+          </html>
+        `);
+      }
+
+      // Check existing username or email
       const existingUser = await adminLoginModel.findOne({
-        $or: [{ username }, { email }]
+        $or: [{ username }, { email: normalizedEmail }]
       });
+
       if (existingUser) {
         return res.send(`
           <html>
@@ -1146,15 +1155,17 @@ if (!allowedAdminEmails.includes(email)) {
         `);
       }
 
-      // Hash password and create new user
+      // Hash password
       const hashPassword = await bcrypt.hash(password, 10);
+
+      // Save admin user
       await adminLoginModel.create({
         username,
-        email,
+        email: normalizedEmail,
         password: hashPassword
       });
 
-      // Show success message and redirect to login
+      // Success response
       return res.send(`
         <html>
           <head>
