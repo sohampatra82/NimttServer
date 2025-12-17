@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const { body, validationResult} = require("express-validator");
 const cookieParser = require("cookie-parser");
+const adminAuth = require('./middleware/adminAuth') //REQUIRE ADMIN AUTH MIDDLEWARE
 app.use(cookieParser());
 app.set("views", "./views");
 app.set("view engine", "ejs");
@@ -86,8 +87,9 @@ app.get('/account', (req, res) => {
 //     res.render('accountPrint');
 // });
 
-app.get('/admin-fetch-data', (req, res) => {
-    res.render('AdminDataFetch');
+app.get("/admin-fetch-data", adminAuth, (req, res) => {
+  res.set("Cache-Control", "no-store");
+  res.render("AdminDataFetch");
 });
 // app.get("/admin-fetch-data", (req, res) => {
 //   res.render("select");
@@ -1335,6 +1337,47 @@ app.post(
     }
   }
 );
+
+
+// ADMIN LOG OUT
+
+app.get("/admin-logout", (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict"
+  });
+
+  return res.send(`
+    <html>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>Logout</title>
+      </head>
+      <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+          <h2 class="text-2xl font-semibold text-green-600 mb-4">
+            Logged Out Successfully
+          </h2>
+          <p class="text-gray-700 mb-4">
+            You have been logged out from the admin panel.
+          </p>
+          <p class="text-gray-600">
+            Redirecting to login page...
+          </p>
+          <script>
+            setTimeout(() => {
+              window.location.href = "/adminlogin";
+            }, 2000);
+          </script>
+        </div>
+      </body>
+    </html>
+  `);
+});
+
 
 
 app.get("/admin-change-password", (req, res) => {
