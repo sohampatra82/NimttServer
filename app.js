@@ -330,7 +330,7 @@ app.post("/admin-fetch-data", async (req, res) => {
       return res.status(400).json({ message: "Student ID is required" });
     }
 
-    const student = await StudentModel.findOne({ Stdid });
+    const student = await StudentModel.findOne({ Stdid : Stdid.trim() });
     if (!student) {
       return res.status(404).json({ message: "Student not found" });
     }
